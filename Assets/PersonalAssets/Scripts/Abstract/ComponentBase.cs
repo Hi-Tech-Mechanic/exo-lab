@@ -42,7 +42,7 @@ public abstract class ComponentBase :
         this.Material = this.ItemData.Material;
     }
 
-    protected virtual void Initialize(ItemDataBase itemData)
+    protected virtual void Initialize<T>(T itemData) where T : ItemDataBase
     {
         this.Name = itemData.Name;
         this.Description = itemData.Description;

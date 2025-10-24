@@ -1,8 +1,9 @@
-﻿using Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects;
+﻿using UnityEngine;
 
 namespace Assets.PersonalAssets.ScriptableObjects
 {
-    public class MagazineItemData : ItemDataBase
+    [CreateAssetMenu(fileName = "MagazineItemData", menuName = "Inventory/Weapon/Magazine")]
+    public class MagazineItemData : WeaponComponentItemData
     {
         public uint Bullets;
     }

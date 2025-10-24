@@ -2,6 +2,9 @@
 {
     using UnityEngine;
 
+    /// <summary>
+    /// Базовое хранилище данных для любого компонента
+    /// </summary>
     [CreateAssetMenu(fileName = "ItemDataBase", menuName = "Inventory/Item data base")]
     public class ItemDataBase : ScriptableObject
     {

@@ -1,4 +1,5 @@
 using Assets.PersonalAssets.ScriptableObjects;
+using UnityEngine;
 
 /// <summary>
 /// Магазин оружия
