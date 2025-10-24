@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SuitComponent : ComponentBase, IDamageable
 {   
-    public override IMaterial.MaterialType Material { get; }
-
     private void Update()
     {
         Debug.Log(ItemData.Description);

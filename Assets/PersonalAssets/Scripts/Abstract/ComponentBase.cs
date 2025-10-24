@@ -26,7 +26,7 @@ public abstract class ComponentBase :
 
     public virtual double Weight { get; protected set; }
 
-    public abstract IMaterial.MaterialType Material { get; }
+    public virtual IMaterial.MaterialType Material { get; protected set; }
 
     protected void Awake()
     {
@@ -39,6 +39,7 @@ public abstract class ComponentBase :
         this.Description = this.ItemData.Description;
         this.Durability = this.ItemData.Durability;
         this.Weight = this.ItemData.Weight;
+        this.Material = this.ItemData.Material;
     }
 
     protected virtual void Initialize(ItemDataBase itemData)
@@ -47,5 +48,6 @@ public abstract class ComponentBase :
         this.Description = itemData.Description;
         this.Durability = itemData.Durability;
         this.Weight = itemData.Weight;
+        this.Material = itemData.Material;
     }
 }

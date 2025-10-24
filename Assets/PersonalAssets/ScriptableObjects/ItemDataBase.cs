@@ -9,5 +9,6 @@
         public string Description;
         public double Durability;
         public double Weight;
+        public IMaterial.MaterialType Material;
     }
 }

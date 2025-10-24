@@ -10,8 +10,6 @@ public class DisplayedItem : ComponentBase
 
     private Sprite icon;
 
-    public override IMaterial.MaterialType Material { get; }
-
     protected override void Initialize()
     {
         base.Initialize(this.DisplayedItemData);
