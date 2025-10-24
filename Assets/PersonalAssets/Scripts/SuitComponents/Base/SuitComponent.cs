@@ -1,17 +1,34 @@
 using UnityEngine;
 
-public class SuitComponent : SuitComponentBase, IDamageable
-{
-    public override string Description => string.Empty;
-
-    public override double Weight { get; set; }
-
-    public override double Hardness { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    
+public class SuitComponent : ComponentBase, IDamageable
+{   
     public override IMaterial.MaterialType Material { get; }
 
-    public void GetDamage()
+    private void Update()
     {
-        throw new System.NotImplementedException();
+        Debug.Log(ItemData.Description);
+        Debug.Log(ItemData.Name);
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+    }
+
+    public void GetDamage(double damage, Transform t)
+    {
+        Durability -= damage;
+
+        if (Durability <= 0)
+        {
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.GetComponent<Rigidbody>().useGravity = true;
+            gameObject.transform.SetParent(t);
+        }
+    }
+
+    public void GetDamage(double damage)
+    {
+
     }
 }

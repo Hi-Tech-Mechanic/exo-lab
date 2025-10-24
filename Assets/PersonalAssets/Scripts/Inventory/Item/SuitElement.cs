@@ -4,6 +4,7 @@ using static SameGame.StaticFields;
 
 namespace SameGame.CharacterSystem
 {
+    [Obsolete]
     public class SuitElement : MonoBehaviour
     {
         #region Public Fields

@@ -1,6 +1,4 @@
-using UnityEngine;
-
 public interface IDescription : IStatistic
 {
-    string Description { get; }
+    public string Description { get; }
 }

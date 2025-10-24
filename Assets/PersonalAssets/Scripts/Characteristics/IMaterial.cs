@@ -1,8 +1,6 @@
-using UnityEngine;
-
 public interface IMaterial : IStatistic
 {
-    MaterialType Material { get; }
+    public MaterialType Material { get; }
 
     public enum MaterialType
     {
