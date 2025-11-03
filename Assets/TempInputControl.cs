@@ -1,3 +1,4 @@
+using Assets.PersonalAssets.ScriptableObjects;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ public class TempInputControl : MonoBehaviour
     [SerializeField] private Camera _cameraBack;
     [SerializeField] private Camera _cameraForward;
 
-    [SerializeField] private List<SuitComponent> suitComponents;
+    [SerializeField] private List<SuitComponentAbstract<SuitComponentItemData>> suitComponents;
     [SerializeField] private Transform t;
 
     public List<Vector3> targetPosition = new();
@@ -76,7 +77,7 @@ public class TempInputControl : MonoBehaviour
     {
         for (int i = 0; i < suitComponents.Count; i++)
         {
-            SuitComponent e = suitComponents[i];
+            SuitComponentAbstract<SuitComponentItemData> e = suitComponents[i];
 
             e.transform.DOLocalMove(targetPosition[i], 0.7f);
             e.transform.DOLocalRotateQuaternion(targetEulerAngles[i], 0.7f);
