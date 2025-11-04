@@ -5,7 +5,7 @@ namespace Weapons.Attachments
     /// <summary>
     /// Приклад
     /// </summary>
-    public class Butt : WeaponComponentAbstract<ButtData>
+    public class Stocks : WeaponComponentAbstract<StocksData>
     {
     }
 }

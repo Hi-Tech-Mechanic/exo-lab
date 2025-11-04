@@ -5,7 +5,8 @@ using UnityEngine;
 public class DynamicText : MonoBehaviour
 {
     TextMeshProUGUI text;
-    string[] messagesArray = { "System Error Codes (0-499) (0x0-0x1f3)",
+    string[] messagesArray = { 
+        "System Error Codes (0-499) (0x0-0x1f3)",
         "System Error Codes (12000-15999) (0x2ee0-0x3e7f)",
         "ERROR_DS_NO_RIDS_ALLOCATED",
         "8208 (0x2010)",

@@ -11,8 +11,13 @@
     [CreateAssetMenu(fileName = "ComponentData", menuName = "Inventory/Component data")]
     public class AssemblyComponentData : ItemData
     {
-        public double Durability;
+        [Space(5)]
+        [Header("Базовая информация о компоненте")]
+        [Space(5)]
 
+        [Tooltip("Прочность")]
+        public double Durability;
+        [Tooltip("Из чего состоит")]
         public IMaterial.MaterialType Material;
 
         [Header("Комплект данных отвечающий за привязку\nк конкретному объекту")]
@@ -24,13 +29,13 @@
         [Serializable]
         public class AttachmentOptions
         {
-            [Header("Данные родительского объекта\n(к которому присоединение)")]
+            [Tooltip("Данные родительского объекта\n(к которому присоединение)")]
             public ItemData parentObject;
 
-            [Header("Координаты точки крепления\nданного объекта к родительскому")]
+            [Tooltip("Координаты точки крепления\nданного объекта к родительскому")]
             public Vector3 AttachmentPoint;
 
-            [Header("Вращение данного объекта")]
+            [Tooltip("Вращение данного объекта")]
             public Vector3 Rotation;
         }
     }

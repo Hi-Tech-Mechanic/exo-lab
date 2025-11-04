@@ -30,15 +30,15 @@ namespace SameGame.CharacterSystem
         private string cachedHexNegativeColor;
         private float animationDuration = 0.3f;
 
-        private void OnEnable()
-        {
-            SuitElement.OnOpenItemInfoWindow += DisplayAllStats;
-        }
+        //private void OnEnable()
+        //{
+        //    SuitElement.OnOpenItemInfoWindow += DisplayAllStats;
+        //}
 
-        private void OnDisable()
-        {
-            SuitElement.OnOpenItemInfoWindow -= DisplayAllStats;
-        }
+        //private void OnDisable()
+        //{
+        //    SuitElement.OnOpenItemInfoWindow -= DisplayAllStats;
+        //}
 
         private void Awake()
         {

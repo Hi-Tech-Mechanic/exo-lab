@@ -6,7 +6,7 @@ namespace Assets.PersonalAssets.ScriptableObjects
     /// Характеристики прикладе
     /// </summary>
     [CreateAssetMenu(fileName = "ButtItemData", menuName = "Inventory/Weapon/Butt")]
-    public class ButtData : WeaponComponentItemData
+    public class StocksData : WeaponComponentItemData
     {
     }
 }

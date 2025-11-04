@@ -53,15 +53,15 @@ public class TempInputControl : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        foreach (var e in suitComponents)
-        {
-            targetPosition.Add(e.transform.localPosition);
-            targetEulerAngles.Add(e.transform.localRotation);
-            parentsTransforms.Add(e.transform.parent);
-        }
-    }
+    //private void Awake()
+    //{
+    //    foreach (var e in suitComponents)
+    //    {
+    //        targetPosition.Add(e.transform.localPosition);
+    //        targetEulerAngles.Add(e.transform.localRotation);
+    //        parentsTransforms.Add(e.transform.parent);
+    //    }
+    //}
 
     IEnumerator DescroySuit()
     {

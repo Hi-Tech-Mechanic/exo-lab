@@ -11,10 +11,10 @@ namespace Weapons.Attachments
     {
         private void Start()
         {
-            Debug.Log(TypedItemData.Description);
-            Debug.Log(TypedItemData.Name);
-            Debug.Log(TypedItemData.Material);
-            Debug.Log(TypedItemData.Durability);
+            //Debug.Log(TypedItemData.Description);
+            //Debug.Log(TypedItemData.Name);
+            //Debug.Log(TypedItemData.Material);
+            //Debug.Log(TypedItemData.Durability);
         }
     }
 }
