@@ -1,7 +1,10 @@
-﻿namespace Assets.PersonalAssets.Scripts
+﻿namespace ExoLab.Constants
 {
-    public class GameResourcesPath
+    public partial class Constants
     {
-        public const string MainFolder = "EXO-LAB";
+        public class GameResourcesPath
+        {
+            public const string MainFolder = "EXO-LAB";
+        }
     }
 }
