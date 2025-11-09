@@ -1,7 +1,5 @@
-﻿
-namespace Assets.PersonalAssets.Scripts.Inventory
+﻿namespace ExoLab.UI
 {
-    using Assets.PersonalAssets.Scripts.Items.Base;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
