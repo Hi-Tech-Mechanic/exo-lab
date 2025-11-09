@@ -1,4 +1,4 @@
-﻿namespace Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects
+﻿namespace ExoLab.Data
 {
     using UnityEngine;
 
@@ -18,5 +18,7 @@
         public double Weight;
         [Tooltip("Иконка")]
         public Sprite Icon;
+        [Tooltip("Модель")]
+        public GameObject object3dModel;
     }
 }
