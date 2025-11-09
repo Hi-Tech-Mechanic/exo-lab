@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e581134472c4f5e4cb928e9f85e7ebe3, type: 3}
-  m_Name: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F\u041A\u043E\u0440\u043E\u0431\u043A\u0430_1"
+  m_Name: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F_\u043A\u043E\u0440\u043E\u0431\u043A\u0430_0"
   m_EditorClassIdentifier: Assembly-CSharp::Assets.PersonalAssets.ScriptableObjects.ReceiverItemData
   Name: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430"
   Description: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
