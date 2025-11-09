@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface ISavableLocation : ISavable
+namespace ExoLab.Data
 {
-    public void SavableLocation();
+    public interface ISavableLocation : ISavable
+    {
+        public void SavableLocation();
+    }
 }

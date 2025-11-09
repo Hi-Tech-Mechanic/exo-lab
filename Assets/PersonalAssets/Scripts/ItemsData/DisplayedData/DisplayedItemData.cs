@@ -1,4 +1,4 @@
-﻿namespace Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects
+﻿namespace ExoLab.Data
 {
     using UnityEngine;
 

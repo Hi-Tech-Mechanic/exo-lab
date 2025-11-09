@@ -1,4 +1,7 @@
-public interface IRegenerable
+namespace ExoLab.StructuralÑomponents.Suit
 {
-    public void Regenerate();
+    public interface IRegenerable
+    {
+        public void Regenerate();
+    }
 }

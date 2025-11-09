@@ -1,6 +1,9 @@
-using Assets.PersonalAssets.ScriptableObjects;
-
-public class VisorComponent : HelmetComponent<VisorComponentData>
+namespace ExoLab.Structural—omponents.Suit
 {
+    using ExoLab.Data;
 
+    public class VisorComponent : HelmetComponent<VisorComponentData>
+    {
+
+    }
 }

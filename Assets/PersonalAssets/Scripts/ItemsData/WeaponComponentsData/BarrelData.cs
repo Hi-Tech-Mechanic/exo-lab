@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-
-namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
-    [CreateAssetMenu(fileName = "BarrelItemData", menuName = "Inventory/Weapon/Barrel")]
+    using UnityEngine;
+
+    [CreateAssetMenu(fileName = "BarrelData", menuName = "Inventory/Weapon/Barrel")]
     public class BarrelData : WeaponComponentItemData
     {
     }

@@ -1,9 +1,12 @@
-using Assets.PersonalAssets.ScriptableObjects;
-
-/// <summary>
-/// Плечевая бронепластина
-/// </summary>
-public class ShoulderArmorPlate : SuitComponentAbstract<ShoulderArmorPlateData>
+namespace ExoLab.StructuralСomponents.Suit
 {
+    using ExoLab.Data;
 
+    /// <summary>
+    /// Плечевая бронепластина
+    /// </summary>
+    public class ShoulderArmorPlate : SuitComponentAbstract<ShoulderArmorPlateData>
+    {
+
+    }
 }

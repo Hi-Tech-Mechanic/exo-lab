@@ -1,4 +1,4 @@
-﻿namespace Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects
+﻿namespace ExoLab.Data
 {
     using System.Collections.Generic;
     using System;
@@ -17,6 +17,7 @@
 
         [Tooltip("Прочность")]
         public double Durability;
+
         [Tooltip("Из чего состоит")]
         public IMaterial.MaterialType Material;
 

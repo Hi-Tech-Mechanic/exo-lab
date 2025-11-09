@@ -1,9 +1,12 @@
-using Assets.PersonalAssets.ScriptableObjects;
-
-/// <summary>
-/// Êèñòü
-/// </summary>
-public class Brush : SuitComponentAbstract<BrushData>
+namespace ExoLab.StructuralÑomponents.Suit
 {
+    using ExoLab.Data;
 
+    /// <summary>
+    /// Êèñòü
+    /// </summary>
+    public class Brush : SuitComponentAbstract<BrushData>
+    {
+
+    }
 }

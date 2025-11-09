@@ -1,5 +1,6 @@
-using Assets.PersonalAssets.ScriptableObjects;
 using DG.Tweening;
+using ExoLab.Data;
+using ExoLab.Structural—omponents.Suit;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,12 +14,16 @@ public class TempInputControl : MonoBehaviour
     [SerializeField] private List<SuitComponentAbstract<SuitComponentItemData>> suitComponents;
     [SerializeField] private Transform t;
 
+    [SerializeField] private GameObject AssemblyParent;
+
+
     public List<Vector3> targetPosition = new();
     public List<Quaternion> targetEulerAngles = new();
     private List<Transform> parentsTransforms = new ();
 
     public GameObject inventory;
     public GameObject stats;
+
 
     // Update is called once per frame
     void Update()
@@ -50,6 +55,10 @@ public class TempInputControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             stats.SetActive(!stats.activeInHierarchy);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            AssemblyParent.SetActive(!AssemblyParent.activeInHierarchy);
         }
     }
 

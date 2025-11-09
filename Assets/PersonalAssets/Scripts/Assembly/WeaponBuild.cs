@@ -1,26 +1,29 @@
-using Assets.PersonalAssets.Scripts;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
-/// Конструктор оружия
-/// </summary>
-[System.Serializable]
-public class WeaponBuild
+namespace ExoLab.Assembly
 {
-    public string weaponId = "ak74";
-    public List<string> attachments = new List<string>(); // например: ["wood_stock", "gp25"]
+    using ExoLab.Constants;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-    // Уникальный хэш для кэширования
-    public string GetHash()
+    /// <summary>
+    /// Конструктор оружия
+    /// </summary>
+    [System.Serializable]
+    public class WeaponBuild
     {
-        string combined = weaponId + "|" + string.Join(",", attachments);
-        return combined.GetHashCode().ToString("X8");
-    }
+        public string weaponId = "ak74";
+        public List<string> attachments = new List<string>(); // например: ["wood_stock", "gp25"]
 
-    // Для демо: просто возвращаем базовый префаб
-    public GameObject GetBasePrefab()
-    {
-        return Resources.Load<GameObject>($"{GameResourcesPath.MainFolder}/WeaponComponents/Receivers/СтвольнаяКоробка_1");
+        // Уникальный хэш для кэширования
+        public string GetHash()
+        {
+            string combined = weaponId + "|" + string.Join(",", attachments);
+            return combined.GetHashCode().ToString("X8");
+        }
+
+        // Для демо: просто возвращаем базовый префаб
+        public GameObject GetBasePrefab()
+        {
+            return Resources.Load<GameObject>($"{Constants.GameResourcesPath.MainFolder}/WeaponComponents/Receivers/СтвольнаяКоробка_1");
+        }
     }
 }

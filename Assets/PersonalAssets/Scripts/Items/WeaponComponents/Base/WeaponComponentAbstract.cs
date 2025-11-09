@@ -1,8 +1,6 @@
-namespace Weapons.Attachments
+namespace ExoLab.StructuralСomponents.Weapon
 {
-    using Assets.PersonalAssets.ScriptableObjects;
-    using Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects;
-    using UnityEngine;
+    using ExoLab.Data;
 
     /// <summary>
     /// Базовый класс для физичных оруженых компонентов

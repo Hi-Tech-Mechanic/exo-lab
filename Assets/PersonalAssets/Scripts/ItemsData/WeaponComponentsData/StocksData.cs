@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-
-namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
+    using UnityEngine;
+
     /// <summary>
     /// Характеристики прикладе
     /// </summary>
-    [CreateAssetMenu(fileName = "ButtItemData", menuName = "Inventory/Weapon/Butt")]
+    [CreateAssetMenu(fileName = "StocksData", menuName = "Inventory/Weapon/Butt")]
     public class StocksData : WeaponComponentItemData
     {
     }

@@ -1,4 +1,7 @@
-public interface ISavable
+namespace ExoLab.Data
 {
-    public void Save();
+    public interface ISavable
+    {
+        public void Save();
+    }
 }

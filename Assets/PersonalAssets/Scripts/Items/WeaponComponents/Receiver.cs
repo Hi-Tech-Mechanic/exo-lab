@@ -1,7 +1,7 @@
-using Assets.PersonalAssets.ScriptableObjects;
-
-namespace Weapons.Attachments
+namespace ExoLab.StructuralÑomponents.Weapon
 {
+    using ExoLab.Data;
+
     /// <summary>
     /// Ñòâîëüíàÿ êîğîáêà
     /// </summary>

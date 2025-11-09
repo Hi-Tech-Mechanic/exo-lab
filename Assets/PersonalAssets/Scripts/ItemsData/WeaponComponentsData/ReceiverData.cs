@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-
-namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
+    using UnityEngine;
+
     /// <summary>
     /// Характеристики ствольной коробки
     /// </summary>
-    [CreateAssetMenu(fileName = "ReceiverItemData", menuName = "Inventory/Weapon/Receiver")]
+    [CreateAssetMenu(fileName = "ReceiverData", menuName = "Inventory/Weapon/Receiver")]
     public class ReceiverData : WeaponComponentItemData
     {
     }

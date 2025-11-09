@@ -1,7 +1,5 @@
-﻿namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
-    using Assets.PersonalAssets.Scripts.SuitComponents.ScriptableObjects;
-
     /// <summary>
     /// Необходимые состовляющие для корректной работы каждого компонента оружия
     /// </summary>

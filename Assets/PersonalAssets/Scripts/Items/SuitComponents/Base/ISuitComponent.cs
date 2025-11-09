@@ -1,4 +1,7 @@
-public interface ISuitComponent
+namespace ExoLab.Structural—omponents.Suit
 {
-    
+    public interface ISuitComponent
+    {
+
+    }
 }

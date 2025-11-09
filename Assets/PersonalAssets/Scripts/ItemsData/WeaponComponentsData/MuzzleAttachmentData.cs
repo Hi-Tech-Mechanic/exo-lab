@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-
-namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
-    [CreateAssetMenu(fileName = "MagazineItemData", menuName = "Inventory/Weapon/Muzzle attachment")]
+    using UnityEngine;
+
+    [CreateAssetMenu(fileName = "MuzzleAttachmentData", menuName = "Inventory/Weapon/Muzzle attachment")]
     public class MuzzleAttachmentData : WeaponComponentItemData
     {
         

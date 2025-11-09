@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace Assets.PersonalAssets.ScriptableObjects
+﻿namespace ExoLab.Data
 {
+    using UnityEngine;
+
     /// <summary>
     /// Предплечевая бронепластина
     /// </summary>
