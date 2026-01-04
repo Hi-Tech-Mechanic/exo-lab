@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 9125838499462904558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,4 +102,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4754fcd4252746e4cabbf8cf81a51324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Barrel
-  ItemData: {fileID: 11400000, guid: d0273f84392cd1f4caf6638d2de95848, type: 2}
+  itemData: {fileID: 11400000, guid: e47103007c37f034d8b9b9c68a124b09, type: 2}

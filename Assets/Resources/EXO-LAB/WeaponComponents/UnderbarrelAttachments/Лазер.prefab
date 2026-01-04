@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12ef5cc7311efb4780c941fda632bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Weapon.UnderbarrelAttachments"
-  ItemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 24fb833fcba3f43468046475e2e2aa45, type: 2}
 --- !u!1 &5247538259833633961
 GameObject:
   m_ObjectHideFlags: 0

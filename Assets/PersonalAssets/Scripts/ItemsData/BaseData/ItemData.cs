@@ -16,9 +16,10 @@
         public string Description;
         [Tooltip("Вес")]
         public double Weight;
-        [Tooltip("Иконка")]
+        [Tooltip("Максимальное количество в стаке")]
+        public uint maxStackSize;
         public Sprite Icon;
         [Tooltip("Модель")]
-        public GameObject object3dModel;
+        public GameObject Prefab;
     }
 }

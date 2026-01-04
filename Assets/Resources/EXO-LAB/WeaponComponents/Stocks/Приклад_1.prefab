@@ -102,4 +102,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173b36291787bd24fa9ac466c452b723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Butt
-  ItemData: {fileID: 11400000, guid: 45603ffe55c45ca44a8892c49337b8c4, type: 2}
+  itemData: {fileID: 11400000, guid: 45603ffe55c45ca44a8892c49337b8c4, type: 2}

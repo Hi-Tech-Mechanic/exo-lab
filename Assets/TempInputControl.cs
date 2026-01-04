@@ -1,101 +1,144 @@
-using DG.Tweening;
-using ExoLab.Data;
-using ExoLab.StructuralСomponents.Suit;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
-public class TempInputControl : MonoBehaviour
+namespace ExoLab.Input
 {
-    [SerializeField] private Camera _cameraBack;
-    [SerializeField] private Camera _cameraForward;
+    using DG.Tweening;
+    using ExoLab;
+    using ExoLab.Constants;
+    using ExoLab.Data;
+    using ExoLab.StructuralСomponents.Suit;
+    using StarterAssets;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-    [SerializeField] private List<SuitComponentAbstract<SuitComponentItemData>> suitComponents;
-    [SerializeField] private Transform t;
-
-    [SerializeField] private GameObject AssemblyParent;
-
-
-    public List<Vector3> targetPosition = new();
-    public List<Quaternion> targetEulerAngles = new();
-    private List<Transform> parentsTransforms = new ();
-
-    public GameObject inventory;
-    public GameObject stats;
-
-
-    // Update is called once per frame
-    void Update()
+    public class TempInputControl : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _cameraBack.gameObject.SetActive(true);    
-            _cameraForward.gameObject.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _cameraBack.gameObject.SetActive(false);
-            _cameraForward.gameObject.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            IEnumerator c = DescroySuit();
-            StartCoroutine(c);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            IEnumerator c = RepairSuit();
-            StartCoroutine(c);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            inventory.SetActive(!inventory.activeInHierarchy);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            stats.SetActive(!stats.activeInHierarchy);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            AssemblyParent.SetActive(!AssemblyParent.activeInHierarchy);
-        }
-    }
+        [SerializeField] private Camera _cameraBack;
+        [SerializeField] private Camera _cameraForward;
 
-    //private void Awake()
-    //{
-    //    foreach (var e in suitComponents)
-    //    {
-    //        targetPosition.Add(e.transform.localPosition);
-    //        targetEulerAngles.Add(e.transform.localRotation);
-    //        parentsTransforms.Add(e.transform.parent);
-    //    }
-    //}
+        [SerializeField] private List<SuitComponentAbstract<SuitComponentItemData>> suitComponents;
+        [SerializeField] private Transform t;
 
-    IEnumerator DescroySuit()
-    {
-        foreach(var e in suitComponents)
+        [SerializeField] private GameObject AssemblyParent;
+
+        public List<Vector3> targetPosition = new();
+        public List<Quaternion> targetEulerAngles = new();
+        private List<Transform> parentsTransforms = new();
+
+        public GameObject inventory;
+        public GameObject stats;
+
+        private delegate void ProcessKey_E();
+        private Delegate processKey_E;
+
+        private void Awake()
         {
-            e.GetDamage(100, t);
-
-            yield return new WaitForSeconds(0.5f);
+            UpdateKeyBindings();
         }
-    }
 
-    IEnumerator RepairSuit()
-    {
-        for (int i = 0; i < suitComponents.Count; i++)
+        // По событию изменения настроек клавиш будет обновляться привязки
+        private void UpdateKeyBindings(Dictionary<KeyCode, Delegate> bindings)
         {
-            SuitComponentAbstract<SuitComponentItemData> e = suitComponents[i];
+            foreach (var bind in bindings)
+            {
+                if (bind.Key.ToString() == Constants.InputButtons.interactiveButton) //todo
+                {
+                    this.processKey_E = bind.Value;
+                }
+            }
+        }
 
-            e.transform.DOLocalMove(targetPosition[i], 0.7f);
-            e.transform.DOLocalRotateQuaternion(targetEulerAngles[i], 0.7f);
+        private void UpdateKeyBindings()
+        {
+            this.processKey_E = InteractiveObject.Instance.keypressDelegate;
+        }
 
-            e.transform.SetParent(parentsTransforms[i]);
-            e.GetComponent<Rigidbody>().isKinematic = true;
-            e.GetComponent<Rigidbody>().useGravity = false;
+        private void DelegateProcess(ProcessKey_E keypressDelegate)
+        {
+            keypressDelegate(); 
+        }
 
-            yield return new WaitForSeconds(0.5f);
+        // Update is called once per frame
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                _cameraBack.gameObject.SetActive(true);
+                _cameraForward.gameObject.SetActive(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _cameraBack.gameObject.SetActive(false);
+                _cameraForward.gameObject.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                IEnumerator c = DescroySuit();
+                StartCoroutine(c);
+                Notifications.InvokeWarnNotify("Разрушение экзоскелета запущено", TransformDirections.RectDirection.Center);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                IEnumerator c = RepairSuit();
+                StartCoroutine(c);
+                Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                inventory.SetActive(!inventory.activeInHierarchy);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                stats.SetActive(!stats.activeInHierarchy);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                AssemblyParent.SetActive(!AssemblyParent.activeInHierarchy);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                StarterAssetsInputs.Instance.ToggleCursorInputForLook();
+                StarterAssetsInputs.Instance.ToggleCursorLocked();
+                //DelegateProcess(this.processKey_E);
+            }
+        }
+
+        //private void Awake()
+        //{
+        //    foreach (var e in suitComponents)
+        //    {
+        //        targetPosition.Add(e.transform.localPosition);
+        //        targetEulerAngles.Add(e.transform.localRotation);
+        //        parentsTransforms.Add(e.transform.parent);
+        //    }
+        //}
+
+        IEnumerator DescroySuit()
+        {
+            foreach (var e in suitComponents)
+            {
+                e.GetDamage(100, t);
+
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        IEnumerator RepairSuit()
+        {
+            for (int i = 0; i < suitComponents.Count; i++)
+            {
+                SuitComponentAbstract<SuitComponentItemData> e = suitComponents[i];
+
+                e.transform.DOLocalMove(targetPosition[i], 0.7f);
+                e.transform.DOLocalRotateQuaternion(targetEulerAngles[i], 0.7f);
+
+                e.transform.SetParent(parentsTransforms[i]);
+                e.GetComponent<Rigidbody>().isKinematic = true;
+                e.GetComponent<Rigidbody>().useGravity = false;
+
+                yield return new WaitForSeconds(0.5f);
+            }
         }
     }
 }

@@ -14,32 +14,46 @@ namespace ExoLab.Data
         /// </summary>
         private static readonly Lazy<Caches> _instance = new Lazy<Caches>(() => new Caches());
 
-        private AudioSource _audioSourceFromCanvas;
+        private static readonly Lazy<AudioCache> _audioInstance = new Lazy<AudioCache>(() => new AudioCache());
 
-        public static Caches Instance => _instance.Value;
+        private static readonly Lazy<InterfaceCache> _interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
+
+        private Camera _assemblyCamera;
 
         /// <summary>
-        /// Источник звуков из интерфейса
+        /// Ссылка на объект <see cref="Caches"/>
         /// </summary>
-        public AudioSource AudioSourceFromCanvas
+        public static Caches Instance => _instance.Value;
+
+        public AudioCache Audio => _audioInstance.Value;
+
+        public InterfaceCache Interface => _interfaceCache.Value;
+
+        /// <summary>
+        /// Камера смотрящая на сборку предметов
+        /// </summary>
+        public Camera AssemblyCamera
         {
             get
             {
-                if (this._audioSourceFromCanvas == null)
+                if (this._assemblyCamera == null)
                 {
-                    var gameObject = GameObject.FindWithTag(Constants.Tags.AudioSourceFromCanvas);
+                    var gameObject = GameObject.FindWithTag(Constants.Tags.MainCamera);
                     if (gameObject == null)
                     {
-                        Debug.LogError($"Не найден объект с тегом {Constants.Tags.AudioSourceFromCanvas}");
+                        Debug.LogError($"Не найден объект с тегом {Constants.Tags.MainCamera}");
                         return null;
                     }
-                    this._audioSourceFromCanvas = gameObject.GetComponent<AudioSource>();
-                    if (this._audioSourceFromCanvas == null)
+
+                    this._assemblyCamera = gameObject.GetComponent<Camera>();
+                    if (this._assemblyCamera == null)
                     {
-                        Debug.LogError($"Объект с тегом {Constants.Tags.AudioSourceFromCanvas} не содержит {nameof(AudioSource)}");
+                        Debug.LogError($"Объект с тегом {Constants.Tags.MainCamera} не содержит {nameof(Canvas)}");
+                        return null;
                     }
                 }
-                return this._audioSourceFromCanvas;
+
+                return this._assemblyCamera;
             }
         }
 
@@ -47,17 +61,5 @@ namespace ExoLab.Data
         /// Запрещаем делать экземпляры
         /// </summary>
         private Caches() { }
-
-        //protected virtual void InitHoverSound()
-        //{
-        //    this.hoverSound = Resources.Load<AudioClip>("Sound/Effects/SFX_Press_Button_Joystick")
-        //        ?? throw new System.NullReferenceException();
-        //}
-
-        //protected virtual void InitClickSound()
-        //{
-        //    this.clickSound = Resources.Load<AudioClip>("Sound/Effects/SFX_Press_Button_Keyboard")
-        //        ?? throw new System.NullReferenceException();
-        //}
     }
 }

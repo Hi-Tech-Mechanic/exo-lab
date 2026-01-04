@@ -1,6 +1,5 @@
 namespace ExoLab.StructuralÑomponents.Weapon
 {
-    using System;
     using ExoLab.Data;
 
     /// <summary>
@@ -8,18 +7,9 @@ namespace ExoLab.StructuralÑomponents.Weapon
     /// </summary>
     public class Handle : WeaponComponentAbstract<HandleData>
     {
-        public int test;
-
         protected override void InitializeItemData()
         {
             base.InitializeItemData();
-
-            //var requiredItemData = this.ItemData as HandleData;
-            //if (requiredItemData == null)
-            //    throw new ArgumentException($"{nameof(this.ItemData)} íå ÿâëÿåòñÿ íåîáõîäèìûì òèïîì: {nameof(HandleData)}");
-
-            test = this.TypedItemData.test;
-            Console.Write(test);
         }
     }
 }

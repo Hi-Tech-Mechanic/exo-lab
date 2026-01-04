@@ -22,22 +22,22 @@
         public IMaterial.MaterialType Material;
 
         [Header("Комплект данных отвечающий за привязку\nк конкретному объекту")]
-        public List<AttachmentOptions> attachmentOptions;
+        public List<AttachmentOption> AttachmentOptions;
 
         /// <summary>
         /// Комплект данных отвечающий за привязку к конкретному объекту
         /// </summary>
         [Serializable]
-        public class AttachmentOptions
+        public class AttachmentOption
         {
             [Tooltip("Данные родительского объекта\n(к которому присоединение)")]
-            public ItemData parentObject;
+            public ItemData ParentData;
 
             [Tooltip("Координаты точки крепления\nданного объекта к родительскому")]
             public Vector3 AttachmentPoint;
 
             [Tooltip("Вращение данного объекта")]
-            public Vector3 Rotation;
+            public Quaternion Rotation;
         }
     }
 }

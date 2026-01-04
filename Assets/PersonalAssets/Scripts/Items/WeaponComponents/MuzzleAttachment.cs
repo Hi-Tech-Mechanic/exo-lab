@@ -3,7 +3,7 @@ namespace ExoLab.StructuralСomponents.Weapon
     using ExoLab.Data;
 
     /// <summary>
-    /// Ствольная коробка
+    /// Дульная насадка
     /// </summary>
     public class MuzzleAttachment : WeaponComponentAbstract<MuzzleAttachmentData>
     {

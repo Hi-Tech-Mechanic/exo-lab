@@ -10,7 +10,8 @@ namespace ExoLab.UI
         MonoBehaviour,
         IPointerEnterHandler,
         IPointerExitHandler,
-        IPointerClickHandler
+        IPointerClickHandler,
+        IPointerMoveHandler
     {
         protected abstract void ActionAfterClick();
 
@@ -18,7 +19,9 @@ namespace ExoLab.UI
 
         protected abstract void ActionAfterPointerEnter();
 
-        public void OnPointerClick(PointerEventData eventData)
+        protected abstract void ActionAfterPointerMove();
+
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
                 return;
@@ -26,7 +29,7 @@ namespace ExoLab.UI
             this.ActionAfterClick();
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
                 return;
@@ -34,12 +37,20 @@ namespace ExoLab.UI
             this.ActionAfterPointerEnter();
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
                 return;
 
             this.ActionAfterPointerExit();
+        }
+
+        public virtual void OnPointerMove(PointerEventData eventData)
+        {
+            if (CursorIsVisible() == false)
+                return;
+
+            this.ActionAfterPointerMove();
         }
 
         /// <summary>
@@ -51,5 +62,7 @@ namespace ExoLab.UI
         {
             return Cursor.visible;
         }
+
+      
     }
 }

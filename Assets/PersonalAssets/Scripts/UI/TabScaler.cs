@@ -5,21 +5,24 @@ namespace ExoLab.UI
     using UnityEngine;
     using UnityEngine.UI;
     using System.Linq;
+    using System;
 
     /// <summary>
     /// Увеличивает вкладку при наведении и уменьшая соседние
     /// </summary>
     public class TabScaler : HoverableElement
     {
-        [Header("Параметры размеров")]
+        [Header("Параметры размеров при наведении")]
         [SerializeField]
         private float hoverWidth;
         [SerializeField]
         private float neighborWidth;
 
-        [Header("Параметры цвета")]
+        [Header("Параметры цвета при наведении")]
         [SerializeField]
         private Color hoveredColor;
+        [SerializeField]
+        private Image hoveredBackground;
 
         [Header("Тайминги в секундах")]
         [SerializeField]
@@ -27,7 +30,6 @@ namespace ExoLab.UI
         private float animationDuration = Constants.Timings.Millisecond_400;
 
         private LayoutElement myLayout;
-        private Image background;
 
         /// <summary>
         /// Соседние кнопки в строке
@@ -38,25 +40,11 @@ namespace ExoLab.UI
         private float startWidth;
         private Color startColor;
 
-        private void Awake()
+        protected override void Awake()
         {
-            this.myLayout = GetComponent<LayoutElement>();
-            this.startWidth = this.myLayout.preferredWidth;
-            this.background = this.GetComponent<Image>();
-            this.startColor = this.background.color;
+            base.Awake();
 
-            GetButtonsInRow();
-
-            return;
-
-            void GetButtonsInRow()
-            {
-                this.allButtonsInRow = this.transform.parent.GetComponentsInChildren<LayoutElement>();
-
-                var tempOtherButtons = this.allButtonsInRow.ToList();
-                tempOtherButtons.Remove(this.myLayout);
-                this.otherButtonsInRow = tempOtherButtons.ToArray();
-            }
+            this.Initialize();
         }
 
         protected override void ActionAfterPointerEnter()
@@ -71,6 +59,36 @@ namespace ExoLab.UI
             this.ReturnAllButtonsToStartState();
         }
 
+        private void Initialize()
+        {
+            this.myLayout = GetComponent<LayoutElement>();
+            this.startWidth = this.myLayout.preferredWidth;
+
+            if (this.hoveredBackground != null)
+                this.startColor = this.hoveredBackground.color;
+            else throw new NullReferenceException($"Не назначен {nameof(this.hoveredBackground)}");
+
+
+            SetHoveredBackground();
+            SetButtonsInTabsRow();
+
+            return;
+
+            void SetButtonsInTabsRow()
+            {
+                this.allButtonsInRow = this.transform.parent.GetComponentsInChildren<LayoutElement>();
+
+                var tempOtherButtons = this.allButtonsInRow.ToList();
+                tempOtherButtons.Remove(this.myLayout);
+                this.otherButtonsInRow = tempOtherButtons.ToArray();
+            }
+
+            void SetHoveredBackground()
+            {
+                    
+            }
+        }
+
         private void SelectTab()
         {
             DOTween.To(() => this.myLayout.preferredWidth, x => this.myLayout.preferredWidth = x, this.hoverWidth, this.animationDuration)
@@ -82,9 +100,9 @@ namespace ExoLab.UI
                        .SetEase(Ease.OutQuint);
             }
 
-            if (this.background != null)
+            if (this.hoveredBackground != null)
             {
-                this.background.DOColor(this.hoveredColor, this.animationDuration).SetEase(Ease.OutQuint);
+                this.hoveredBackground.DOColor(this.hoveredColor, this.animationDuration).SetEase(Ease.OutQuint);
             }
 
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform.parent);
@@ -100,9 +118,9 @@ namespace ExoLab.UI
                        .SetEase(Ease.OutQuint);
             }
 
-            if (this.background != null)
+            if (this.hoveredBackground != null)
             {
-                this.background.DOColor(this.startColor, this.animationDuration).SetEase(Ease.OutQuint);
+                this.hoveredBackground.DOColor(this.startColor, this.animationDuration).SetEase(Ease.OutQuint);
             }
 
             this.ForceRebuildLayoutImmediate();

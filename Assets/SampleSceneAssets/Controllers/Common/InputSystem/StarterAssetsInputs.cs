@@ -5,6 +5,8 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
+		public static StarterAssetsInputs Instance;
+        
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
@@ -18,7 +20,12 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		public void OnMove(InputValue value)
+        private void Awake()
+        {
+			Instance = this;
+        }
+
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -62,7 +69,17 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+        public void ToggleCursorInputForLook()
+        {
+            this.cursorInputForLook = !this.cursorInputForLook;
+        }
+
+        public void ToggleCursorLocked()
+        {
+            this.SetCursorState(!this.cursorLocked);
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
@@ -72,5 +89,4 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
-	
 }

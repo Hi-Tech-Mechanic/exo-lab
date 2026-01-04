@@ -29,57 +29,57 @@
             previewCamera.orthographicSize = 1.0f;
         }
 
-        public RenderTexture RenderWeapon(WeaponBuild build)
-        {
-            string hash = build.GetHash();
+        //public RenderTexture RenderWeapon(/*WeaponBuild build*/)
+        //{
+        //    string hash = build.GetHash();
 
-            // Проверяем кэш
-            if (PreviewCache.TryGet(hash, out var cached))
-                return cached;
+        //    // Проверяем кэш
+        //    if (PreviewCache.TryGet(hash, out var cached))
+        //        return cached;
 
-            // Удаляем старый инстанс
-            foreach (Transform child in renderRoot)
-                Destroy(child.gameObject);
+        //    // Удаляем старый инстанс
+        //    foreach (TransformDirections child in renderRoot)
+        //        Destroy(child.gameObject);
 
-            // Создаём базовое оружие
-            GameObject baseWeapon = Instantiate(build.GetBasePrefab(), renderRoot);
-            baseWeapon.layer = LayerMask.NameToLayer("Preview"); // убедись, что слой существует
+        //    // Создаём базовое оружие
+        //    GameObject baseWeapon = Instantiate(build.GetBasePrefab(), renderRoot);
+        //    baseWeapon.layer = LayerMask.NameToLayer("Preview"); // убедись, что слой существует
 
-            // === Здесь твоя логика установки обвесов ===
-            // Например:
-            // foreach (var attId in build.attachments)
-            //     AttachPart(baseWeapon, attId);
+        //    // === Здесь твоя логика установки обвесов ===
+        //    // Например:
+        //    // foreach (var attId in build.attachments)
+        //    //     AttachPart(baseWeapon, attId);
 
-            // Просто поворачиваем для вида
-            baseWeapon.transform.localRotation = Quaternion.Euler(15, -30, 0);
+        //    // Просто поворачиваем для вида
+        //    baseWeapon.transform.localRotation = Quaternion.Euler(15, -30, 0);
 
-            // Готовим RenderTexture
-            if (workingRT == null || workingRT.width != textureSize)
-            {
-                if (workingRT != null)
-                {
-                    workingRT.Release();
-                    DestroyImmediate(workingRT);
-                }
-                workingRT = new RenderTexture(textureSize, textureSize, 24, RenderTextureFormat.Default);
-            }
+        //    // Готовим RenderTexture
+        //    if (workingRT == null || workingRT.width != textureSize)
+        //    {
+        //        if (workingRT != null)
+        //        {
+        //            workingRT.Release();
+        //            DestroyImmediate(workingRT);
+        //        }
+        //        workingRT = new RenderTexture(textureSize, textureSize, 24, RenderTextureFormat.Default);
+        //    }
 
-            previewCamera.targetTexture = workingRT;
-            previewCamera.Render();
+        //    previewCamera.targetTexture = workingRT;
+        //    previewCamera.Render();
 
-            // Копируем результат в новую текстуру (чтобы не зависеть от workingRT)
-            RenderTexture finalRT = new RenderTexture(textureSize, textureSize, 0);
-            Graphics.Blit(workingRT, finalRT);
+        //    // Копируем результат в новую текстуру (чтобы не зависеть от workingRT)
+        //    RenderTexture finalRT = new RenderTexture(textureSize, textureSize, 0);
+        //    Graphics.Blit(workingRT, finalRT);
 
-            // Сохраняем в кэш
-            PreviewCache.Set(hash, finalRT);
+        //    // Сохраняем в кэш
+        //    PreviewCache.Set(hash, finalRT);
 
-            // Очищаем временную модель
-            foreach (Transform child in renderRoot)
-                Destroy(child.gameObject);
+        //    // Очищаем временную модель
+        //    foreach (TransformDirections child in renderRoot)
+        //        Destroy(child.gameObject);
 
-            return finalRT;
-        }
+        //    return finalRT;
+        //}
 
         void OnDestroy()
         {

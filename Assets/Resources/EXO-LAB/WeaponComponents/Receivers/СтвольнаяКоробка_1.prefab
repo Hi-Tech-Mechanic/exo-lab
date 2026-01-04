@@ -102,4 +102,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683056f4c9b09e94597f729854d9a27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Receiver
-  ItemData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
+  itemData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}

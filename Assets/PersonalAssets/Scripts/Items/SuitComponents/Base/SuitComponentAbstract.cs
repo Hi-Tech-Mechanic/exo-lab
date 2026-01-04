@@ -1,13 +1,16 @@
 namespace ExoLab.Structural—omponents.Suit
 {
     using ExoLab.Data;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public abstract class SuitComponentAbstract<T> :
-    AssemblyComponentAbstract<T>,
-    IDamageable
-    where T : SuitComponentItemData
+        AssemblyComponentBase,
+        IDamageable
+        where T : SuitComponentItemData
     {
+        public new T TypedItemData => (T)base.itemData;
+
         public void GetDamage(double damage, Transform t)
         {
             Durability -= damage;

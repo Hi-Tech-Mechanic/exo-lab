@@ -3,7 +3,6 @@ namespace ExoLab.UI
     using DG.Tweening;
     using ExoLab.Constants;
     using UnityEngine;
-    using UnityEngine.UI;
 
     /// <summary>
     /// Кнопка с анимациями
@@ -13,23 +12,11 @@ namespace ExoLab.UI
         [SerializeField] private bool animationIsEnabled = true;
         [SerializeField] private float targetScale = Constants.Scales.ScaleMultiplier_110Percent;
 
-        private float startScale => this.gameObject.transform.localScale.x;
+        private float startScale;
 
-        /// <summary>
-        /// Подсвечиваемая рамка кнопки
-        /// </summary>
-        private Image buttonEdge;
-
-        private void Awake()
+        protected override void Awake()
         {
-            //var imgChildrens = this.transform.GetComponentsInChildren<Image>(includeInactive: true);
-            //foreach(var targetImg in imgChildrens)
-            //{
-            //    if (targetImg.CompareTag(Constants.Tags.UIComponentEdge))
-            //    {
-            //        buttonEdge = targetImg;
-            //    }
-            //}
+            this.startScale = this.gameObject.transform.localScale.x;
         }
 
         public void InvokeClickAnimation()
@@ -46,16 +33,12 @@ namespace ExoLab.UI
 
             if (this.animationIsEnabled)
                 this.transform.DOScale(this.targetScale, Constants.Timings.Millisecond_200);
-            //if (this.buttonEdge != null)
-            //    this.buttonEdge.DOFade(1, Constants.Timings.Millisecond_200);
         }
 
         protected override void ActionAfterPointerExit()
         {
             if (this.animationIsEnabled)
                 this.transform.DOScale(this.startScale, Constants.Timings.Millisecond_200);
-            //if (this.buttonEdge != null)
-            //    this.buttonEdge.DOFade(0, Constants.Timings.Millisecond_200);
         }
     }
 }

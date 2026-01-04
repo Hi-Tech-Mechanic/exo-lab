@@ -1,5 +1,6 @@
 namespace ExoLab.Assembly
 {
+    using ExoLab.Data;
     using UnityEngine;
     using static ExoLab.Constants.Constants;
 
@@ -8,7 +9,7 @@ namespace ExoLab.Assembly
     /// </summary>
     public class ItemInspect : MonoBehaviour
     {
-        private const int leftMouseButton = 0;
+        private const int maxRayCastDistance = 100;
 
         [Header("Настройки вращения")]
         [SerializeField] private float rotationSpeed = 2f;
@@ -19,24 +20,18 @@ namespace ExoLab.Assembly
 
         private float currentDistance;
         private Vector3 defaultPosition;
-        private bool isInspecting = false;
+        //private bool isInspecting = false;
 
-        private void Start()
+        private LayerMask interactableInspectLayer;
+
+        private void Awake()
         {
-            if (inspectCamera == null)
-            {
-                Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
-                enabled = false;
-                return;
-            }
-
-            currentDistance = inspectCamera.transform.localPosition.z;
-            defaultPosition = transform.position;
+            this.Initialize();
         }
 
         private void Update()
         {
-            //if (!isInspecting) 
+            //if (this.isInspecting == false)
             //    return;
 
             this.SetRotationWithMouse();
@@ -44,21 +39,58 @@ namespace ExoLab.Assembly
             this.SetZoomWithMouseScroll();
         }
 
+        private void Initialize()
+        {
+            if (inspectCamera == null)
+            {
+                Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
+                this.enabled = false;
+                return;
+            }
+
+            this.currentDistance = this.inspectCamera.transform.localPosition.z;
+            this.defaultPosition = this.transform.position;
+
+            interactableInspectLayer = LayerMask.GetMask(Layers.UI);
+        }
+
         private void SetRotationWithMouse()
         {
-            if (Input.GetMouseButton(leftMouseButton))
+            if (Input.GetMouseButton(InputButtons.leftMouseButton) == false)
+                return;
+
+            Ray ray = Caches.Instance.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out var hit, maxRayCastDistance, this.interactableInspectLayer))
             {
-                float mouseX = Input.GetAxis(InputAxes.MouseX) * rotationSpeed;
-                float mouseY = Input.GetAxis(InputAxes.MouseY) * rotationSpeed;
+                // hit.collider.gameObject — объект, в который попали
+                Debug.Log("Попали в: " + hit.collider.gameObject.name);
 
-                transform.Rotate(Vector3.up, -mouseX, Space.World);
-                transform.Rotate(Vector3.right, mouseY, Space.World);
+                // Можно проверить тег, слой, компонент и т.д.
+                if (hit.collider.CompareTag(Tags.AssemblyZone))
+                {
+                    Debug.Log("Это враг!");
+                    // Делаем что-то с врагом
+                }
+                else if (hit.collider.CompareTag("Player"))
+                {
+                    Debug.Log("Это игрок!");
+                }
 
-                //// Ограничение наклона (чтобы не переворачивалось)
-                //Vector3 euler = transform.eulerAngles;
-                //euler.x = Mathf.Clamp(euler.x, -60f, 60f);
-                //transform.eulerAngles = euler;
+                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
+                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
+
+                this.transform.Rotate(Vector3.up, -mouseX, Space.World);
+                this.transform.Rotate(Vector3.right, mouseY, Space.World);
             }
+
+
+            // Или использовать switch/case по имени или тегу
+
+            //// Ограничение наклона (чтобы не переворачивалось)
+            //Vector3 euler = transform.eulerAngles;
+            //euler.x = Mathf.Clamp(euler.x, -60f, 60f);
+            //transform.eulerAngles = euler;
         }
 
         private void SetZoomWithMouseScroll()
@@ -67,33 +99,31 @@ namespace ExoLab.Assembly
             if (scroll == 0f)
                 return;
 
-            currentDistance += scroll * zoomSpeed;
-            currentDistance = Mathf.Clamp(currentDistance, -maxDistance, -minDistance);
-            inspectCamera.transform.localPosition = new Vector3(0, 0, currentDistance);
+            this.currentDistance += scroll * this.zoomSpeed;
+            this.currentDistance = Mathf.Clamp(currentDistance, -maxDistance, -minDistance);
+            this.inspectCamera.transform.localPosition = new Vector3(0, 0, this.currentDistance);
         }
 
         /// <summary>
         /// Активировать/деактивировать режим осмотра
         /// </summary>
         /// <param name="inspect"></param>
-        public void SetInspectMode(bool inspect)
+        public void ToggleInspectMode()
         {
-            isInspecting = inspect;
-            if (!inspect)
-            {
-                // Сбросить позицию и зум
-                transform.rotation = Quaternion.identity;
-                transform.position = defaultPosition;
-                currentDistance = maxDistance; // или начальное значение
-                inspectCamera.transform.localPosition = new Vector3(0, 0, currentDistance);
-            }
+            //this.isInspecting = !this.isInspecting;
+            //if (this.isInspecting == false)
+            //{
+            //    // Сбросить позицию и зум
+            //    //this.transform.rotation = Quaternion.identity;
+            //    //this.transform.position = defaultPosition;
+            //}
         }
 
         //public void OnWeaponSelected(WeaponData weapon)
         //{
         //    // Показать 3D-модель оружия
         //    weaponModel.SetActive(true);
-        //    weaponModel.GetComponent<WeaponInspect>().SetInspectMode(true);
+        //    weaponModel.GetComponent<WeaponInspect>().ToggleInspectMode(true);
 
         //    // Отключить обычный UI инвентаря (опционально)
         //    inventoryUI.SetActive(false);
@@ -101,7 +131,7 @@ namespace ExoLab.Assembly
 
         //public void OnExitInspect()
         //{
-        //    weaponModel.GetComponent<WeaponInspect>().SetInspectMode(false);
+        //    weaponModel.GetComponent<WeaponInspect>().ToggleInspectMode(false);
         //    inventoryUI.SetActive(true);
         //}
     }

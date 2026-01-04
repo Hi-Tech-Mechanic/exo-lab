@@ -1,11 +1,14 @@
-﻿namespace ExoLab.UI
+﻿namespace ExoLab
 {
+    using ExoLab.Data;
+    using ExoLab.Helpers;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
     /// <summary>
-    /// Инвентарь, пока у персонажа и меню один и тот же инвентарь,
+    /// Модель инвентаря, пока у персонажа и меню один и тот же инвентарь,
     /// возможно будет базовым когда накопит логики
     /// </summary>
     public class Inventory : MonoBehaviour
@@ -13,77 +16,181 @@
         /// <summary>
         /// Пока константой, затравка на расширение инвентаря
         /// </summary>
-        private const ushort maxSlotsCount = 21;
+        public const ushort maxSlotsCount = 21;
 
         /// <summary>
-        /// Объект в котором находятся слоты
+        /// Данные о предметах в инвентаре
         /// </summary>
         [SerializeField]
-        private GameObject slotsHandler;
+        private List<StoredItem> items;
+
+        [SerializeField]
+        private ItemDatabase itemDatabase;
+         
+        public static Inventory Instance { get; private set; }
 
         /// <summary>
-        /// Шаблон слота инвентаря
+        /// Событие: itemId, новое количество
         /// </summary>
-        [SerializeField]
-        private GameObject slotPrefab;
+        public static Action<int, int> OnItemAmountChanged;
 
-        /// <summary>
-        /// Пока инвентарь будет наполняться от сюда
-        /// </summary>
-        [SerializeField]
-        private List<ItemUI> items;
-
-        private List<ItemSlot> slots = new List<ItemSlot>();
-
-        protected virtual void Awake()
+        private void Awake()
         {
-            this.Initialize();
-        }
-
-        protected virtual void Initialize()
-        {
-            this.FillInventory();
-            this.FillSlots();
-        }
-
-        private void FillInventory()
-        {
-            // Берем все что 
-            this.slots = this.slotsHandler.GetComponents<ItemSlot>().ToList();
-
-            var slotsCount = this.slots.Count;
-            if (slotsCount <= maxSlotsCount)
+            if (Instance == null)
             {
-                for (var i = slotsCount; i < maxSlotsCount; i++)
-                {
-                    this.slots.Add(this.SpawnItemSlot().GetComponent<ItemSlot>());
-                }
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
-                var extraSlotsCount = this.slots.Count - maxSlotsCount;
-                this.slots.RemoveRange(this.slots.Count - extraSlotsCount, extraSlotsCount);
+                Destroy(gameObject);
             }
         }
 
-        private void FillSlots()
+        public void AddItem(ItemData item, uint amount = 1)
         {
-            for (int itemNumber = 0; itemNumber < items.Count; itemNumber++)
-            {
-                var item = items[itemNumber];
+            if (item == null || amount == 0)
+                return;
 
-                if (itemNumber < maxSlotsCount)
+            // Если уже есть то добавляем количество,
+            // если количество превышает то добавляем в новую ячейку
+            for (int i = 0; i < this.items.Count; i++)
+            {
+                StoredItem itemLocal = this.items[i];
+
+                if (string.Equals(itemLocal.ItemData.Name, item.Name) == false)
+                    continue;
+
+                uint maxAmount = itemLocal.ItemData.maxStackSize;
+                uint futureAmount = itemLocal.Amount + amount;
+
+                if (futureAmount > maxAmount)
                 {
-                    this.slots[itemNumber].SetStoredItem(item);
-                    var itemUIObject = item.gameObject;
-                    Instantiate(itemUIObject, this.slots[itemNumber].transform);
+                    itemLocal.Amount = maxAmount;
+
+                    var remainder = futureAmount - maxAmount;
+                    var newItem = new StoredItem(item, remainder);
+                    this.items.Add(newItem);
+                }
+                else
+                {
+                    itemLocal.Amount += amount;
+                }
+
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Убрать выбранное количество предметов
+        /// </summary>
+        /// <param itemName="item"></param>
+        /// <param itemName="amount"></param>
+        public void RemoveItem(ItemData item, uint amount = 1)
+        {
+            if (item == null || amount == 0)
+                return;
+            
+            foreach (var itemLocal in this.items)
+            {
+                if (string.Equals(itemLocal.ItemData.Name, item.Name) == false)
+                    continue;
+
+                var allItemsOfSameType = this.GetStoredItems(item.Name);
+                var allAmount = allItemsOfSameType.Sum(x => x.Amount);
+
+                if (allAmount > itemLocal.Amount)
+                {
+                    this.RemoveItemTypeCompletely(item);
+                }
+                else
+                {
+                    // warn todo удаляет не весь объем, а максимум один слот
+                    itemLocal.Amount -= amount;
+                }
+
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Полностью убрать выбранный предмет
+        /// </summary>
+        /// <param itemName="item"></param>
+        public void RemoveItemTypeCompletely(ItemData item)
+        {
+            if (item == null)
+                return;
+
+            var targetItems = this.GetStoredItems(item.Name);
+            this.items.RemoveRange(targetItems);
+        }
+
+        public ItemData[] GetAllItems()
+        {
+            return this.items.Select(x => x.ItemData).ToArray();
+        }
+
+        private StoredItem[] GetStoredItems(string itemName)
+        {
+            var result = new List<StoredItem>();
+
+            foreach (var itemLocal in this.items)
+            {
+                if (string.Equals(itemLocal.ItemData.Name, itemName) == false)
+                    continue;
+
+                result.Add(itemLocal);
+            }
+
+            return result.ToArray();
+        }
+
+        ///// <summary>
+        ///// Получить текущее количество переданного предмета
+        ///// </summary>
+        ///// <param itemName="item"></param>
+        ///// <returns></returns>
+        //public int GetItemCount(ItemData item)
+        //{
+        //    if (item == null) 
+        //        return 0;
+
+        //    return itemStacks.TryGetValue(item.GetInstanceID(), out int count) ? count : 0;
+        //}
+
+        public ItemData GetItemDataById(int id)
+        {
+            return itemDatabase?.GetItemById(id);
+        }
+
+        [Serializable]
+        public class StoredItem
+        {
+            public ItemData ItemData;
+
+            [SerializeField]
+            private uint amount;
+
+            public uint Amount 
+            { 
+                get => this.amount;
+                set
+                {
+                    if (value < 0)
+                    {
+                        this.amount = 0;
+                    }
+
+                    this.amount = value;
                 }
             }
-        }
 
-        private GameObject SpawnItemSlot()
-        {
-            return Instantiate(this.slotPrefab, this.slotsHandler.transform);
+            public StoredItem(ItemData itemData, uint amount)
+            {
+                this.ItemData = itemData;
+                this.Amount = amount;
+            }
         }
     }
 }

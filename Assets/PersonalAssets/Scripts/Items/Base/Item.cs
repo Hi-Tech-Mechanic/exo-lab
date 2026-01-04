@@ -9,8 +9,14 @@
     public class Item : ItemAbstract<ItemData>
     {
         /// <summary>
-        /// 3D-модель объекта
+        /// Префаб объекта
         /// </summary>
-        public GameObject object3dModel { get; protected set; }
+        public GameObject Prefab { get; protected set; }
+
+        protected override void InitializeItemData()
+        {
+            base.InitializeItemData();
+            this.Prefab = this.TypedItemData.Prefab;
+        }
     }
 }

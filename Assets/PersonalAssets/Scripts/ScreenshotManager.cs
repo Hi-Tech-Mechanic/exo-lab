@@ -7,7 +7,7 @@
 //public class ScreenshotManager : MonoBehaviour
 //{
 //    public Camera screenshotCamera;
-//    public Transform capturePoint;
+//    public TransformDirections capturePoint;
 //    public Image uiImageDisplay; // —сылка на ваш UI Image
 //    public int captureWidth = 512;
 //    public int captureHeight = 512;

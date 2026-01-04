@@ -8,6 +8,5 @@
     [CreateAssetMenu(fileName = "HandleData", menuName = "Inventory/Weapon/Handle")]
     public class HandleData : WeaponComponentItemData
     {
-        public int test;
     }
 }

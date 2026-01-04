@@ -9,10 +9,18 @@ namespace ExoLab.UI
     /// </summary>
     public class HoverableElement : HoverableElementAbstract
     {
-        [SerializeField] private AudioClip hoverSound;
-        [SerializeField] private AudioClip clickSound;
+        [SerializeField]
+        private AudioClip hoverSound;
+        [SerializeField]
+        private AudioClip clickSound;
 
-        private AudioSource audioSource => Caches.Instance.AudioSourceFromCanvas;
+        private AudioSource audioSource => Caches.Instance.Audio.AudioSourceFromCanvas;
+
+        protected virtual void Awake()
+        {
+            this.hoverSound ??= Caches.Instance.Audio.ButtonHover;
+            this.clickSound ??= Caches.Instance.Audio.ButtonClick;
+        }
 
         protected override void ActionAfterClick()
         {
@@ -24,7 +32,12 @@ namespace ExoLab.UI
             this.PlaySoundAfterPointerEnter();
         }
 
-        protected override void ActionAfterPointerExit()
+        protected override void ActionAfterPointerExit() 
+        {
+            return;
+        }
+
+        protected override void ActionAfterPointerMove()
         {
             return;
         }
@@ -43,6 +56,6 @@ namespace ExoLab.UI
                 return;
 
             this.audioSource.PlayOneShot(this.hoverSound);
-        }     
+        }
     }
 }
