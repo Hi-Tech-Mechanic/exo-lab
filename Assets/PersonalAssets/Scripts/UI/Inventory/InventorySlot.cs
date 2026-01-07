@@ -1,6 +1,5 @@
 namespace ExoLab.UI
 {
-    using ExoLab.Data;
     using UnityEngine;
     using UnityEngine.EventSystems;
 

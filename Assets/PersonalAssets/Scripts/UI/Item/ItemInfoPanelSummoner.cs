@@ -4,20 +4,15 @@ namespace ExoLab.UI
     using ExoLab.StructuralСomponents;
     using UnityEngine;
 
-    public class ItemInfoSummoner : HoverableElementAbstract
+    /// <summary>
+    /// Вызывает <see cref="ItemInfoPanel"/> при наведении курсора на предмет
+    /// </summary>
+    public class ItemInfoPanelSummoner : HoverableElementAbstract
     {
-        [SerializeField]
-        private GameObject itemInfoInspectorPrefab;
+        [SerializeField] private GameObject infoPanelPrefab;
 
-        private GameObject itemInfoMenu;
-        private RectTransform itemInfoRectTransform;
-
-        private RectTransform rectTransform;
-
-        private void Awake()
-        {
-            this.rectTransform = this.gameObject.GetComponent<RectTransform>();
-        }
+        private GameObject infoPanelObject;
+        private RectTransform infoPanelRectTransform;
 
         protected override void ActionAfterClick()
         {
@@ -27,32 +22,38 @@ namespace ExoLab.UI
 
         protected override void ActionAfterPointerEnter()
         {
-            this.itemInfoMenu = Instantiate(this.itemInfoInspectorPrefab, Caches.Instance.Interface.MainCanvas.transform);
-            this.itemInfoRectTransform = this.itemInfoMenu.GetComponent<RectTransform>();
-            UpdatePosition();
-
-            var assemblyComponent = this.gameObject.GetComponent<AssemblyComponentBase>();
-            var itemInfo = this.itemInfoMenu.GetComponent<ItemInfoInspector>();
-            itemInfo.Initialize(assemblyComponent);
+            this.CreateItemInfoPanel();
+            this.UpdatePosition();
         }
 
         protected override void ActionAfterPointerExit()
         {
-            Destroy(this.itemInfoMenu);
-            this.itemInfoMenu = default;
-            this.itemInfoRectTransform = default;
+            Destroy(this.infoPanelObject);
+            this.infoPanelObject = default;
+            this.infoPanelRectTransform = default;
         }
 
         protected override void ActionAfterPointerMove()
         {
-            UpdatePosition();
+            this.UpdatePosition();
+        }
+
+        private void CreateItemInfoPanel()
+        {
+            var parentTransform = Caches.Instance.Interface.MainCanvas.transform;
+            this.infoPanelObject = Instantiate(this.infoPanelPrefab, parentTransform);
+            this.infoPanelRectTransform = this.infoPanelObject.GetComponent<RectTransform>();
+
+            var assemblyComponent = this.gameObject.GetComponent<AssemblyComponentBase>();
+            var itemInfo = this.infoPanelObject.GetComponent<ItemInfoPanel>();
+            itemInfo.Initialize(assemblyComponent);
         }
 
         private void UpdatePosition()
         {
             var standardOffset_X = 10;
             //var offset_Y = this.rectTransform.position.y - this.rectTransform.sizeDelta.y;
-            var offset = new Vector2((this.itemInfoRectTransform.sizeDelta.x / 2) + standardOffset_X, 0);
+            var offset = new Vector2((this.infoPanelRectTransform.sizeDelta.x / 2) + standardOffset_X, 0);
 
             Canvas parentCanvas = Caches.Instance.Interface.MainCanvas;
             RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
@@ -62,11 +63,11 @@ namespace ExoLab.UI
 
             if (rightOffset.x >= Screen.width && rightOffset.x >= Input.mousePosition.x && leftOffset.x < Input.mousePosition.x)
             {
-                this.itemInfoRectTransform.position = leftOffset;
+                this.infoPanelRectTransform.position = leftOffset;
             }
             else
             {
-                this.itemInfoRectTransform.position = rightOffset;
+                this.infoPanelRectTransform.position = rightOffset;
             }
 
             // Ограничиваем позицию, чтобы окно не выходило за пределы экрана
@@ -79,10 +80,10 @@ namespace ExoLab.UI
             RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
 
             // Получаем размеры окна
-            Vector2 windowSize = itemInfoRectTransform.sizeDelta;
+            Vector2 windowSize = infoPanelRectTransform.sizeDelta;
 
             // Получаем текущую позицию
-            Vector2 anchoredPos = itemInfoRectTransform.anchoredPosition;
+            Vector2 anchoredPos = infoPanelRectTransform.anchoredPosition;
 
             // Определяем границы
             float clampedX = Mathf.Clamp(anchoredPos.x,
@@ -93,7 +94,7 @@ namespace ExoLab.UI
                 -canvasRect.sizeDelta.y / 2 + windowSize.y / 2,
                 canvasRect.sizeDelta.y / 2 - windowSize.y / 2);
 
-            itemInfoRectTransform.anchoredPosition = new Vector2(clampedX, clampedY);
+            infoPanelRectTransform.anchoredPosition = new Vector2(clampedX, clampedY);
         }
     }
 }

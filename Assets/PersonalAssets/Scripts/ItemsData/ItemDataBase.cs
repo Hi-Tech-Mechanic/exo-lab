@@ -69,7 +69,7 @@ public class ItemDatabase : ScriptableObject
     //        if (item != null && !allItems.Contains(item))
     //            allItems.Add(item);
     //    }
-    //    Debug.Log($"Collected {allItems.Amount} items into database.");
+    //    Debug.Log($"Collected {allItems.Amount} itemsInSlots into database.");
     //    UnityEditor.EditorUtility.SetDirty(this);
     //}
 

@@ -26,7 +26,7 @@
 
         [SerializeField]
         private ItemDatabase itemDatabase;
-         
+
         public static Inventory Instance { get; private set; }
 
         /// <summary>
@@ -39,15 +39,15 @@
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(this.gameObject);
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
         }
 
-        public void AddItem(ItemData item, uint amount = 1)
+        public void AddItem(ItemData item, int amount = 1)
         {
             if (item == null || amount == 0)
                 return;
@@ -61,8 +61,8 @@
                 if (string.Equals(itemLocal.ItemData.Name, item.Name) == false)
                     continue;
 
-                uint maxAmount = itemLocal.ItemData.maxStackSize;
-                uint futureAmount = itemLocal.Amount + amount;
+                var maxAmount = itemLocal.ItemData.MaxStackSize;
+                var futureAmount = itemLocal.Amount + amount;
 
                 if (futureAmount > maxAmount)
                 {
@@ -86,7 +86,7 @@
         /// </summary>
         /// <param itemName="item"></param>
         /// <param itemName="amount"></param>
-        public void RemoveItem(ItemData item, uint amount = 1)
+        public void RemoveItem(ItemData item, int amount = 1)
         {
             if (item == null || amount == 0)
                 return;
@@ -128,7 +128,7 @@
 
         public ItemData[] GetAllItems()
         {
-            return this.items.Select(x => x.ItemData).ToArray();
+            return this.items.Select(item => item.ItemData).ToArray();
         }
 
         private StoredItem[] GetStoredItems(string itemName)
@@ -161,36 +161,7 @@
 
         public ItemData GetItemDataById(int id)
         {
-            return itemDatabase?.GetItemById(id);
-        }
-
-        [Serializable]
-        public class StoredItem
-        {
-            public ItemData ItemData;
-
-            [SerializeField]
-            private uint amount;
-
-            public uint Amount 
-            { 
-                get => this.amount;
-                set
-                {
-                    if (value < 0)
-                    {
-                        this.amount = 0;
-                    }
-
-                    this.amount = value;
-                }
-            }
-
-            public StoredItem(ItemData itemData, uint amount)
-            {
-                this.ItemData = itemData;
-                this.Amount = amount;
-            }
+            return this.itemDatabase?.GetItemById(id);
         }
     }
 }

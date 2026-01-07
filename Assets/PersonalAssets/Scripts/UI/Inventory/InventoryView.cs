@@ -2,11 +2,13 @@
 {
     using ExoLab.Data;
     using ExoLab.StructuralСomponents;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
+    /// <summary>
+    /// Визуализатор инвентаря
+    /// </summary>
     public class InventoryView : MonoBehaviour
     {
         /// <summary>
@@ -31,6 +33,12 @@
         /// Слоты в которых хранятся предметы
         /// </summary>
         private List<InventorySlot> slots = new List<InventorySlot>();
+
+        /// <summary>
+        /// Хранит именно игровые объекты предметов нахощиеся в слотах,
+        /// чтобы потом можно быстро работать с кешированными списками
+        /// </summary>
+        private List<GameObject> itemsInSlots = new List<GameObject>();
 
         private static Dictionary<int, ItemData> cachedItems = null;
 
@@ -159,14 +167,15 @@
 
                 if (i < Inventory.maxSlotsCount)
                 {
-                    var itemUI = this.itemPrefab.GetComponent<ItemView>();
-                    itemUI.SetItemData(itemData);
-                    Instantiate(itemUI, this.slots[i].transform);
-                    this.slots[i].SetStoredItem(itemUI);
+                    var itemView = this.itemPrefab.GetComponent<ItemView>();
+                    itemView.SetItemData(itemData);
+                    var itemObject = Instantiate(itemView.gameObject, this.slots[i].transform);
 
-                    // todo слишком много данных на один предмет в инвентаре
                     var assemblyComponent = this.itemPrefab.GetComponent<AssemblyComponentBase>();
                     assemblyComponent.SetItemData(itemData);
+
+                    this.slots[i].SetStoredItem(itemView);
+                    this.itemsInSlots.Add(itemView.gameObject);
                 }
             }
         }
