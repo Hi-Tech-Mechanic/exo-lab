@@ -36,7 +36,7 @@ namespace ExoLab
 
         public virtual int MaxStackSize { get; protected set; }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             this.CheckItemData();
             this.InitializeItemData();
@@ -122,7 +122,7 @@ namespace ExoLab
         }
 
         /// <summary>
-        /// Инициализация данных предмета из ScriptableObject. Ищет по переданному пути из папки Resources
+        /// Инициализация данных предмета из ScriptableObject
         /// </summary>
         private void CheckItemData()
         {

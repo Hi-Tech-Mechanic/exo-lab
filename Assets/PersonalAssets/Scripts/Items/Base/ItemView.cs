@@ -17,9 +17,9 @@
 
         private Image iconHolder;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
             this.Initialize();
 
             this.FillAmount(10); //todo временно test

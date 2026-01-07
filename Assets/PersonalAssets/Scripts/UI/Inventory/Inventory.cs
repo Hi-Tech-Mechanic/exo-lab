@@ -24,8 +24,8 @@
         [SerializeField]
         private List<StoredItem> items;
 
-        [SerializeField]
-        private ItemDatabase itemDatabase;
+        //[SerializeField]
+        //private ItemDatabase itemDatabase;
 
         public static Inventory Instance { get; private set; }
 
@@ -159,9 +159,9 @@
         //    return itemStacks.TryGetValue(item.GetInstanceID(), out int count) ? count : 0;
         //}
 
-        public ItemData GetItemDataById(int id)
-        {
-            return this.itemDatabase?.GetItemById(id);
-        }
+        //public ItemData GetItemDataById(int id)
+        //{
+        //    return this.itemDatabase?.GetItemById(id);
+        //}
     }
 }

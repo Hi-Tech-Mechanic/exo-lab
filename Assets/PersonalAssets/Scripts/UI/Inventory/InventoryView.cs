@@ -167,11 +167,11 @@
 
                 if (i < Inventory.maxSlotsCount)
                 {
-                    var itemView = this.itemPrefab.GetComponent<ItemView>();
+                    var itemObject = Instantiate(this.itemPrefab, this.slots[i].transform);
+                    var itemView = itemObject.GetComponent<ItemView>();
                     itemView.SetItemData(itemData);
-                    var itemObject = Instantiate(itemView.gameObject, this.slots[i].transform);
 
-                    var assemblyComponent = this.itemPrefab.GetComponent<AssemblyComponentBase>();
+                    var assemblyComponent = itemObject.GetComponent<AssemblyComponentBase>();
                     assemblyComponent.SetItemData(itemData);
 
                     this.slots[i].SetStoredItem(itemView);

@@ -44,7 +44,7 @@ namespace ExoLab.UI
             this.infoPanelObject = Instantiate(this.infoPanelPrefab, parentTransform);
             this.infoPanelRectTransform = this.infoPanelObject.GetComponent<RectTransform>();
 
-            var assemblyComponent = this.gameObject.GetComponent<AssemblyComponentBase>();
+            var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
             var itemInfo = this.infoPanelObject.GetComponent<ItemInfoPanel>();
             itemInfo.Initialize(assemblyComponent);
         }
