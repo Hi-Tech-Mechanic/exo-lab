@@ -154,7 +154,7 @@ namespace ExoLab.Assembly
         private void FillStatRow(TextMeshProUGUI statText, KeyValuePair<string, double> statValues)
         {
             statText.text = this.GetStatText(statValues.Key, statValues.Value.ToString());
-            var classification = statText.GetComponentInParent<ClassificationItem>();
+            //var classification = statText.GetComponentInParent<ClassificationItem>();
         }
 
         private string GetStatText(string propertyName, string propertyValue)
