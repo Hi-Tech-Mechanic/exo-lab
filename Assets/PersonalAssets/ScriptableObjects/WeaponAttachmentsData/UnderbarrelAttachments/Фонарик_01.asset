@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A"
   Description: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A"
   Weight: 0.1
+  MaxStackSize: 1
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   Durability: 20

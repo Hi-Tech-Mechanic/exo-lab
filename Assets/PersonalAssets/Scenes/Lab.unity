@@ -19238,7 +19238,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 50
     distanceFadeEnd: 60
-    textureOffset: {x: 0, y: 0, z: 0}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 0
     maskMode: 0
     materialMask: {fileID: 0}
@@ -22847,6 +22847,18 @@ MonoBehaviour:
   items:
   - ItemData: {fileID: 11400000, guid: 45603ffe55c45ca44a8892c49337b8c4, type: 2}
     amount: 2
+  - ItemData: {fileID: 11400000, guid: e47103007c37f034d8b9b9c68a124b09, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: a01b332759343c84aaebf9eeae199e2b, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: db6ac288fb58969438fcfe9a0971fb3e, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: 0177ee1869bdca343aa90c118883991a, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: 443a8e45d8ed3db43abeab4e22aaf62e, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
+    amount: 1
   itemDatabase: {fileID: 0}
 --- !u!1 &1652276615
 GameObject:
