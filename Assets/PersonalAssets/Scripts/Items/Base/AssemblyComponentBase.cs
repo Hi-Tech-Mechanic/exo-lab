@@ -4,6 +4,7 @@
     using ExoLab.Data;
     using ExoLab.Helpers;
     using System.Collections.Generic;
+    using Unity.VisualScripting;
     using UnityEngine;
 
     /// <summary>
@@ -111,6 +112,38 @@
             return this.CanBeAttached(component.TypedItemData);
         }
 
+        public override Dictionary<string, object> GetAllStats()
+        {
+            var result = new Dictionary<string, object>();
+
+            result.AddRange(base.GetAllStats());
+            result.AddRange(this.GetNumericStats());
+            result[nameof(this.Material)] = this.Material;
+
+            foreach (var option in this.TypedItemData.AttachmentOptions)
+            {
+                result["Parent detail"] = option.ParentData.Name;
+            }
+
+            return result;
+        }
+
+        public override Dictionary<string, object> GetTranslatedAllStats()
+        {
+            var result = new Dictionary<string, object>();
+
+            result.AddRange(base.GetTranslatedAllStats());
+            result.AddRange(this.GetTranslatedNumericStats());
+            result["Материал"] = this.Material;
+
+            foreach (var option in this.TypedItemData.AttachmentOptions)
+            {
+                result["Родительская деталь"] = option.ParentData.Name;
+            }
+
+            return result;
+        }
+
         public override Dictionary<string, object> GetNumericStats()
         {
             var result = new Dictionary<string, object>();
@@ -133,6 +166,8 @@
 
         protected override void InitializeItemData()
         {
+            base.InitializeItemData();
+
             this.Durability = this.TypedItemData.Durability;
             this.Material = this.TypedItemData.Material;
         }
