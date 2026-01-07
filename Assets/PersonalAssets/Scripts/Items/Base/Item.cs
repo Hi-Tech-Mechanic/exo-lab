@@ -11,12 +11,7 @@
         /// <summary>
         /// Префаб объекта
         /// </summary>
-        public GameObject Prefab { get; protected set; }
+        public GameObject Prefab { get => this.TypedItemData.Prefab; }
 
-        protected override void InitializeItemData()
-        {
-            base.InitializeItemData();
-            this.Prefab = this.TypedItemData.Prefab;
-        }
     }
 }

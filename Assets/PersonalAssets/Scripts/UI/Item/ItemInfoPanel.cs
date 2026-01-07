@@ -46,8 +46,8 @@
         public void Initialize(AssemblyComponentBase assemblyComponent)
         {
             this.FillStats(assemblyComponent);
-            this.SetHeaderText(assemblyComponent.TypedItemData.Name);
-            this.SetDescriptionText(assemblyComponent.TypedItemData.Description);
+            this.SetHeaderText(assemblyComponent.Name);
+            this.SetDescriptionText(assemblyComponent.Description);
             this.SetIcon(assemblyComponent.TypedItemData.Icon);
 
             this.SetPanelSize();

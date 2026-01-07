@@ -6,11 +6,7 @@ namespace ExoLab.StructuralÑomponents.Weapon
     /// Ğóêîÿòêà
     /// </summary>
     public class Handle : WeaponComponentAbstract<HandleData>
-    {
-        protected override void InitializeItemData()
-        {
-            base.InitializeItemData();
-        }
+    {   
     }
 }
 

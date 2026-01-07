@@ -27,33 +27,39 @@ namespace ExoLab.UI
                 if (hoveredItem.tag.Equals(Constants.Constants.Tags.AssemblyZone) == false)
                     continue;
 
-                if (this.assemblyParent.activeInHierarchy == true)
+                if (this.assemblyParent.activeInHierarchy == false)
+                    continue;
+
+                if (this.TryBindComponent())
                 {
-                    this.BindComponent();
                     Destroy(this.gameObject);
                 }
             }
         }
 
         /// <summary>
-        /// Привязать компонент
+        /// Попытаться привязать компонент
         /// </summary>
-        private void BindComponent()
+        private bool TryBindComponent()
         {
-            var currentItem = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
+            var currentComponentData = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
             var targetComponentChilds = this.assemblyParent.transform.GetComponentsInChildren<AssemblyComponentBase>();
             
-            foreach (var child in targetComponentChilds)
+            foreach (var targetComponent in targetComponentChilds)
             {
-                if (currentItem == null || targetComponentChilds == null)
+                if (currentComponentData == null || targetComponentChilds == null)
                     continue;
 
-                if (currentItem.CanBeAttached(child.TypedItemData))
+                if (currentComponentData.CanBeAttached(targetComponent.TypedItemData))
                 {
-                    var trueItem = Instantiate(this.Item.Prefab, this.assemblyParent.transform);
-                    trueItem.GetComponent<AssemblyComponentBase>().AttachAnObject(child.gameObject);
+                    var currentItemObject = Instantiate(this.Item.Prefab, this.assemblyParent.transform);
+                    var newCurrentComponentData = currentItemObject.GetComponent<AssemblyComponentBase>();
+                    newCurrentComponentData.AttachAnObject(targetComponent.gameObject);
+                    return true;
                 }
             }
+
+            return false;
         }
     }
 }

@@ -23,23 +23,96 @@ namespace ExoLab
         [SerializeField]
         protected ItemData itemData;
 
+        private string? name;
+        private string? description;
+        private double? weight;
+        private int? maxStackSize;
+
         /// <summary>
         /// Типизированная информация о компоненте, содержит полную инфомацию о нём
         /// </summary>
         public T TypedItemData => (T)this.itemData;
 
-        public virtual string Name { get; protected set; }
+        public virtual string Name
+        {
+            get
+            {
+                if (this.name != null)
+                {
+                    return this.name;
+                }
 
-        public virtual string Description { get; protected set; }
+                this.name = this.TypedItemData.Name;
+                return this.name;
+            }
 
-        public virtual double Weight { get; protected set; }
+            protected set
+            {
+                this.name = value;
+            }
+        }
 
-        public virtual int MaxStackSize { get; protected set; }
+        public virtual string Description
+        {
+            get
+            {
+                if (this.description != null)
+                {
+                    return this.description;
+                }
+
+                this.description = this.TypedItemData.Description;
+                return this.description;
+            }
+
+            protected set
+            {
+                this.description = value;
+            }
+        }
+
+        public virtual double Weight
+        {
+            get
+            {
+                if (this.weight != null)
+                {
+                    return (double)this.weight;
+                }
+
+                this.weight = this.TypedItemData.Weight;
+                return (double)this.weight;
+            }
+
+            protected set
+            {
+                this.weight = value;
+            }
+        }
+
+        public virtual int MaxStackSize
+        {
+            get
+            {
+                if (this.maxStackSize != null)
+                {
+                    return (int)this.maxStackSize;
+                }
+
+                this.maxStackSize = this.TypedItemData.MaxStackSize;
+                return (int)this.maxStackSize;
+            }
+
+            protected set
+            {
+                this.maxStackSize = value;
+            }
+        }
 
         protected virtual void Start()
         {
             this.CheckItemData();
-            this.InitializeItemData();
+            //this.InitializeItemData();
         }
 
         /// <summary>
@@ -49,7 +122,7 @@ namespace ExoLab
         public void SetItemData(ItemData itemData)
         {
             this.itemData = itemData;
-            this.InitializeItemData();
+            //this.InitializeItemData();
         }
 
         /// <summary>
@@ -110,16 +183,6 @@ namespace ExoLab
             return result;
         }
 
-        /// <summary>
-        /// Инициализация полей из полученного ScriptableObject
-        /// </summary>
-        protected virtual void InitializeItemData()
-        {
-            this.Name = this.TypedItemData.Name;
-            this.Description = this.TypedItemData.Description;
-            this.Weight = this.TypedItemData.Weight;
-            this.MaxStackSize = this.TypedItemData.MaxStackSize;
-        }
 
         /// <summary>
         /// Инициализация данных предмета из ScriptableObject

@@ -17,7 +17,7 @@ namespace ExoLab.StructuralÑomponents.Suit
 
         public void GetDamage(double damage, Transform transform)
         {
-            this.Durability -= damage;
+            //this.Durability -= damage; //todo ïîäóìàòü íà ñ÷åò ìîäåëè
 
             if (parentTransform == null)
                 parentTransform = transform;

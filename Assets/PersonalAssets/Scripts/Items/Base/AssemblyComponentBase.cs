@@ -15,9 +15,28 @@
         IDurability,
         IMaterial
     {
-        public virtual double Durability { get; protected set; }
+        private double? durability;
 
-        public virtual IMaterial.MaterialType Material { get; protected set; }
+        public virtual double Durability 
+        {
+            get
+            {
+                if (this.durability != null)
+                {
+                    return (double)this.durability;
+                }
+
+                this.durability = this.TypedItemData.Durability;
+                return (double)this.durability;
+            }
+
+            protected set
+            {
+                this.durability  = value;
+            }
+        }
+
+        public virtual IMaterial.MaterialType Material { get => TypedItemData.Material; /*protected set; */}
 
         protected Vector3 AttachmentPoint { get; set; }
         protected Quaternion Rotation { get; set; }
@@ -162,14 +181,6 @@
             result["Прочность"] = this.Durability;
 
             return result;
-        }
-
-        protected override void InitializeItemData()
-        {
-            base.InitializeItemData();
-
-            this.Durability = this.TypedItemData.Durability;
-            this.Material = this.TypedItemData.Material;
         }
 
         /// <summary>

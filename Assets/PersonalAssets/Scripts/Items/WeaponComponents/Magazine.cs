@@ -9,12 +9,23 @@ namespace ExoLab.Structural—omponents.Weapon
     {
         private MagazineData magazineItemData;
 
-        public uint Bullets { get; set; }
-
-        protected override void InitializeItemData()
+        private uint? bullets;
+        public uint Bullets 
         {
-            base.InitializeItemData();
-            this.Bullets = magazineItemData.Bullets;
+            get
+            {
+                if (this.bullets != null)
+                {
+                    return (uint)this.bullets;
+                }
+
+                this.bullets = this.magazineItemData.Bullets;
+                return (uint)this.bullets;
+            }
+            set 
+            {
+                bullets = value;
+            }
         }
     }
 }
