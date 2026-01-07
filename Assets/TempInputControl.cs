@@ -73,14 +73,14 @@ namespace ExoLab.Input
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                IEnumerator c = DescroySuit();
-                StartCoroutine(c);
+                //IEnumerator c = DescroySuit();
+                //StartCoroutine(c);
                 Notifications.InvokeWarnNotify("Разрушение экзоскелета запущено", TransformDirections.RectDirection.Center);
             }
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                IEnumerator c = RepairSuit();
-                StartCoroutine(c);
+                //IEnumerator c = RepairSuit();
+                //StartCoroutine(c);
                 Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))

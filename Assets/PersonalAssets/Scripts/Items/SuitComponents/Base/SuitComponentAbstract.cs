@@ -1,7 +1,6 @@
 namespace ExoLab.StructuralСomponents.Suit
 {
     using ExoLab.Data;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public abstract class SuitComponentAbstract<T> :
@@ -11,21 +10,37 @@ namespace ExoLab.StructuralСomponents.Suit
     {
         public new T TypedItemData => (T)base.itemData;
 
-        public void GetDamage(double damage, Transform t)
-        {
-            Durability -= damage;
+        /// <summary>
+        /// Временно - родитель для выбрашенных деталей
+        /// </summary>
+        private Transform? parentTransform;
 
-            if (Durability <= 0)
+        public void GetDamage(double damage, Transform transform)
+        {
+            this.Durability -= damage;
+
+            if (parentTransform == null)
+                parentTransform = transform;
+
+            if (this.Durability <= 0)
             {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                gameObject.GetComponent<Rigidbody>().useGravity = true;
-                gameObject.transform.SetParent(t);
+                this.ShootOffPart();
             }
         }
 
         public void GetDamage(double damage)
         {
 
+        }
+
+        /// <summary>
+        /// "Отстрелить" часть
+        /// </summary>
+        private void ShootOffPart()
+        {
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            this.gameObject.transform.SetParent(this.parentTransform);
         }
     }
 }

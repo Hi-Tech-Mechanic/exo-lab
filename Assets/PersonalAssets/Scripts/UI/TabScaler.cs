@@ -66,7 +66,7 @@ namespace ExoLab.UI
 
             if (this.hoveredBackground != null)
                 this.startColor = this.hoveredBackground.color;
-            else throw new NullReferenceException($"Не назначен {nameof(this.hoveredBackground)}");
+            else throw new NullReferenceException($"[{nameof(this.Initialize)}] Не назначен {nameof(this.hoveredBackground)}");
 
 
             SetHoveredBackground();

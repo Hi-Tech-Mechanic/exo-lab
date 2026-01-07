@@ -5,8 +5,8 @@
 
     public class InterfaceCache
     {
-        private Canvas _mainCanvas;
-        private Canvas _hudCanvas;
+        private Canvas mainCanvas;
+        private Canvas hudCanvas;
 
         /// <summary>
         /// Главный холст на сцене
@@ -15,24 +15,25 @@
         {
             get
             {
-                if (this._mainCanvas == null)
+                if (this.mainCanvas == null)
                 {
-                    var gameObject = GameObject.FindWithTag(Constants.Tags.MainCanvas);
+                    var tag = Constants.Tags.MainCanvas;
+                    var gameObject = GameObject.FindWithTag(tag);
                     if (gameObject == null)
                        {
-                        Debug.LogError($"Не найден объект с тегом {Constants.Tags.MainCanvas}");
+                        Debug.LogError($"Не найден объект с тегом {tag}");
                         return null;
                     }
 
-                    this._mainCanvas = gameObject.GetComponent<Canvas>();
-                    if (this._mainCanvas == null)
+                    this.mainCanvas = gameObject.GetComponent<Canvas>();
+                    if (this.mainCanvas == null)
                     {
-                        Debug.LogError($"Объект с тегом {Constants.Tags.MainCanvas} не содержит {nameof(Canvas)}");
+                        Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
                         return null;
                     }
                 }
 
-                return this._mainCanvas;
+                return this.mainCanvas;
             }
         }
 
@@ -40,24 +41,25 @@
         {
             get
             {
-                if (this._hudCanvas == null)
+                if (this.hudCanvas == null)
                 {
-                    var gameObject = GameObject.FindWithTag(Constants.Tags.HudCanvas);
+                    var tag = Constants.Tags.HudCanvas;
+                    var gameObject = GameObject.FindWithTag(tag);
                     if (gameObject == null)
                     {
-                        Debug.LogError($"Не найден объект с тегом {Constants.Tags.HudCanvas}");
+                        Debug.LogError($"Не найден объект с тегом {tag}");
                         return null;
                     }
 
-                    this._hudCanvas = gameObject.GetComponent<Canvas>();
-                    if (this._hudCanvas == null)
+                    this.hudCanvas = gameObject.GetComponent<Canvas>();
+                    if (this.hudCanvas == null)
                     {
-                        Debug.LogError($"Объект с тегом {Constants.Tags.HudCanvas} не содержит {nameof(Canvas)}");
+                        Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
                         return null;
                     }
                 }
 
-                return this._hudCanvas;
+                return this.hudCanvas;
             }
         }
     }

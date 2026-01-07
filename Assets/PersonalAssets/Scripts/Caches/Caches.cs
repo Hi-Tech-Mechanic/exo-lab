@@ -12,22 +12,49 @@ namespace ExoLab.Data
         /// <summary>
         /// Более безопасное создание экземпляра в многопоточной среде
         /// </summary>
-        private static readonly Lazy<Caches> _instance = new Lazy<Caches>(() => new Caches());
+        private static readonly Lazy<Caches> instance = new Lazy<Caches>(() => new Caches());
+        private static readonly Lazy<AudioCache> audioInstance = new Lazy<AudioCache>(() => new AudioCache());
+        private static readonly Lazy<InterfaceCache> interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
 
-        private static readonly Lazy<AudioCache> _audioInstance = new Lazy<AudioCache>(() => new AudioCache());
-
-        private static readonly Lazy<InterfaceCache> _interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
-
-        private Camera _assemblyCamera;
+        private Camera mainCamera;
+        private Camera assemblyCamera;
 
         /// <summary>
         /// Ссылка на объект <see cref="Caches"/>
         /// </summary>
-        public static Caches Instance => _instance.Value;
+        public static Caches Instance => instance.Value;
 
-        public AudioCache Audio => _audioInstance.Value;
+        public AudioCache Audio => audioInstance.Value;
+        public InterfaceCache Interface => interfaceCache.Value;
 
-        public InterfaceCache Interface => _interfaceCache.Value;
+        /// <summary>
+        /// Основная камера
+        /// </summary>
+        public Camera MainCamera
+        {
+            get
+            {
+                if (this.mainCamera = null)
+                {
+                    var tag = Constants.Tags.MainCamera;
+                    var gameObject = GameObject.FindWithTag(tag);
+                    if (gameObject == null)
+                    {
+                        Debug.LogError($"Не найден объект с тегом {tag}");
+                        return null;
+                    }
+
+                    this.mainCamera.gameObject.GetComponent<Camera>();
+                    if (this.mainCamera == null)
+                    {
+                        Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
+                        return null;
+                    }
+                }
+
+                return this.mainCamera;
+            }
+        }
 
         /// <summary>
         /// Камера смотрящая на сборку предметов
@@ -36,24 +63,25 @@ namespace ExoLab.Data
         {
             get
             {
-                if (this._assemblyCamera == null)
+                if (this.assemblyCamera = null)
                 {
-                    var gameObject = GameObject.FindWithTag(Constants.Tags.MainCamera);
+                    var tag = Constants.Tags.AssemblyInspectCamera;
+                    var gameObject = GameObject.FindWithTag(tag);
                     if (gameObject == null)
                     {
-                        Debug.LogError($"Не найден объект с тегом {Constants.Tags.MainCamera}");
+                        Debug.LogError($"Не найден объект с тегом {tag}");
                         return null;
                     }
 
-                    this._assemblyCamera = gameObject.GetComponent<Camera>();
-                    if (this._assemblyCamera == null)
+                    this.assemblyCamera = gameObject.GetComponent<Camera>();
+                    if (this.assemblyCamera == null)
                     {
-                        Debug.LogError($"Объект с тегом {Constants.Tags.MainCamera} не содержит {nameof(Canvas)}");
+                        Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
                         return null;
                     }
                 }
 
-                return this._assemblyCamera;
+                return this.assemblyCamera;
             }
         }
 

@@ -5,10 +5,13 @@
     using ExoLab.Constants;
 
     /// <summary>
-    /// Предмет который может отображаться в слоте
+    /// Визуальная часть предмета
     /// </summary>
     public class ItemView : Item
     {
+        private const string nameIdentifier = "Txt_ItemName";
+        private const string amountIdentifier = "Txt_Amount";
+
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI amountText;
 
@@ -19,8 +22,6 @@
             base.Awake();
             this.Initialize();
 
-            this.FillName();
-            this.FillIcon();
             this.FillAmount(10); //todo временно test
         }
 
@@ -30,11 +31,11 @@
 
             foreach (var text in texts)
             {
-                if (text.name.Equals("Txt_ItemName"))
+                if (text.name.Equals(nameIdentifier))
                 {
                     this.nameText = text;
                 }
-                else if (text.name.Equals("Txt_Amount"))
+                else if (text.name.Equals(amountIdentifier))
                 {
                     this.amountText = text;
                 }
@@ -49,6 +50,9 @@
                     this.iconHolder = image;
                 }
             }
+
+            this.FillName();
+            this.FillIcon();
         }
 
         private void FillName()
