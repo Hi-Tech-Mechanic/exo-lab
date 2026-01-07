@@ -7310,6 +7310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u0420\u0443\u043A\u043E\u044F\u0442\u043A\u0430_\u043F\u043E\u0434\u0441\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F_1"
       objectReference: {fileID: 0}
+    - target: {fileID: 230409035249437753, guid: 78eafa784a144a74a96fa668749c7f92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5575255780640671321, guid: 78eafa784a144a74a96fa668749c7f92, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -12272,6 +12276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u0421\u0442\u0432\u043E\u043B"
       objectReference: {fileID: 0}
+    - target: {fileID: 9125838499462904558, guid: ae9ed86ae9d30ce44ae1892d90ceddf5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13585,6 +13593,10 @@ PrefabInstance:
     - target: {fileID: 447358193027093782, guid: db6e3596430ec394d81b6392d4d7ce1e, type: 3}
       propertyPath: m_Name
       value: "\u041B\u0430\u0437\u0435\u0440"
+      objectReference: {fileID: 0}
+    - target: {fileID: 447358193027093782, guid: db6e3596430ec394d81b6392d4d7ce1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1865464428402487662, guid: db6e3596430ec394d81b6392d4d7ce1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16663,7 +16675,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1968001648}
         m_TargetAssemblyTypeName: ExoLab.Assembly.ItemInspect, Assembly-CSharp
-        m_MethodName: ToggleInspectMode
+        m_MethodName: ResetToDefaultView
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17140,6 +17152,10 @@ PrefabInstance:
     - target: {fileID: 3114264194160026685, guid: 19ffd9c64ec74704595f28b3f152098b, type: 3}
       propertyPath: m_Name
       value: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114264194160026685, guid: 19ffd9c64ec74704595f28b3f152098b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450759726187789336, guid: 19ffd9c64ec74704595f28b3f152098b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19066,6 +19082,10 @@ PrefabInstance:
     - target: {fileID: 5670803139626572363, guid: b67a7999427496d43aea4f64c1107845, type: 3}
       propertyPath: m_Name
       value: "\u041F\u0440\u0438\u043A\u043B\u0430\u0434_1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670803139626572363, guid: b67a7999427496d43aea4f64c1107845, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22816,7 +22836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1652058501
 Transform:
   m_ObjectHideFlags: 0
@@ -22858,6 +22878,10 @@ MonoBehaviour:
   - ItemData: {fileID: 11400000, guid: 443a8e45d8ed3db43abeab4e22aaf62e, type: 2}
     amount: 1
   - ItemData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: 058482083bf01df408a68c4b798b71db, type: 2}
+    amount: 1
+  - ItemData: {fileID: 11400000, guid: 1f98ca112779fff4a9b9f2381272e4b3, type: 2}
     amount: 1
 --- !u!1 &1652276615
 GameObject:
@@ -23632,6 +23656,10 @@ PrefabInstance:
     - target: {fileID: 6670929282803556542, guid: 3d564887455e0814dac3c1bf5cac501b, type: 3}
       propertyPath: m_Name
       value: "\u0420\u0443\u043A\u043E\u044F\u0442\u043A\u0430_1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670929282803556542, guid: 3d564887455e0814dac3c1bf5cac501b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8808735497623739338, guid: 3d564887455e0814dac3c1bf5cac501b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24456,7 +24484,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 700784735}
   m_Direction: 3
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -28601,11 +28629,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3ec212a04c69b4fab376fc45a1b3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemInspect
+  inspectCamera: {fileID: 1812741088}
   rotationSpeed: 2
   zoomSpeed: 5
-  minDistance: 1
-  maxDistance: 5
-  inspectCamera: {fileID: 1812741088}
+  minCameraDistance: 1
+  maxCameraDistance: 5
 --- !u!1 &1973713850
 GameObject:
   m_ObjectHideFlags: 0

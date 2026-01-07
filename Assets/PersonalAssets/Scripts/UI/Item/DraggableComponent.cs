@@ -3,7 +3,6 @@ namespace ExoLab.UI
     using ExoLab.StructuralСomponents;
     using UnityEngine;
     using UnityEngine.EventSystems;
-    using static ExoLab.Constants.Constants;
 
     /// <summary>
     /// Надстройка над обычным <see cref="DraggableInventoryItem"/> для комплектующих

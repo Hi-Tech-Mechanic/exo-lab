@@ -10,6 +10,10 @@ namespace ExoLab.UI
     /// </summary>
     public class DraggableInventoryItem : DraggableElementAbstract
     {
+        public static Action OnDragAction;
+        public static Action OnBeginDragAction;
+        public static Action OnEndDragAction;
+
         private RectTransform currentRectTransform;
         private Transform startParent;
         private CanvasGroup canvasGroup;
@@ -37,6 +41,7 @@ namespace ExoLab.UI
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
+            OnBeginDragAction?.Invoke();
             this.canvasGroup.blocksRaycasts = false;
             this.startParent = this.transform.parent;
 
@@ -46,11 +51,13 @@ namespace ExoLab.UI
 
         public override void OnDrag(PointerEventData eventData)
         {
+            OnDragAction?.Invoke();
             this.currentRectTransform.anchoredPosition += eventData.delta / this.canvas.scaleFactor;
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
+            OnEndDragAction?.Invoke();
             this.canvasGroup.blocksRaycasts = true;
  
             // Если не присвоился в слоте то возвращаем предмет в родную лагуну

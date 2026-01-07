@@ -1,6 +1,8 @@
 namespace ExoLab.Assembly
 {
+    using DG.Tweening;
     using ExoLab.Data;
+    using ExoLab.UI;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -13,34 +15,84 @@ namespace ExoLab.Assembly
     /// </summary>
     public class ItemInspect : MonoBehaviour
     {
-        private const int maxRayCastDistance = 100;
+        private const float resetViewDuration = Timings.Millisecond_1000;
 
-        [Header("Настройки вращения")]
+        [Header("Настройки")]
+        [SerializeField] private Camera inspectCamera;
         [SerializeField] private float rotationSpeed = 2f;
         [SerializeField] private float zoomSpeed = 5f;
-        [SerializeField] private float minDistance = 1f;
-        [SerializeField] private float maxDistance = 5f;
-        [SerializeField] private Camera inspectCamera;
+        [SerializeField] private float minCameraDistance = 1f;
+        [SerializeField] private float maxCameraDistance = 5f;
 
-        private float currentDistance;
+        private float currentCameraDistance;
+        private float defaultCamaraDistance;
         private Vector3 defaultPosition;
-        //private bool isInspecting = false;
+        private Quaternion defaultRotation;
 
-        private LayerMask interactableInspectLayer;
+        private bool isInspecting = true;
 
         private GraphicRaycaster raycaster;
-        private EventSystem eventSystem = EventSystem.current;
         private PointerEventData pointerData;
+        private EventSystem eventSystem = EventSystem.current;
 
         private void Awake()
         {
             this.Initialize();
         }
 
+        private void OnEnable()
+        {
+            DraggableComponent.OnBeginDragAction += DisableInspectMode;
+            DraggableComponent.OnEndDragAction += EnableInspectMode;
+        }
+
+        private void OnDisable()
+        {
+            DraggableComponent.OnBeginDragAction -= DisableInspectMode;
+            DraggableComponent.OnEndDragAction -= EnableInspectMode;
+        }
+
+        /// <summary>
+        /// Вернуть отображение в изначальное состояние
+        /// </summary>
+        public void ResetToDefaultView()
+        {
+            this.transform.DOLocalMove(this.defaultPosition, resetViewDuration);
+            this.transform.DOLocalRotate(this.defaultRotation.eulerAngles, resetViewDuration);
+            this.inspectCamera.transform.DOLocalMoveZ(this.defaultCamaraDistance, resetViewDuration);
+        }
+
+        /// <summary>
+        /// Активировать/деактивировать режим осмотра
+        /// </summary>
+        /// <param name="inspect"></param>
+        public void ToggleInspectMode()
+        {
+            this.isInspecting = !this.isInspecting;
+        }
+
+        private void Initialize()
+        {
+            this.raycaster = Caches.Instance.Interface.MainCanvas.GetComponent<GraphicRaycaster>();
+            this.pointerData = new PointerEventData(eventSystem);
+
+            if (this.inspectCamera == null)
+            {
+                Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
+                this.enabled = false;
+                return;
+            }
+
+            this.currentCameraDistance = this.inspectCamera.transform.localPosition.z;
+            this.defaultCamaraDistance = this.currentCameraDistance;
+            this.defaultPosition = this.transform.localPosition;
+            this.defaultRotation = this.transform.localRotation;
+        }
+
         private void Update()
         {
-            //if (this.isInspecting == false)
-            //    return;
+            if (this.isInspecting == false)
+                return;
 
             if (CursorInAssemblyZone() == false)
                 return;
@@ -55,27 +107,14 @@ namespace ExoLab.Assembly
 
             this.pointerData.position = Input.mousePosition;
             this.raycaster.Raycast(this.pointerData, results);
+
+            // Если есть что-то кроме целевого объекта
+            if (results.Count > 1)
+                return false;
+
             var inZone = results.Any(target => target.gameObject.tag == Tags.AssemblyZone);
 
             return inZone;
-        }
-
-        private void Initialize()
-        {
-            this.raycaster = Caches.Instance.Interface.MainCanvas.GetComponent<GraphicRaycaster>();
-
-            // Создаем данные «указателя» в центре экрана
-            this.pointerData = new PointerEventData(eventSystem);
-
-            if (inspectCamera == null)
-            {
-                Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
-                this.enabled = false;
-                return;
-            }
-
-            this.currentDistance = this.inspectCamera.transform.localPosition.z;
-            this.defaultPosition = this.transform.position;
         }
 
         private void SetRotationWithMouse()
@@ -88,11 +127,6 @@ namespace ExoLab.Assembly
 
             this.transform.Rotate(Vector3.up, -mouseX, Space.World);
             this.transform.Rotate(Vector3.right, mouseY, Space.World);
-
-            //// Ограничение наклона (чтобы не переворачивалось)
-            //Vector3 euler = transform.eulerAngles;
-            //euler.x = Mathf.Clamp(euler.x, -60f, 60f);
-            //transform.eulerAngles = euler;
         }
 
         private void SetZoomWithMouseScroll()
@@ -101,40 +135,19 @@ namespace ExoLab.Assembly
             if (scroll == 0f)
                 return;
 
-            this.currentDistance += scroll * this.zoomSpeed;
-            this.currentDistance = Mathf.Clamp(currentDistance, -maxDistance, -minDistance);
-            this.inspectCamera.transform.localPosition = new Vector3(0, 0, this.currentDistance);
+            this.currentCameraDistance += scroll * this.zoomSpeed;
+            this.currentCameraDistance = Mathf.Clamp(this.currentCameraDistance, -this.maxCameraDistance, -this.minCameraDistance);
+            this.inspectCamera.transform.localPosition = new Vector3(0, 0, this.currentCameraDistance);
         }
 
-        /// <summary>
-        /// Активировать/деактивировать режим осмотра
-        /// </summary>
-        /// <param name="inspect"></param>
-        public void ToggleInspectMode()
+        private void DisableInspectMode()
         {
-            //this.isInspecting = !this.isInspecting;
-            //if (this.isInspecting == false)
-            //{
-            //    // Сбросить позицию и зум
-            //    //this.transform.rotation = Quaternion.identity;
-            //    //this.transform.position = defaultPosition;
-            //}
+            this.isInspecting = false;
         }
 
-        //public void OnWeaponSelected(WeaponData weapon)
-        //{
-        //    // Показать 3D-модель оружия
-        //    weaponModel.SetActive(true);
-        //    weaponModel.GetComponent<WeaponInspect>().ToggleInspectMode(true);
-
-        //    // Отключить обычный UI инвентаря (опционально)
-        //    inventoryUI.SetActive(false);
-        //}
-
-        //public void OnExitInspect()
-        //{
-        //    weaponModel.GetComponent<WeaponInspect>().ToggleInspectMode(false);
-        //    inventoryUI.SetActive(true);
-        //}
+        private void EnableInspectMode()
+        {
+            this.isInspecting = true;
+        }
     }
 }
