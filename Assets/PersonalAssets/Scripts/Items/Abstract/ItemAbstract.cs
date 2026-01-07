@@ -34,7 +34,7 @@ namespace ExoLab
 
         public virtual double Weight { get; protected set; }
 
-        public virtual int maxStackSize { get; protected set; }
+        public virtual int MaxStackSize { get; protected set; }
 
         protected virtual void Awake()
         {
@@ -54,16 +54,15 @@ namespace ExoLab
 
         /// <summary>
         /// Вернуть все характеристики предмета
+        /// Кроме Name и Description
         /// </summary>
         /// <returns>Словарь: имя свойства - значение</returns>
         public virtual Dictionary<string, object> GetAllStats()
         {
             var result = new Dictionary<string, object>();
 
-            result[nameof(this.Name)] = this.Name;
-            result[nameof(this.Description)] = this.Description;
-            result[nameof(this.maxStackSize)] = this.maxStackSize;
             result.AddRange(this.GetNumericStats());
+            result[nameof(this.MaxStackSize)] = this.MaxStackSize;
 
             return result;
         }
@@ -77,10 +76,8 @@ namespace ExoLab
         {
             var result = new Dictionary<string, object>();
 
-            result["Имя"] = this.Name;
-            result["Описание"] = this.Description;
-            result["Размер максимального стака"] = this.maxStackSize;
             result.AddRange(this.GetTranslatedNumericStats());
+            result["Размер стака"] = this.MaxStackSize;
 
             return result;
         }
@@ -121,7 +118,7 @@ namespace ExoLab
             this.Name = this.TypedItemData.Name;
             this.Description = this.TypedItemData.Description;
             this.Weight = this.TypedItemData.Weight;
-            this.maxStackSize = this.maxStackSize;
+            this.MaxStackSize = this.TypedItemData.MaxStackSize;
         }
 
         /// <summary>
