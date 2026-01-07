@@ -1,7 +1,11 @@
 namespace ExoLab.Assembly
 {
     using ExoLab.Data;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
+    using UnityEngine.EventSystems;
+    using UnityEngine.UI;
     using static ExoLab.Constants.Constants;
 
     /// <summary>
@@ -24,6 +28,10 @@ namespace ExoLab.Assembly
 
         private LayerMask interactableInspectLayer;
 
+        private GraphicRaycaster raycaster;
+        private EventSystem eventSystem = EventSystem.current;
+        private PointerEventData pointerData;
+
         private void Awake()
         {
             this.Initialize();
@@ -34,13 +42,31 @@ namespace ExoLab.Assembly
             //if (this.isInspecting == false)
             //    return;
 
-            this.SetRotationWithMouse();
+            if (CursorInAssemblyZone() == false)
+                return;
 
+            this.SetRotationWithMouse();
             this.SetZoomWithMouseScroll();
+        }
+
+        private bool CursorInAssemblyZone()
+        {
+            var results = new List<RaycastResult>();
+
+            this.pointerData.position = Input.mousePosition;
+            this.raycaster.Raycast(this.pointerData, results);
+            var inZone = results.Any(target => target.gameObject.tag == Tags.AssemblyZone);
+
+            return inZone;
         }
 
         private void Initialize()
         {
+            this.raycaster = Caches.Instance.Interface.MainCanvas.GetComponent<GraphicRaycaster>();
+
+            // Создаем данные «указателя» в центре экрана
+            this.pointerData = new PointerEventData(eventSystem);
+
             if (inspectCamera == null)
             {
                 Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
@@ -50,8 +76,6 @@ namespace ExoLab.Assembly
 
             this.currentDistance = this.inspectCamera.transform.localPosition.z;
             this.defaultPosition = this.transform.position;
-
-            interactableInspectLayer = LayerMask.GetMask(Layers.UI);
         }
 
         private void SetRotationWithMouse()
@@ -59,33 +83,11 @@ namespace ExoLab.Assembly
             if (Input.GetMouseButton(InputButtons.leftMouseButton) == false)
                 return;
 
-            Ray ray = Caches.Instance.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
+            float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
+            float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
 
-            if (Physics.Raycast(ray.origin, ray.direction, out var hit, maxRayCastDistance, this.interactableInspectLayer))
-            {
-                // hit.collider.gameObject — объект, в который попали
-                Debug.Log("Попали в: " + hit.collider.gameObject.name);
-
-                // Можно проверить тег, слой, компонент и т.д.
-                if (hit.collider.CompareTag(Tags.AssemblyZone))
-                {
-                    Debug.Log("Это враг!");
-                    // Делаем что-то с врагом
-                }
-                else if (hit.collider.CompareTag("Player"))
-                {
-                    Debug.Log("Это игрок!");
-                }
-
-                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
-                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
-
-                this.transform.Rotate(Vector3.up, -mouseX, Space.World);
-                this.transform.Rotate(Vector3.right, mouseY, Space.World);
-            }
-
-
-            // Или использовать switch/case по имени или тегу
+            this.transform.Rotate(Vector3.up, -mouseX, Space.World);
+            this.transform.Rotate(Vector3.right, mouseY, Space.World);
 
             //// Ограничение наклона (чтобы не переворачивалось)
             //Vector3 euler = transform.eulerAngles;
