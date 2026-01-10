@@ -175,14 +175,14 @@ PrefabInstance:
       addedObject: {fileID: 3352444489328374739}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 5297812969401678756}
+    - targetCorrespondingSourceObject: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8532781497050556894}
     - targetCorrespondingSourceObject: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2183501376543379498}
-    - targetCorrespondingSourceObject: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5297812969401678756}
   m_SourcePrefab: {fileID: 100100000, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
 --- !u!224 &2759754045084871275 stripped
 RectTransform:
@@ -194,6 +194,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
   m_PrefabInstance: {fileID: 4785932150732521387}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &5297812969401678756
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047992412022841835}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &8532781497050556894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,15 +232,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemInfoSummoner
   infoPanelPrefab: {fileID: 3529114107429709546, guid: 85a52535c7dd8454da5e2d2059235f6e, type: 3}
---- !u!225 &5297812969401678756
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4047992412022841835}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  floatingWindow: {fileID: 2338051919992188947, guid: e93c683100f42a343b9fbd8ae17955ca, type: 3}

@@ -10,14 +10,32 @@ namespace ExoLab.UI
     public class ItemInfoPanelSummoner : HoverableElementAbstract
     {
         [SerializeField] private GameObject infoPanelPrefab;
+        [SerializeField] private GameObject floatingWindow;
 
-        private GameObject infoPanelObject;
+        private GameObject createdInfoPanel;
         private RectTransform infoPanelRectTransform;
+
+        private Transform? _parentTransform;
+
+        /// <summary>
+        /// Родитель всех созданных панелей и окон
+        /// </summary>
+        private Transform parentTransform
+        {
+            get
+            {
+                if (this._parentTransform == null)
+                {
+                    this._parentTransform = Caches.Instance.Interface.MainCanvas.transform;
+                }
+
+                return this._parentTransform;
+            }
+        }
 
         protected override void ActionAfterClick()
         {
-            // todo Открыть окно полностью
-            return;
+            this.InvokeFloatingWindow();
         }
 
         protected override void ActionAfterPointerEnter()
@@ -28,8 +46,8 @@ namespace ExoLab.UI
 
         protected override void ActionAfterPointerExit()
         {
-            Destroy(this.infoPanelObject);
-            this.infoPanelObject = default;
+            Destroy(this.createdInfoPanel);
+            this.createdInfoPanel = default;
             this.infoPanelRectTransform = default;
         }
 
@@ -38,14 +56,26 @@ namespace ExoLab.UI
             this.UpdatePosition();
         }
 
+        /// <summary>
+        /// Вызвать инфо панель в физичном окне, например по нажатию
+        /// </summary>
+        private void InvokeFloatingWindow()
+        {
+            var window = Instantiate(this.floatingWindow, this.parentTransform);
+            var floatingWindow = window.GetComponent<FloatingWindow>();
+            var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
+
+            var windowName = $"Характеристики - [{assemblyComponent.TypedItemData.Name}]";
+            floatingWindow.InitializeWindow(this.createdInfoPanel, windowName);
+        }
+
         private void CreateItemInfoPanel()
         {
-            var parentTransform = Caches.Instance.Interface.MainCanvas.transform;
-            this.infoPanelObject = Instantiate(this.infoPanelPrefab, parentTransform);
-            this.infoPanelRectTransform = this.infoPanelObject.GetComponent<RectTransform>();
+            this.createdInfoPanel = Instantiate(this.infoPanelPrefab, this.parentTransform);
+            this.infoPanelRectTransform = this.createdInfoPanel.GetComponent<RectTransform>();
 
             var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
-            var itemInfo = this.infoPanelObject.GetComponent<ItemInfoPanel>();
+            var itemInfo = this.createdInfoPanel.GetComponent<ItemInfoPanel>();
             itemInfo.Initialize(assemblyComponent);
         }
 

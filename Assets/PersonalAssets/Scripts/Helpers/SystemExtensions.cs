@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Helpers
 {
     using System.Collections.Generic;
+    using UnityEditor.Animations;
     using UnityEngine;
 
     public static class SystemExtensions
@@ -13,6 +14,27 @@
             }
 
             return dictionary;
+        }
+
+        /// <summary>
+        /// Ищет среди всех детей объекта, даже не активных
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static GameObject? TryGetChildWithName(this GameObject gameObject, string name)
+        {
+            var childs = gameObject.transform.GetComponentsInChildren<Transform>(true);
+
+            foreach (var child in childs)
+            {
+                if (child.name == name)
+                {
+                    return child.gameObject;
+                }
+            }
+
+            return null;
         }
 
         public static GameObject? TryGetChildWithTag(this GameObject gameObject, string tag)

@@ -16,6 +16,8 @@ namespace ExoLab.Data
         private static readonly Lazy<AudioCache> audioInstance = new Lazy<AudioCache>(() => new AudioCache());
         private static readonly Lazy<InterfaceCache> interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
 
+        public Vector2 ScreenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        
         private Camera? mainCamera;
         private Camera? assemblyCamera;
         private GameObject? constructionRoot;
