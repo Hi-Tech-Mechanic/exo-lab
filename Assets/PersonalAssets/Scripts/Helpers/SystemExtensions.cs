@@ -15,9 +15,15 @@
             return dictionary;
         }
 
-        public static GameObject TryGetChildWithTag(this GameObject gameObject, string tag)
+        public static GameObject? TryGetChildWithTag(this GameObject gameObject, string tag)
         {
-            return gameObject.TryGetComponentWithTag<Transform>(tag).gameObject;
+            var result = gameObject.TryGetComponentWithTag<Transform>(tag);
+            if (result != null)
+            {
+                return gameObject.TryGetComponentWithTag<Transform>(tag).gameObject;
+            }
+
+            return null;
         }
 
         public static T TryGetComponentWithTag<T>(this GameObject gameObject, string tag)
@@ -32,7 +38,7 @@
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public static GameObject[] GetChilds(this GameObject gameObject)

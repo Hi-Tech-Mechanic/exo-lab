@@ -11,6 +11,8 @@ TagManager:
   - MainCanvas
   - AssemblyInspectCamera
   - CanvasHUD
+  - PivotPoint
+  - ConstructionRoot
   layers:
   - Default
   - TransparentFX

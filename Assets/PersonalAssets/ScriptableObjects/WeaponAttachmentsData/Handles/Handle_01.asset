@@ -22,8 +22,5 @@ MonoBehaviour:
   Material: 7
   AttachmentOptions:
   - ParentData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
-    AttachmentPoint: {x: 0, y: -0.115, z: -0.33}
+    AttachmentPoint: {x: 0, y: -0.1268, z: -0.33}
     Rotation: {x: -0, y: -0.7071065, z: -0, w: 0.7071071}
-  - ParentData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
-    AttachmentPoint: {x: 0, y: -0.104, z: -0.319}
-    Rotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
