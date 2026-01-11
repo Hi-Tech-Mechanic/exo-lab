@@ -1,5 +1,6 @@
 namespace ExoLab.UI
 {
+    using Assets.PersonalAssets.Scripts.UI.Base;
     using ExoLab.Data;
     using ExoLab.StructuralÑomponents;
     using UnityEngine;
@@ -10,7 +11,6 @@ namespace ExoLab.UI
     public class ItemInfoPanelSummoner : HoverableElementAbstract
     {
         [SerializeField] private GameObject infoPanelPrefab;
-        [SerializeField] private GameObject floatingWindow;
 
         private GameObject createdInfoPanel;
         private RectTransform infoPanelRectTransform;
@@ -61,12 +61,9 @@ namespace ExoLab.UI
         /// </summary>
         private void InvokeFloatingWindow()
         {
-            var window = Instantiate(this.floatingWindow, this.parentTransform);
-            var floatingWindow = window.GetComponent<FloatingWindow>();
             var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
-
             var windowName = $"Õàðàêòåðèñòèêè - [{assemblyComponent.TypedItemData.Name}]";
-            floatingWindow.InitializeWindow(this.createdInfoPanel, windowName);
+            FloatingWindowsController.Instance.AddWindow(this.createdInfoPanel, windowName);
         }
 
         private void CreateItemInfoPanel()

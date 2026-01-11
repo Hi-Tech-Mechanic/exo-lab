@@ -4,7 +4,6 @@ using ExoLab.Constants;
 using ExoLab.Data;
 using ExoLab.Helpers;
 using TMPro;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -42,14 +41,6 @@ public class FloatingWindow : DraggableElementAbstract, IPointerClickHandler
     /// <param name="panel">То что вставляется в окно</param>
     public void InitializeWindow(GameObject panel, string windowName)
     {
-        if (FloatingWindowsController.IsExistingWindows(windowName))
-        {
-            Destroy(this.gameObject);// todo лучше через контроллер
-            return;
-        }
-
-        FloatingWindowsController.Add(this.gameObject);
-
         var panelObject = Instantiate(panel, this.contentHolder);
         var panelRect = panelObject.GetComponent<RectTransform>();
 
@@ -93,7 +84,7 @@ public class FloatingWindow : DraggableElementAbstract, IPointerClickHandler
 
     public void CloseWindow()
     {
-        Destroy(this.gameObject);
+        FloatingWindowsController.Instance.DeleteWindow(this.gameObject);
     }
 
     public override void OnDrag(PointerEventData eventData)

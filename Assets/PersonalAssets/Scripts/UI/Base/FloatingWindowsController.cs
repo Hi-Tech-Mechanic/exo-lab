@@ -1,21 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using ExoLab.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.PersonalAssets.Scripts.UI.Base
 {
     public class FloatingWindowsController : MonoBehaviour
     {
-        private static List<FloatingWindow> windows = new List<FloatingWindow>();
+        public static FloatingWindowsController Instance;
 
-        public static void Add(GameObject window)
+        [SerializeField]
+        private GameObject windowPrefab;
+
+        private List<FloatingWindow> windows = new List<FloatingWindow>();
+        private Transform parentTransform;
+
+        private void Awake()
         {
-            var target = window.gameObject.GetComponent<FloatingWindow>();
-            windows.Add(target);
+            Instance = this;
+            this.parentTransform = Caches.Instance.Interface.MainCanvas.transform;
         }
 
-        public static bool IsExistingWindows(string name)
+        /// <summary>
+        /// Добавить окно на сцену
+        /// </summary>
+        /// <param name="content">То что будет внутри окна</param>
+        /// <param name="windowName"></param>
+        public void AddWindow(GameObject content, string windowName)
         {
-            foreach (var window in windows)
+            if (IsExistingWindows(windowName))
+                return;
+
+            var window = Instantiate(this.windowPrefab, parentTransform);
+            var floatingWindow = window.GetComponent<FloatingWindow>();
+            floatingWindow.InitializeWindow(content, windowName);
+
+            this.windows.Add(floatingWindow);
+        }
+
+        public void DeleteWindow(GameObject window)
+        {
+            var target = window.gameObject.GetComponent<FloatingWindow>();
+            Destroy(target.gameObject);
+            this.windows.Remove(target);
+        }
+
+        private bool IsExistingWindows(string name)
+        {
+            foreach (var window in this.windows)
             {
                 if (window.WindowName.Contains(name))
                 {
