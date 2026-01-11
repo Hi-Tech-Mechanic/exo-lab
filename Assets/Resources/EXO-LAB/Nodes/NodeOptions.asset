@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452b0c17f44b13d41a4f37d5b82dff59, type: 3}
+  m_Name: NodeOptions
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.NodeOption
+  WindowPrefab: {fileID: 3529114107429709546, guid: 85a52535c7dd8454da5e2d2059235f6e, type: 3}
+  BaseOffset: {x: 300, y: 150}
+  SelectedStateMaterial: {fileID: 2100000, guid: 4e6cbb1818ce788489e3a1fc788d41b2, type: 2}
+  EaseType: 15
+  AnimationDuration: 0.5
+  rotationOffsetMultiplier: {x: 1.2, y: 1.1}

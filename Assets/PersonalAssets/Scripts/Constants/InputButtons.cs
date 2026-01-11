@@ -7,8 +7,9 @@ namespace ExoLab.Constants
         /// </summary>
         public class InputButtons
         {
-            public const int leftMouseButton = 0;
-            public const string interactiveButton = "E";
+            public const int LeftMouseButton = 0;
+            public const int RightMouseButton = 1;
+            public const string InteractiveButton = "E";
         }
     }
 }

@@ -22,3 +22,14 @@ MonoBehaviour:
   Durability: 150
   Material: 0
   AttachmentOptions: []
+  CompabilityComponents:
+  - componentType: 1
+    Count: 1
+  - componentType: 0
+    Count: 1
+  - componentType: 3
+    Count: 1
+  - componentType: 2
+    Count: 2
+  - componentType: 4
+    Count: 2

@@ -35,7 +35,7 @@
         /// <returns></returns>
         protected virtual string GetKeyName()
         {
-            return Constants.Constants.InputButtons.interactiveButton;
+            return Constants.Constants.InputButtons.InteractiveButton;
         }
 
         /// <summary>

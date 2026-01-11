@@ -7,6 +7,20 @@
     {
         private Canvas mainCanvas;
         private Canvas hudCanvas;
+        private NodeOptions nodeOptions;
+
+        public NodeOptions NodeOptions
+        {
+            get
+            {
+                if (this.nodeOptions == null)
+                {
+                    this.nodeOptions = Resources.Load<NodeOptions>($"{Constants.GameResourcesPath.MainFolder}/Nodes/NodeOptions");
+                }
+
+                return this.nodeOptions;
+            }
+        }
 
         /// <summary>
         /// Главный холст на сцене

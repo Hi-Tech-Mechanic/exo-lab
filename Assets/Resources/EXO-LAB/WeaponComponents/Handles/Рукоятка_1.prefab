@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 8312094934995707016}
   - component: {fileID: 6836359018561770132}
   - component: {fileID: 3053789651037439522}
+  - component: {fileID: 8346001106582056897}
+  - component: {fileID: 8243639675584316718}
+  - component: {fileID: 6968964361584582695}
   m_Layer: 0
   m_Name: "\u0420\u0443\u043A\u043E\u044F\u0442\u043A\u0430_1"
   m_TagString: Untagged
@@ -31,8 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2116867240142850106}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &8312094934995707016
@@ -104,65 +106,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Handle
   itemData: {fileID: 11400000, guid: 058482083bf01df408a68c4b798b71db, type: 2}
---- !u!1001 &2878665132544121188
-PrefabInstance:
+--- !u!65 &8346001106582056897
+BoxCollider:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8808735497623739338}
-    m_Modifications:
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0706
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7084654116083874986, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_Name
-      value: PivotPoint
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
---- !u!4 &2116867240142850106 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-  m_PrefabInstance: {fileID: 2878665132544121188}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670929282803556542}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.14280352, y: 0.17007047, z: 0.044648252}
+  m_Center: {x: 0.011474788, y: -0.014153309, z: -0.0000062724575}
+--- !u!114 &8243639675584316718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670929282803556542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
+--- !u!114 &6968964361584582695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670929282803556542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController

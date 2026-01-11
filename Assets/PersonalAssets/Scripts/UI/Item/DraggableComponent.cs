@@ -15,17 +15,18 @@ namespace ExoLab.UI
     /// </summary>
     public class DraggableComponent : DraggableInventoryItem
     {
-        [SerializeField] private GameObject connectionPointPrefab;
-        
+        [Tooltip ("Прозрачный материал для предпросмотра")]
+        [SerializeField] private Material previewMaterial;
+
         /// <summary>
         /// Корневой узел конструкции, пустышка
         /// </summary>
         private GameObject constructionRoot;
 
         /// <summary>
-        /// Отрисованные точки крепления
+        /// Отрисованные элементы, точки крепления, модели компонентов
         /// </summary>
-        private List<GameObject> connectionPoints = new List<GameObject>();
+        private List<GameObject> visualizedElements = new List<GameObject>();
         
         private AssemblyComponentBase? cachedAssemblyComponent;
         private List<AssemblyComponentBase> cachedTargetAssemblyComponents = new List<AssemblyComponentBase>();
@@ -45,7 +46,7 @@ namespace ExoLab.UI
                 return;
 
             this.CacheFields();
-            this.DrawConnectionPoints();
+            this.DrawPreviewComponent();
         }
 
         public override void OnEndDrag(PointerEventData eventData)
@@ -91,7 +92,10 @@ namespace ExoLab.UI
             return false;
         }
 
-        private void DrawConnectionPoints()
+        /// <summary>
+        /// Отрисовать затравку присоединяемого компонента
+        /// </summary>
+        private void DrawPreviewComponent()
         {
             if (this.cachedAssemblyComponent == null || cachedTargetAssemblyComponents.Count == 0)
                 return;
@@ -102,17 +106,12 @@ namespace ExoLab.UI
                 {
                     foreach (var option in cachedAssemblyComponent.TypedItemData.AttachmentOptions)
                     {
-                        var pivotPoint = this.cachedAssemblyComponent.gameObject.TryGetChildWithTag(Constants.Tags.PivotPoint);
-                        if (pivotPoint == null)
-                        {
-                            Debug.LogError($"Не найден {nameof(Constants.Tags.PivotPoint)} у компонента");
-                            continue;
-                        }
+                        var previewModel = Instantiate(this.cachedAssemblyComponent.TypedItemData.Prefab, targetComponent.transform);
+                        previewModel.transform.localPosition = option.AttachmentPoint;
+                        var previewModelMaterial = previewModel.GetComponent<Renderer>();
+                        previewModelMaterial.material = this.previewMaterial;
 
-                        var connectionPoint = Instantiate(this.connectionPointPrefab, targetComponent.transform);
-                        var newPosition = option.AttachmentPoint + pivotPoint.transform.localPosition;
-                        connectionPoint.transform.localPosition = newPosition;
-                        connectionPoints.Add(connectionPoint);
+                        this.visualizedElements.Add(previewModel);
                     }
                 }
             }
@@ -132,12 +131,12 @@ namespace ExoLab.UI
         /// </summary>
         private void ClearCache()
         {
-            foreach (var point in this.connectionPoints)
+            foreach (var point in this.visualizedElements)
             {
                 Destroy(point);
             }
 
-            this.connectionPoints.Clear();
+            this.visualizedElements.Clear();
             this.cachedTargetAssemblyComponents.Clear();
         }
 

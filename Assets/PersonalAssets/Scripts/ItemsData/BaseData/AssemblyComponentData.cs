@@ -24,6 +24,9 @@
         [Header("Комплект данных отвечающий за привязку\nк конкретному объекту")]
         public List<AttachmentOption> AttachmentOptions;
 
+        [Header("Перечень совместимых типов компонентов и их количество")]
+        public List<CompabilityComponent> CompabilityComponents;
+
         /// <summary>
         /// Комплект данных отвечающий за привязку к конкретному объекту
         /// </summary>
@@ -31,13 +34,26 @@
         public class AttachmentOption
         {
             [Tooltip("Данные родительского объекта\n(к которому присоединение)")]
-            public ItemData ParentData;
+            public AssemblyComponentData ParentData;
 
             [Tooltip("Координаты точки крепления\nданного объекта к родительскому")]
             public Vector3 AttachmentPoint;
 
             [Tooltip("Вращение данного объекта")]
             public Quaternion Rotation;
+        }
+
+        /// <summary>
+        /// Перечень совместимых компонентов и их количество
+        /// </summary>
+        [Serializable]
+        public class CompabilityComponent //todo пока нет, не так нужно
+        {
+            [Tooltip("Тип объекта")]
+            public Constants.Constants.Components.ComponentTypes componentType;
+
+            [Tooltip("Допустимое количество данного компонента")]
+            public int Count;
         }
     }
 }

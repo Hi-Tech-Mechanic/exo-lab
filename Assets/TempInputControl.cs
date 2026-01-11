@@ -41,7 +41,7 @@ namespace ExoLab.Input
         {
             foreach (var bind in bindings)
             {
-                if (bind.Key.ToString() == Constants.InputButtons.interactiveButton) //todo
+                if (bind.Key.ToString() == Constants.InputButtons.InteractiveButton) //todo
                 {
                     this.processKey_E = bind.Value;
                 }

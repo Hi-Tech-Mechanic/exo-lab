@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.DraggableComponent
   connectionPointPrefab: {fileID: 8272604278556951836, guid: 2abcfd76c1723814b8fda73184813018, type: 3}
+  previewMaterial: {fileID: 2100000, guid: b08cad1e108e849458c9fd34745834de, type: 2}
 --- !u!114 &7267070483047411943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.ItemInfoSummoner
   infoPanelPrefab: {fileID: 3529114107429709546, guid: 85a52535c7dd8454da5e2d2059235f6e, type: 3}
-  floatingWindow: {fileID: 2338051919992188947, guid: e93c683100f42a343b9fbd8ae17955ca, type: 3}
 --- !u!1 &953758814393824414
 GameObject:
   m_ObjectHideFlags: 0

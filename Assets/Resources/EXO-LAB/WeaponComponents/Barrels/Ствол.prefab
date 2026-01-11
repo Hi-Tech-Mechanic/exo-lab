@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 3313662276023822227}
   - component: {fileID: 2945497849834984705}
   - component: {fileID: 889299528008985747}
+  - component: {fileID: 600637517362469784}
+  - component: {fileID: 1294262582570143463}
+  - component: {fileID: 1115704949515708561}
   m_Layer: 0
   m_Name: "\u0421\u0442\u0432\u043E\u043B"
   m_TagString: Untagged
@@ -31,8 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6021753417629121426}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3313662276023822227
@@ -104,65 +106,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Barrel
   itemData: {fileID: 11400000, guid: e47103007c37f034d8b9b9c68a124b09, type: 2}
---- !u!1001 &7566643247129242316
-PrefabInstance:
+--- !u!114 &600637517362469784
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5899064925113966562}
-    m_Modifications:
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7084654116083874986, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-      propertyPath: m_Name
-      value: PivotPoint
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
---- !u!4 &6021753417629121426 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4220872468546982238, guid: 38649782cc96ac447ad8b1e41a83a08f, type: 3}
-  m_PrefabInstance: {fileID: 7566643247129242316}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125838499462904558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
+--- !u!114 &1294262582570143463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125838499462904558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
+--- !u!136 &1115704949515708561
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125838499462904558}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.027849004
+  m_Height: 0.4
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
