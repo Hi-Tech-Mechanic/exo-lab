@@ -13,23 +13,23 @@ namespace ExoLab.UI
         [SerializeField] private GameObject infoPanelPrefab;
 
         private GameObject createdInfoPanel;
-        private RectTransform infoPanelRectTransform;
-
-        private Transform? _parentTransform;
+        private RectTransform? infoPanelRectTransform = null;
+        private Vector2 offsetFromCursor = new Vector2(20F, 0);
+        private RectTransform? _canvasRect;
 
         /// <summary>
         /// Родитель всех созданных панелей и окон
         /// </summary>
-        private Transform parentTransform
+        private RectTransform canvasRect
         {
             get
             {
-                if (this._parentTransform == null)
+                if (this._canvasRect == null)
                 {
-                    this._parentTransform = Caches.Instance.Interface.MainCanvas.transform;
+                    this._canvasRect = Caches.Instance.Interface.MainCanvas.GetComponent<RectTransform>();
                 }
 
-                return this._parentTransform;
+                return this._canvasRect;
             }
         }
 
@@ -41,7 +41,7 @@ namespace ExoLab.UI
         protected override void ActionAfterPointerEnter()
         {
             this.CreateItemInfoPanel();
-            this.UpdatePosition();
+            //this.UpdatePosition();
         }
 
         protected override void ActionAfterPointerExit()
@@ -53,7 +53,10 @@ namespace ExoLab.UI
 
         protected override void ActionAfterPointerMove()
         {
-            this.UpdatePosition();
+            if (infoPanelRectTransform == null)
+                return;
+
+            this.UpdatePosition2();
         }
 
         /// <summary>
@@ -68,60 +71,47 @@ namespace ExoLab.UI
 
         private void CreateItemInfoPanel()
         {
-            this.createdInfoPanel = Instantiate(this.infoPanelPrefab, this.parentTransform);
+            this.createdInfoPanel = Instantiate(this.infoPanelPrefab, this.canvasRect.transform);
             this.infoPanelRectTransform = this.createdInfoPanel.GetComponent<RectTransform>();
+            // Устанавливаем Anchor и Pivot в левый нижний угол для удобства расчетов
+            this.infoPanelRectTransform.pivot = new Vector2(0, 0);
 
             var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
             var itemInfo = this.createdInfoPanel.GetComponent<ItemInfoPanel>();
             itemInfo.Initialize(assemblyComponent);
         }
-
-        private void UpdatePosition()
+   
+        private void UpdatePosition2()
         {
-            var standardOffset_X = 10;
-            //var offset_Y = this.rectTransform.position.y - this.rectTransform.sizeDelta.y;
-            var offset = new Vector2((this.infoPanelRectTransform.sizeDelta.x / 2) + standardOffset_X, 0);
+            Vector2 mousePos = Input.mousePosition;
 
-            Canvas parentCanvas = Caches.Instance.Interface.MainCanvas;
-            RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
+            // Рассчитываем желаемую позицию со смещением
+            float targetX = mousePos.x + offsetFromCursor.x;
+            float targetY = mousePos.y + offsetFromCursor.y;
 
-            var leftOffset = new Vector2(Input.mousePosition.x - offset.x, Input.mousePosition.y - offset.y);
-            var rightOffset = new Vector2(Input.mousePosition.x + offset.x, Input.mousePosition.y - offset.y);
+            // Учитываем размеры окна, чтобы понять, влезет ли оно
+            float tooltipWidth = this.infoPanelRectTransform.rect.width * this.canvasRect.localScale.x;
+            float tooltipHeight = this.infoPanelRectTransform.rect.height * this.canvasRect.localScale.y;
 
-            if (rightOffset.x >= Screen.width && rightOffset.x >= Input.mousePosition.x && leftOffset.x < Input.mousePosition.x)
+            // Проверка правой границы: если не влезает справа, перекидываем влево от мыши
+            if (targetX + tooltipWidth > Screen.width)
             {
-                this.infoPanelRectTransform.position = leftOffset;
-            }
-            else
-            {
-                this.infoPanelRectTransform.position = rightOffset;
+                targetX = mousePos.x - tooltipWidth - offsetFromCursor.x;
             }
 
-            // Ограничиваем позицию, чтобы окно не выходило за пределы экрана
-            ClampToScreen();
-        }
+            // Проверка верхней границы: если не влезает сверху, уходим вниз
+            if (targetY + tooltipHeight > Screen.height)
+            {
+                targetY = mousePos.y - tooltipHeight - offsetFromCursor.y;
+            }
 
-        private void ClampToScreen()
-        {
-            Canvas parentCanvas = Caches.Instance.Interface.MainCanvas;
-            RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
+            // Зажим: если окно всё равно не влезает (экран слишком мал), 
+            // прижимаем его жестко к краям экрана
+            targetX = Mathf.Clamp(targetX, 0, Screen.width - tooltipWidth);
+            targetY = Mathf.Clamp(targetY, 0, Screen.height - tooltipHeight);
 
-            // Получаем размеры окна
-            Vector2 windowSize = infoPanelRectTransform.sizeDelta;
-
-            // Получаем текущую позицию
-            Vector2 anchoredPos = infoPanelRectTransform.anchoredPosition;
-
-            // Определяем границы
-            float clampedX = Mathf.Clamp(anchoredPos.x,
-                -canvasRect.sizeDelta.x / 2 + windowSize.x / 2,
-                canvasRect.sizeDelta.x / 2 - windowSize.x / 2);
-
-            float clampedY = Mathf.Clamp(anchoredPos.y,
-                -canvasRect.sizeDelta.y / 2 + windowSize.y / 2,
-                canvasRect.sizeDelta.y / 2 - windowSize.y / 2);
-
-            infoPanelRectTransform.anchoredPosition = new Vector2(clampedX, clampedY);
+            // Применяем позицию
+            this.infoPanelRectTransform.position = new Vector3(targetX, targetY, 0);
         }
     }
 }
