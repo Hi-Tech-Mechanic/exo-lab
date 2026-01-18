@@ -15,7 +15,6 @@
         
         private GameObject? currentWindow = null;
         private RectTransform windowRect;
-        private Camera assemblyCamera;
         private NodeLine line;
 
         private bool windowIsEnabled = false;
@@ -58,7 +57,7 @@
         {
             if (Input.GetMouseButtonDown(InputButtons.LeftMouseButton))
             {
-                var ray = this.assemblyCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = Caches.Instance.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
                 {
                     if (hit.transform.name == this.transform.name)
@@ -80,7 +79,6 @@
             if (this.initialized)
                 return;
 
-            this.assemblyCamera = Caches.Instance.AssemblyCamera;
             this.NodeOptions = Caches.Instance.Interface.NodeOptions;
 
             this.BaseOffset = this.NodeOptions.BaseOffset;
@@ -100,7 +98,7 @@
                 return;
 
             var worldPosition = this.transform.position;
-            Vector2 screenPoint = this.assemblyCamera.WorldToScreenPoint(worldPosition);
+            Vector2 screenPoint = Caches.Instance.AssemblyCamera.WorldToScreenPoint(worldPosition);
             var parentRect = windowRect.parent as RectTransform;
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPoint, null, out Vector2 localPoint))

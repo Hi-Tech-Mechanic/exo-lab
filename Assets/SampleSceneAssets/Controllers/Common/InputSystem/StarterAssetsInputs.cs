@@ -25,6 +25,11 @@ namespace StarterAssets
 			Instance = this;
         }
 
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            SetCursorState(cursorLocked);
+        }
+
         public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
@@ -78,11 +83,6 @@ namespace StarterAssets
         {
             this.SetCursorState(!this.cursorLocked);
         }
-
-        private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
-		}
 
 		private void SetCursorState(bool newState)
 		{
