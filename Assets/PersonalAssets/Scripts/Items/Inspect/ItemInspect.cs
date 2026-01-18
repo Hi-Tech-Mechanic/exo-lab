@@ -24,6 +24,8 @@ namespace ExoLab.Assembly
         [SerializeField] private float zoomSpeed = 5f;
         [SerializeField] private float minCameraDistance = 1f;
         [SerializeField] private float maxCameraDistance = 5f;
+        [SerializeField] private bool rotateByCoordinate_X = true;
+        [SerializeField] private bool rotateByCoordinate_Y = true;
 
         private float currentCameraDistance;
         private Quaternion defaultRotation;
@@ -130,11 +132,16 @@ namespace ExoLab.Assembly
             if (mouseLeftClicked == false && mouseRightClicked == false)
                 return;
 
-            float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
-            float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
-
-            this.transform.Rotate(Vector3.up, -mouseX, Space.World);
-            this.transform.Rotate(Vector3.right, mouseY, Space.World);
+            if (this.rotateByCoordinate_X)
+            {
+                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
+                this.transform.Rotate(Vector3.up, -mouseX, Space.World);
+            }
+            if (this.rotateByCoordinate_Y)
+            {
+                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
+                this.transform.Rotate(Vector3.right, mouseY, Space.World);
+            }
 
             this.OnRotationChanged?.Invoke(this.transform.rotation);
         }
