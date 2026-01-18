@@ -16626,10 +16626,7 @@ MonoBehaviour:
   - {fileID: 442976052}
   - {fileID: 1632108005}
   - {fileID: 1905307802}
-  t: {fileID: 880644581}
   AssemblyParent: {fileID: 1812741084}
-  targetPosition: []
-  targetEulerAngles: []
   inventory: {fileID: 870147168}
   stats: {fileID: 1768049881}
 --- !u!1001 &1354225906
@@ -26751,10 +26748,10 @@ RectTransform:
   - {fileID: 1195997484}
   m_Father: {fileID: 125725517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.314, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1454.8, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1001 &1944048518
 PrefabInstance:
