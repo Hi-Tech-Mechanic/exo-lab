@@ -2,6 +2,7 @@ namespace ExoLab.Assembly
 {
     using DG.Tweening;
     using ExoLab.Data;
+    using ExoLab.Interaction;
     using ExoLab.UI;
     using System;
     using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace ExoLab.Assembly
         private Vector3 defaultPosition;
 
         private bool isInspecting = true;
+        private bool rotationIsBlocked = false;
 
         private GraphicRaycaster raycaster;
         private PointerEventData pointerData;
@@ -51,12 +53,14 @@ namespace ExoLab.Assembly
         {
             DraggableInventoryItem.OnBeginDragAction += this.DisableInspectMode;
             DraggableInventoryItem.OnEndDragAction += this.EnableInspectMode;
+            InteractiveIKController.OnItemInspectRotationBlock += this.SetRotationBlockState;
         }
 
         private void OnDisable()
         {
             DraggableInventoryItem.OnBeginDragAction -= this.DisableInspectMode;
             DraggableInventoryItem.OnEndDragAction -= this.EnableInspectMode;
+            InteractiveIKController.OnItemInspectRotationBlock -= this.SetRotationBlockState;
         }
 
         private void Update()
@@ -129,6 +133,10 @@ namespace ExoLab.Assembly
             var mouseLeftClicked = Input.GetMouseButton(InputButtons.LeftMouseButton);
             var mouseRightClicked = Input.GetMouseButton(InputButtons.RightMouseButton);
 
+            // Разрешаем вращать правой кнопкой мышки, даже если блокировка вращения включена
+            if (this.rotationIsBlocked && mouseRightClicked == false)
+                return;
+
             if (mouseLeftClicked == false && mouseRightClicked == false)
                 return;
 
@@ -167,6 +175,11 @@ namespace ExoLab.Assembly
         private void EnableInspectMode()
         {
             this.isInspecting = true;
+        }
+
+        private void SetRotationBlockState(bool value) 
+        {
+            this.rotationIsBlocked = value;
         }
     }
 }

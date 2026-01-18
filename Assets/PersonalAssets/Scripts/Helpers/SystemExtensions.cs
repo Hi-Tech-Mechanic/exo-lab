@@ -75,11 +75,16 @@
             return childs.ToArray();
         }
 
+        public static void AddRange<T>(this List<T> list, List<T> additionalObjects)
+        {
+            list.AddRange(additionalObjects.ToArray());
+        }
+
         public static void RemoveRange<T>(this List<T> list, List<T> removableObjects)
         {
             list.RemoveRange(removableObjects.ToArray());
         }
-
+    
         public static void RemoveRange<T>(this List<T> list, T[] removableObjects)
         {
             foreach (var targetObject in removableObjects)

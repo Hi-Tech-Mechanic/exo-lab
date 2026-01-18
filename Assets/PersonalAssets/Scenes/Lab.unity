@@ -482,6 +482,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7273677010227939507, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
   m_PrefabInstance: {fileID: 961322802}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &36092517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36092518}
+  - component: {fileID: 36092520}
+  - component: {fileID: 36092519}
+  m_Layer: 6
+  m_Name: Handle_Left_UpperArm_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &36092518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36092517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.026415791, y: -0.00000003076705, z: 0.00000023736966, w: 0.999651}
+  m_LocalPosition: {x: -0.017, y: 0.041, z: -0.015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1435743473}
+  m_LocalEulerAnglesHint: {x: 3.027, y: 0, z: 0}
+--- !u!114 &36092519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36092517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 1435743473}
+--- !u!136 &36092520
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36092517}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.31
+  m_Direction: 1
+  m_Center: {x: 0.018983709, y: 0.0974374, z: 0}
 --- !u!1 &40088445
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +649,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -1860,6 +1933,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2101229560}
   - {fileID: 1354597471}
   m_Father: {fileID: 732009352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2425,7 +2499,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1968001648}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ExoLab.Assembly.ItemInspect, Assembly-CSharp
         m_MethodName: ToggleInspectMode
         m_Mode: 1
@@ -4757,7 +4831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 346969033}
   - component: {fileID: 346969039}
-  - component: {fileID: 346969038}
+  - component: {fileID: 346969040}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -4782,31 +4856,6 @@ Transform:
   - {fileID: 1865050280}
   m_Father: {fileID: 1719934082}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!143 &346969038
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346969032}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.8
-  m_Radius: 0.28
-  m_SlopeLimit: 45
-  m_StepOffset: 0.25
-  m_SkinWidth: 0.02
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!95 &346969039
 Animator:
   serializedVersion: 7
@@ -4820,15 +4869,48 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 1
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &346969040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346969032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf207fab9f9ea84890bb088025d976a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InteractiveIKController
+  bodyPartLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  selfCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  smoothSpeed: 3
+  blendOutTime: 0.3
+  blendInTime: 0.2
+  armLimits:
+    upperTwist: {x: -90, y: 90}
+    upperSwingY: {x: -45, y: 45}
+    upperSwingZ: {x: -60, y: 80}
+    lowerBend: {x: 0, y: 160}
+    lowerTwist: {x: 0, y: 0}
+  legLimits:
+    upperTwist: {x: -30, y: 30}
+    upperSwingY: {x: -30, y: 30}
+    upperSwingZ: {x: -120, y: 45}
+    lowerBend: {x: 0, y: 150}
+    lowerTwist: {x: -10, y: 10}
 --- !u!1 &357477846
 GameObject:
   m_ObjectHideFlags: 0
@@ -5954,6 +6036,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4996499045066214462, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
   m_PrefabInstance: {fileID: 424002116}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &429230866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 429230867}
+  - component: {fileID: 429230869}
+  - component: {fileID: 429230868}
+  m_Layer: 6
+  m_Name: Handle_RightUpperLeg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &429230867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429230866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 2.3283067e-10, y: -0.000060778828, z: -0.011652644, w: 0.9999321}
+  m_LocalPosition: {x: -0.006, y: -0.178, z: -0.033}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 916334945}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.007, z: -1.335}
+--- !u!114 &429230868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429230866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 916334945}
+--- !u!136 &429230869
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429230866}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.48478687
+  m_Direction: 1
+  m_Center: {x: 0.018983705, y: -0.003795594, z: 2.722248e-13}
 --- !u!1 &429663602
 GameObject:
   m_ObjectHideFlags: 0
@@ -6996,6 +7147,7 @@ Transform:
   - {fileID: 1162937243}
   - {fileID: 1684552866}
   - {fileID: 626526959}
+  - {fileID: 1239309540}
   m_Father: {fileID: 753260448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &498954760
@@ -7080,6 +7232,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2659282029025045299, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
   m_PrefabInstance: {fileID: 498954760}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &526450059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526450060}
+  - component: {fileID: 526450061}
+  - component: {fileID: 526450062}
+  m_Layer: 6
+  m_Name: Handle_Left_UpperArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526450060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526450059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.005, y: 0.004, z: -0.001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1147621599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &526450061
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526450059}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.31487465
+  m_Direction: 1
+  m_Center: {x: 0.018983709, y: 0.0974374, z: 0}
+--- !u!114 &526450062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526450059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 1147621599}
 --- !u!1001 &531975315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7841,6 +8062,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1551276565}
   - {fileID: 413912626}
   m_Father: {fileID: 916334945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7855,6 +8077,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -8034,6 +8260,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -8861,6 +9091,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1924324879}
   - {fileID: 491804434}
   - {fileID: 1164486305}
   - {fileID: 59003790}
@@ -11628,6 +11859,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 429230867}
   - {fileID: 615295455}
   m_Father: {fileID: 1893552499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14725,6 +14957,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AverageArmorPlate_2
       objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
       value: 
@@ -15980,6 +16216,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 526450060}
   - {fileID: 1435743473}
   - {fileID: 1763671395}
   - {fileID: 1575406480}
@@ -16946,6 +17183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AverageArmorPlate
       objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
       value: 
@@ -17027,6 +17268,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -17165,6 +17410,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -17328,7 +17577,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1968001648}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ExoLab.Assembly.ItemInspect, Assembly-CSharp
         m_MethodName: ResetToDefaultView
         m_Mode: 1
@@ -17689,6 +17938,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2659282029025045299, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
   m_PrefabInstance: {fileID: 1233165467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1239309539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239309540}
+  - component: {fileID: 1239309542}
+  - component: {fileID: 1239309541}
+  m_Layer: 6
+  m_Name: Handle_LeftLowerLeg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1239309540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239309539}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.99913585, y: 0.023835745, z: -0.0009364744, w: -0.034036357}
+  m_LocalPosition: {x: -0.016, y: 0.241, z: 0.014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 491804434}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.007, z: -1.335}
+--- !u!114 &1239309541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239309539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 491804434}
+--- !u!136 &1239309542
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239309539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Height: 0.42757264
+  m_Direction: 1
+  m_Center: {x: 0.018983707, y: 0.024811521, z: 4.1935004e-11}
 --- !u!1001 &1251089162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18256,6 +18574,61 @@ Transform:
   - {fileID: 1584485942}
   m_Father: {fileID: 983747881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1306225933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1306225934}
+  - component: {fileID: 1306225937}
+  m_Layer: 6
+  m_Name: ChestColider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1306225934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306225933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1973004409}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1306225937
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306225933}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12
+  m_Height: 0.82
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1324923230
 GameObject:
   m_ObjectHideFlags: 0
@@ -18655,6 +19028,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 69839377}
+  - {fileID: 1714077472}
   m_Father: {fileID: 130467291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1360683037
@@ -19225,6 +19599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AverageArmorPlate_1
       objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
       value: 
@@ -19639,6 +20017,7 @@ Transform:
   - {fileID: 1423068931}
   - {fileID: 1065566671}
   - {fileID: 1845616418}
+  - {fileID: 36092518}
   m_Father: {fileID: 1147621599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1441019160
@@ -21006,6 +21385,75 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!1 &1551276564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1551276565}
+  - component: {fileID: 1551276567}
+  - component: {fileID: 1551276566}
+  m_Layer: 6
+  m_Name: Handle_RightLowerLeg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1551276565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551276564}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.034043755, y: -0.00045747028, z: -0.0116438195, w: 0.99935246}
+  m_LocalPosition: {x: -0.017, y: -0.24, z: -0.014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 615295455}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.007, z: -1.335}
+--- !u!114 &1551276566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551276564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 615295455}
+--- !u!136 &1551276567
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551276564}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Height: 0.42757264
+  m_Direction: 1
+  m_Center: {x: 0.018983707, y: 0.024811521, z: 4.1935004e-11}
 --- !u!1001 &1561531179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21099,6 +21547,14 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -24654,6 +25110,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AverageArmorPlate_2
       objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
       value: 
@@ -25405,6 +25865,75 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1714077471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714077472}
+  - component: {fileID: 1714077475}
+  - component: {fileID: 1714077474}
+  m_Layer: 6
+  m_Name: Handle_Right_LowerArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1714077472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714077471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0060525825, y: 0.000000023242302, z: 0.000000022759096, w: 0.9999817}
+  m_LocalPosition: {x: -0, y: -0.127, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1354597471}
+  m_LocalEulerAnglesHint: {x: 0.694, y: 0, z: 0}
+--- !u!114 &1714077474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714077471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 1354597471}
+--- !u!136 &1714077475
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714077471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.31
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1719488526
 GameObject:
   m_ObjectHideFlags: 0
@@ -25528,7 +26057,7 @@ MonoBehaviour:
   inspectCamera: {fileID: 1812741088}
   rotationSpeed: 2
   zoomSpeed: 5
-  minCameraDistance: 1
+  minCameraDistance: 0.8
   maxCameraDistance: 5
   rotateByCoordinate_X: 1
   rotateByCoordinate_Y: 0
@@ -25903,6 +26432,14 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -26521,7 +27058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -0.00036621094}
+  m_AnchoredPosition: {x: 0.000061035156, y: -0.00024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1799442712
@@ -28139,6 +28676,10 @@ PrefabInstance:
     - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: m_Name
       value: AverageArmorPlate_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1028724096243888419, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: ItemData
@@ -29894,6 +30435,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1086288951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1924324878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924324879}
+  - component: {fileID: 1924324881}
+  - component: {fileID: 1924324880}
+  m_Layer: 6
+  m_Name: Handle_LeftUpperLeg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1924324879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924324878}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.9997155, y: 0.023853814, z: -0.00012441832, w: 0.000000017925885}
+  m_LocalPosition: {x: -0.054, y: 0.18, z: 0.033}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 753260448}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.007, z: -1.335}
+--- !u!114 &1924324880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924324878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 753260448}
+--- !u!136 &1924324881
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924324878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.48478687
+  m_Direction: 1
+  m_Center: {x: 0.018983705, y: -0.003795594, z: 2.722248e-13}
 --- !u!1 &1924871438
 GameObject:
   m_ObjectHideFlags: 0
@@ -30218,21 +30828,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1968001646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3ec212a04c69b4fab376fc45a1b3b2, type: 3}
+  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemInspect
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
   inspectCamera: {fileID: 1812741088}
   rotationSpeed: 2
   zoomSpeed: 5
   minCameraDistance: 1
   maxCameraDistance: 5
-  currentCameraDistance: 0
-  defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  defaultPosition: {x: 0, y: 0, z: 0}
-  isInspecting: 1
-  raycaster: {fileID: 0}
-  eventSystem: {fileID: 0}
-  <DefaultCameraDistance>k__BackingField: 0
+  rotateByCoordinate_X: 1
+  rotateByCoordinate_Y: 1
 --- !u!1 &1973004408
 GameObject:
   m_ObjectHideFlags: 0
@@ -30262,6 +30867,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1306225934}
   - {fileID: 1038462721}
   m_Father: {fileID: 185001910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31896,6 +32502,75 @@ Transform:
   - {fileID: 1945002571}
   m_Father: {fileID: 2120564254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2101229559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2101229560}
+  - component: {fileID: 2101229563}
+  - component: {fileID: 2101229562}
+  m_Layer: 6
+  m_Name: Handle_Right_UpperArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2101229560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101229559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.99053884, y: 0.0052159904, z: -0.13713382, w: -0.000000005587936}
+  m_LocalPosition: {x: -0.028, y: -0.024, z: 0.005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 130467291}
+  m_LocalEulerAnglesHint: {x: 179.918, y: 15.764008, z: -0.59198}
+--- !u!114 &2101229562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101229559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00a96ff7e9b9fe43a53965d76a6aea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.BodyPartHandle
+  bone: {fileID: 130467291}
+--- !u!136 &2101229563
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101229559}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Height: 0.31487465
+  m_Direction: 1
+  m_Center: {x: 0.018983709, y: 0.0974374, z: 0}
 --- !u!1 &2103521230
 GameObject:
   m_ObjectHideFlags: 0
