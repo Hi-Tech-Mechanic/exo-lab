@@ -25,8 +25,11 @@ namespace ExoLab.Assembly
         [SerializeField] private float zoomSpeed = 5f;
         [SerializeField] private float minCameraDistance = 1f;
         [SerializeField] private float maxCameraDistance = 5f;
+        [SerializeField] private bool zoomEnabled = true;
         [SerializeField] private bool rotateByCoordinate_X = true;
         [SerializeField] private bool rotateByCoordinate_Y = true;
+        [Tooltip("Режим поиска сталкиваемых объектов, через Physics.Raycast или GraphicRaycaster")]
+        [SerializeField] private bool useGraphicRaycaster = true;
 
         private float currentCameraDistance;
         private Quaternion defaultRotation;
@@ -114,18 +117,33 @@ namespace ExoLab.Assembly
 
         private bool CursorInAssemblyZone()
         {
-            var results = new List<RaycastResult>();
+            if (this.useGraphicRaycaster)
+            {
+                var results = new List<RaycastResult>();
 
-            this.pointerData.position = Input.mousePosition;
-            this.raycaster.Raycast(this.pointerData, results);
+                this.pointerData.position = Input.mousePosition;
+                this.raycaster.Raycast(this.pointerData, results);
 
-            // Если есть что-то кроме целевого объекта
-            if (results.Count > 1)
-                return false;
+                // Если есть что-то кроме целевого объекта или вообще нет
+                if (results.Count == 0 || results.Count > 1)
+                    return false;
 
-            var inZone = results.Any(target => target.gameObject.tag == Tags.AssemblyZone);
+                var inZone = results.Any(target => target.gameObject.tag == Tags.AssemblyZone);
 
-            return inZone;
+                return inZone;
+            }
+            else
+            {
+                var ray = this.inspectCamera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hit) == false)
+                    return false;
+
+                if (hit.collider.gameObject.tag == Tags.AssemblyZone)
+                    return true;
+            }
+
+            return false;
         }
 
         private void SetRotationWithMouse()
@@ -156,6 +174,9 @@ namespace ExoLab.Assembly
 
         private void SetZoomWithMouseScroll()
         {
+            if (this.zoomEnabled == false)
+                return;
+
             float scroll = Input.GetAxis(InputAxes.MouseScrollWheel);
             if (scroll == 0f)
                 return;

@@ -3,8 +3,6 @@ namespace ExoLab.Input
     using DG.Tweening;
     using ExoLab;
     using ExoLab.Constants;
-    using ExoLab.Data;
-    using ExoLab.StructuralÑomponents.Suit;
     using StarterAssets;
     using System;
     using System.Collections;
@@ -18,7 +16,10 @@ namespace ExoLab.Input
 
         [SerializeField] private List<Transform> suitComponents;
 
-        [SerializeField] private GameObject AssemblyParent;
+        [SerializeField] private GameObject assemblyMenu;
+        [SerializeField] private GameObject assemblyProps;
+
+        [SerializeField] private GameObject menu;
 
         private List<Vector3> targetPosition = new();
         private List<Quaternion> targetEulerAngles = new();
@@ -30,10 +31,41 @@ namespace ExoLab.Input
         private delegate void ProcessKey_E();
         private Delegate processKey_E;
 
+        private Camera lastEnabledCamera;
+
+        private bool assemblyMode = false;
+        private bool AssemblyMode
+        {
+            get => assemblyMode;
+            set
+            {
+                lastEnabledCamera = _cameraBack.gameObject.activeInHierarchy ? _cameraBack : _cameraForward;
+
+                if (value == true)
+                {
+                    this.menu.gameObject.SetActive(false);
+                    this.transform.GetChild(0).gameObject.SetActive(false);
+
+                    assemblyMenu.SetActive(true);
+                    assemblyProps.SetActive(true);
+
+                    lastEnabledCamera.gameObject.SetActive(false);
+                }
+                else
+                {
+                    this.menu.gameObject.SetActive(false);
+                    this.transform.GetChild(0).gameObject.SetActive(true);
+
+                    assemblyMenu.SetActive(false);
+                    assemblyProps.SetActive(false);
+
+                    lastEnabledCamera.gameObject.SetActive(true);
+                }
+            }
+        }
+
         private void Awake()
         {
-            UpdateKeyBindings();
-
             foreach (var e in suitComponents)
             {
                 targetPosition.Add(e.transform.localPosition);
@@ -54,23 +86,19 @@ namespace ExoLab.Input
             }
         }
 
-        private void UpdateKeyBindings()
+        private void AssemblyModeToggle()
         {
-            this.processKey_E = InteractiveObject.Instance.keypressDelegate;
+            this.AssemblyMode = !this.AssemblyMode;
         }
 
-        private void DelegateProcess(ProcessKey_E keypressDelegate)
-        {
-            keypressDelegate(); 
-        }
 
         // Update is called once per frame
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                this.transform.GetChild(0).gameObject.SetActive(true);
-                AssemblyParent.SetActive(false);
+                AssemblyMode = false;
+
                 _cameraBack.gameObject.SetActive(true);
                 _cameraForward.gameObject.SetActive(false);
             }
@@ -79,8 +107,18 @@ namespace ExoLab.Input
                 if (_cameraBack.gameObject.activeInHierarchy == false)
                     return;
 
+                AssemblyMode = false;
+                
                 _cameraBack.gameObject.SetActive(false);
                 _cameraForward.gameObject.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                inventory.SetActive(!inventory.activeInHierarchy);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                stats.SetActive(!stats.activeInHierarchy);
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
@@ -94,18 +132,14 @@ namespace ExoLab.Input
                 StartCoroutine(c);
                 Notifications.InvokeStandardNotify("Ðåãåíåðàöèÿ ýêçîñêåëåòà çàïóùåíà", TransformDirections.RectDirection.TopCenter);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                inventory.SetActive(!inventory.activeInHierarchy);
+                this.AssemblyModeToggle();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                stats.SetActive(!stats.activeInHierarchy);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                this.transform.GetChild(0).gameObject.SetActive(false);
-                AssemblyParent.SetActive(true);
+                AssemblyMode = false;
+                this.menu.gameObject.SetActive(!menu.activeInHierarchy);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
