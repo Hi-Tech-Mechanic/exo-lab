@@ -11,7 +11,8 @@
     [RequireComponent (typeof(NodeInfoPopup))]
     public class NodeLayoutController : MonoBehaviour
     {
-        private ItemInspect itemInspector;
+        // todo временно открыл
+        [SerializeField] private ItemInspect itemInspector;
         private NodeInfoPopup nodeSelector;
 
         private Tweener offsetTween;
@@ -26,11 +27,15 @@
 
         private void Awake()
         {
-            var itemInspector = GameObject.FindWithTag(Constants.Constants.Tags.ConstructionRoot);
             if (itemInspector == null)
-                throw new NullReferenceException($"[{nameof(this.Awake)}] Не найден {Constants.Constants.Tags.ConstructionRoot}");
+            {
+                var itemInspectorLocal = GameObject.FindWithTag(Constants.Constants.Tags.ConstructionRoot);
+                if (itemInspectorLocal == null)
+                    throw new NullReferenceException($"[{nameof(this.Awake)}] Не найден {Constants.Constants.Tags.ConstructionRoot}");
 
-            this.itemInspector = itemInspector.GetComponent<ItemInspect>(); // this.transform.parent.GetComponentInParent<ItemInspect>();
+                this.itemInspector = itemInspectorLocal.GetComponent<ItemInspect>(); // this.transform.parent.GetComponentInParent<ItemInspect>();
+            }
+
             this.nodeSelector = this.GetComponent<NodeInfoPopup>();
             this.nodeSelector.InitializeComponents();
 
