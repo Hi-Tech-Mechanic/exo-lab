@@ -8,6 +8,7 @@
     /// <summary>
     /// Отрисовщик ноды характеристик с указателем линии безье на выделенный объект
     /// </summary>
+    [RequireComponent(typeof(NodeLayoutController))]
     public class NodeInfoPopup : MonoBehaviour
     {
         private Vector2 currentOffset;
