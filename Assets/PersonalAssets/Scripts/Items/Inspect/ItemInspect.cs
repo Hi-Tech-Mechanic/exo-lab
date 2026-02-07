@@ -46,6 +46,7 @@ namespace ExoLab.Assembly
 
         public event Action<Quaternion> OnRotationChanged;
         public event Action<float> OnZoomChanged;
+        public event Action OnCameraPositionChanged;
 
         private void Awake()
         {
@@ -76,6 +77,7 @@ namespace ExoLab.Assembly
 
             this.SetRotationWithMouse();
             this.SetZoomWithMouseScroll();
+            this.SetCameraPosition();
         }
 
         /// <summary>
@@ -183,9 +185,26 @@ namespace ExoLab.Assembly
 
             this.currentCameraDistance += scroll * this.zoomSpeed;
             this.currentCameraDistance = Mathf.Clamp(this.currentCameraDistance, -this.maxCameraDistance, -this.minCameraDistance);
-            this.inspectCamera.transform.localPosition = new Vector3(0, 0, this.currentCameraDistance);
+            this.inspectCamera.transform.localPosition = new Vector3(this.inspectCamera.transform.localPosition.x, this.inspectCamera.transform.localPosition.y, this.currentCameraDistance);
 
             this.OnZoomChanged?.Invoke(this.currentCameraDistance);
+        }
+
+        private void SetCameraPosition()
+        {
+            var mouseWheelClicked =  Input.GetMouseButton(InputButtons.MiddleMouseButton);
+            if (mouseWheelClicked == false)
+                return;
+
+            var position = this.inspectCamera.transform.position;
+
+            float mouseX = Input.GetAxis(InputAxes.MouseX);
+            float mouseY = Input.GetAxis(InputAxes.MouseY);
+
+            var targetPosition = new Vector3(-mouseX, -mouseY, position.z);
+            this.inspectCamera.transform.localPosition = Vector3.Lerp(this.inspectCamera.transform.localPosition, targetPosition, 0.02f);
+
+            this.OnCameraPositionChanged?.Invoke();
         }
 
         private void DisableInspectMode()

@@ -8,7 +8,7 @@
     using UnityEngine;
 
     /// <summary>
-    /// Абстракция сборочного компонента (оружия или брони) с минимальным необходимым набором свойств
+    /// Абстракция сборочного компонента (оружия, брони и тд.) с минимальным необходимым набором свойств
     /// </summary>
     public class AssemblyComponentBase : ItemAbstract<AssemblyComponentData>,
         IAssemblyComponent,

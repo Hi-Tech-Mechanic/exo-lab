@@ -9,6 +9,7 @@ namespace ExoLab.Constants
         {
             public const int LeftMouseButton = 0;
             public const int RightMouseButton = 1;
+            public const int MiddleMouseButton = 2;
             public const string InteractiveButton = "E";
         }
     }

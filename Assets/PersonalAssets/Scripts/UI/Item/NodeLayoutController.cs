@@ -47,12 +47,14 @@
         {
             this.itemInspector.OnRotationChanged += this.HandleRotationUpdate;
             this.itemInspector.OnZoomChanged += this.HandleZoomUpdate;
+            this.itemInspector.OnCameraPositionChanged += this.HandleCameraChangeUpdate;
         }
 
         private void OnDisable()
         {
             this.itemInspector.OnRotationChanged -= this.HandleRotationUpdate;
             this.itemInspector.OnZoomChanged -= this.HandleZoomUpdate;
+            this.itemInspector.OnCameraPositionChanged -= this.HandleCameraChangeUpdate;
         }
 
         private void HandleRotationUpdate(Quaternion rotation)
@@ -64,9 +66,14 @@
         private void HandleZoomUpdate(float currentZ)
         {
             this.currentZoomFactor = this.itemInspector.DefaultCameraDistance / currentZ;
-            // Ограничиваем, чтобы окно не стало микроскопическим или огромным
+            // Ограничиваем, чтобы окно не стало микроскопическим или огромным // todo задать экстремумы
             this.currentZoomFactor = Mathf.Clamp(this.currentZoomFactor, 0.5f, 1f);
 
+            this.UpdateWindowTransform();
+        }
+
+        private void HandleCameraChangeUpdate()
+        {
             this.UpdateWindowTransform();
         }
 

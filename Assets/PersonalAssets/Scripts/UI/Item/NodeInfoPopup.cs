@@ -68,6 +68,9 @@
                     }
                     else
                     {
+                        if (windowIsEnabled == false)
+                            return;
+
                         this.PaintUnselectedObject();
                         this.CloseWindow();
                     }
