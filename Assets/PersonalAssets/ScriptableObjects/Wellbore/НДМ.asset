@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d7dc86325e8a44e86a3875c9421f77, type: 3}
+  m_Name: "\u041D\u0414\u041C"
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.WellboreComponentItemData
+  Name: "\u041D\u0414\u041C"
+  Description: 
+  Weight: 40
+  MaxStackSize: 1
+  Icon: {fileID: 21300000, guid: 8d5457e090b448e49bffb4b4032e5166, type: 3}
+  Prefab: {fileID: 6176351353071607959, guid: 21b11f579a05fdc4abe917d4cfd34159, type: 3}
+  Durability: 400
+  Material: 0
+  AttachmentOptions:
+  - ParentData: {fileID: 11400000, guid: f54ad09aaeb89424caad94f9844b8bed, type: 2}
+    AttachmentPoint: {x: 0, y: -0, z: -0.742}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+  CompabilityComponents: []
+  MaxRotationSpeed: 1200
+  MaxTemperature: 350
