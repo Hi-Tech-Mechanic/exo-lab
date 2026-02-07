@@ -2,6 +2,7 @@ namespace ExoLab.UI
 {
     using ExoLab.Data;
     using ExoLab.Helpers;
+    using ExoLab.Interaction;
     using ExoLab.StructuralСomponents;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,8 +16,13 @@ namespace ExoLab.UI
     /// </summary>
     public class DraggableComponent : DraggableInventoryItem
     {
-        [Tooltip ("Прозрачный материал для предпросмотра")]
+        [Tooltip ("Материал для предпросмотра соединяемого компонента")]
         [SerializeField] private Material previewMaterial;
+
+        /// <summary>
+        /// Первоначальный материал компонента
+        /// </summary>
+        private Material startMaterial;
 
         /// <summary>
         /// Корневой узел конструкции, пустышка
@@ -28,8 +34,14 @@ namespace ExoLab.UI
         /// </summary>
         private List<GameObject> visualizedElements = new List<GameObject>();
         
-        private AssemblyComponentBase? cachedAssemblyComponent;
-        private List<AssemblyComponentBase> cachedTargetAssemblyComponents = new List<AssemblyComponentBase>();
+        /// <summary>
+        /// Данный объект
+        /// </summary>
+        private AssemblyComponentBase? cachedCurrentComponent;
+        /// <summary>
+        /// Массив всех компонентов во всей конструкции
+        /// </summary>
+        private List<AssemblyComponentBase> cachedAllComponents = new List<AssemblyComponentBase>();
 
         protected override void Awake()
         {
@@ -61,7 +73,9 @@ namespace ExoLab.UI
                 if (hoveredItem.tag.Equals(Constants.Tags.AssemblyZone) == false)
                     continue;
 
-                if (this.TryBindComponent())
+                var success = this.TryBindComponent();
+
+                if (success)
                 {
                     Destroy(this.gameObject);
                 }
@@ -75,16 +89,37 @@ namespace ExoLab.UI
         /// </summary>
         private bool TryBindComponent()
         {
-            if (this.cachedAssemblyComponent == null || cachedTargetAssemblyComponents.Count == 0)
+            if (this.cachedCurrentComponent == null || this.cachedAllComponents.Count == 0 || this.visualizedElements.Count == 0)
                 return false;
 
-            foreach (var targetComponent in this.cachedTargetAssemblyComponents)
-            {
-                if (this.cachedAssemblyComponent.CanBeAttached(targetComponent.TypedItemData))
+            GameObject selectedComponent = cachedCurrentComponent.gameObject;
+
+            // Если множественный выбор
+            if (visualizedElements.Count > 1)
+             {
+                var ray = Caches.Instance.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
+                var hits = Physics.RaycastAll(ray, 100F);
+
+                foreach (var hit in hits)
                 {
-                    var currentItemObject = Instantiate(this.Item.Prefab, this.constructionRoot.transform);
+                    var hitedObject = hit.transform.gameObject;
+                    if (hitedObject.layer != ((int)Constants.Layers.Component))
+                        continue;
+
+                    selectedComponent = hitedObject;
+                    selectedComponent.GetComponent<Renderer>().material = this.startMaterial;
+                    this.visualizedElements.Remove(selectedComponent);
+                    break;
+                }
+            }
+
+            foreach (var parentComponent in this.cachedAllComponents)
+            {
+                if (this.cachedCurrentComponent.CanBeAttached(parentComponent.TypedItemData))
+                {
+                    var currentItemObject = Instantiate(selectedComponent, this.constructionRoot.transform);
                     var newCurrentComponentData = currentItemObject.GetComponent<AssemblyComponentBase>();
-                    newCurrentComponentData.AttachAnObject(targetComponent.gameObject);
+                    newCurrentComponentData.AttachAnObject(parentComponent.gameObject);
                     return true;
                 }
             }
@@ -97,22 +132,22 @@ namespace ExoLab.UI
         /// </summary>
         private void DrawPreviewComponent()
         {
-            if (this.cachedAssemblyComponent == null || cachedTargetAssemblyComponents.Count == 0)
+            if (this.cachedCurrentComponent == null || cachedAllComponents.Count == 0)
                 return;
 
-            foreach (var targetComponent in this.cachedTargetAssemblyComponents)
+            foreach (var targetComponent in this.cachedAllComponents)
             {
-                if (this.cachedAssemblyComponent.CanBeAttached(targetComponent.TypedItemData))
+                var option = this.cachedCurrentComponent.TryGetAttachmentOptionAfterCompared(targetComponent.TypedItemData);
+                if (option != null)
                 {
-                    foreach (var option in cachedAssemblyComponent.TypedItemData.AttachmentOptions)
-                    {
-                        var previewModel = Instantiate(this.cachedAssemblyComponent.TypedItemData.Prefab, targetComponent.transform);
-                        previewModel.transform.localPosition = option.AttachmentPoint;
-                        var previewModelMaterial = previewModel.GetComponent<Renderer>();
-                        previewModelMaterial.material = this.previewMaterial;
+                    var previewModel = Instantiate(this.cachedCurrentComponent.TypedItemData.Prefab, targetComponent.transform);
+                    previewModel.transform.localPosition = option.AttachmentPoint;
+                    
+                    var previewModelMaterial = previewModel.GetComponent<Renderer>();
+                    this.startMaterial = previewModelMaterial.material;
+                    previewModelMaterial.material = this.previewMaterial;
 
-                        this.visualizedElements.Add(previewModel);
-                    }
+                    this.visualizedElements.Add(previewModel);
                 }
             }
         }
@@ -122,8 +157,8 @@ namespace ExoLab.UI
         /// </summary>
         private void CacheFields()
         {
-            this.cachedAssemblyComponent = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
-            this.cachedTargetAssemblyComponents = this.constructionRoot.transform.GetComponentsInChildren<AssemblyComponentBase>().ToList();
+            this.cachedCurrentComponent = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
+            this.cachedAllComponents = this.constructionRoot.transform.GetComponentsInChildren<AssemblyComponentBase>().ToList();
         }
 
         /// <summary>
@@ -131,13 +166,13 @@ namespace ExoLab.UI
         /// </summary>
         private void ClearCache()
         {
-            foreach (var point in this.visualizedElements)
+            foreach (var element in this.visualizedElements)
             {
-                Destroy(point);
+                Destroy(element);
             }
 
             this.visualizedElements.Clear();
-            this.cachedTargetAssemblyComponents.Clear();
+            this.cachedAllComponents.Clear();
         }
 
         /// <summary>

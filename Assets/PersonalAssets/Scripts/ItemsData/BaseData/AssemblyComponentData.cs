@@ -41,6 +41,9 @@
 
             [Tooltip("Вращение данного объекта")]
             public Quaternion Rotation;
+
+            [Tooltip("Масштаб данного объекта")]
+            public Vector3 Scale;
         }
 
         /// <summary>

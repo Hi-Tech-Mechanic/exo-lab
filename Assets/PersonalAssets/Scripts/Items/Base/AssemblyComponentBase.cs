@@ -43,6 +43,7 @@
 
         /// <summary>
         /// Метод для <see cref="AttachmentOptionEditor", облегчает сохранения при верстке конструкций/>
+        /// Сохраняемый объект должен находится внутри своего будущего родителя!
         /// </summary>
         public void SaveAttachmentOptionInGuiEditor()
         {
@@ -51,8 +52,7 @@
             attachmentOption.ParentData = this.transform.parent.GetComponent<AssemblyComponentBase>().TypedItemData;
             attachmentOption.Rotation = this.transform.localRotation;
             attachmentOption.AttachmentPoint = this.transform.localPosition;
-
-            this.UpdateAttachmentOptions(attachmentOption);
+            attachmentOption.Scale = this.transform.localScale;
 
             // Поиск дубликатов, если они есть то обновляем данную настройку, оставляя родителя
             for (int i = 0; i < TypedItemData.AttachmentOptions.Count; i++)
@@ -86,6 +86,7 @@
         {
             this.AttachmentPoint = option.AttachmentPoint;
             this.Rotation = option.Rotation;
+            this.transform.localScale = option.Scale;
         }
 
         /// <summary>
@@ -101,7 +102,7 @@
                 return;
             }
 
-            var option = this.TryGetAttachmentOptionAfterCompared(component.TypedItemData);
+            AssemblyComponentData.AttachmentOption option = this.TryGetAttachmentOptionAfterCompared(component.TypedItemData);
             if (option == null)
             {
                 Debug.LogError($"Не был найден {nameof(AssemblyComponentData.AttachmentOption)} у {targetObject.name}");
@@ -187,7 +188,7 @@
         /// Получить совпавшие настройки привязки после сопоставления с целевым объектом
         /// </summary>
         /// <returns></returns>
-        private AssemblyComponentData.AttachmentOption? TryGetAttachmentOptionAfterCompared(AssemblyComponentData targetAssemblyComponent)
+        public AssemblyComponentData.AttachmentOption? TryGetAttachmentOptionAfterCompared(AssemblyComponentData targetAssemblyComponent)
         {
             var targetName = targetAssemblyComponent.Name;
 

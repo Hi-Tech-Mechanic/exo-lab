@@ -2,9 +2,11 @@ namespace ExoLab.Constants
 {
     public partial class Constants
     {
-        public class Layers
+        public enum Layers 
         {
-            public const string UI = nameof(UI);
+            Default = 0,
+            UI = 5,
+            Component = 10
         }
     }
 }
