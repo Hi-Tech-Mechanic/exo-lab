@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787c4d2a6231ef42ade31ce8638d64f, type: 3}
   m_Name: "\u0420\u0436\u0430\u0432\u0430\u044F \u043F\u043B\u0430\u0441\u0442\u0438\u043D\u0430"
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.ArmorPlateData
+  Id: 8cb5135b-b451-43f4-acf7-02b0cd134b4a
   Name: "\u0420\u0436\u0430\u0432\u0430\u044F \u043F\u043B\u0430\u0441\u0442\u0438\u043D\u0430"
   Description: "\u041A\u0443\u0441\u043E\u043A \u0436\u0435\u0441\u0442\u0438 \u0441\u043E
     \u0441\u0432\u0430\u043B\u043A\u0438"

@@ -23,6 +23,7 @@ namespace ExoLab
         [SerializeField]
         protected ItemData itemData;
 
+        private string? id;
         private string? name;
         private string? description;
         private double? weight;
@@ -32,6 +33,28 @@ namespace ExoLab
         /// Типизированная информация о компоненте, содержит полную инфомацию о нём
         /// </summary>
         public T TypedItemData => (T)this.itemData;
+
+        /// <summary>
+        /// Уникальный номер предмета, желательно использовать GUID
+        /// </summary>
+        public virtual string Id
+        {
+            get
+            {
+                if (this.id != null)
+                {
+                    return this.id;
+                }
+
+                this.id = this.TypedItemData.Id;
+                return this.id;
+            }
+
+            protected set
+            {
+                this.id = value;
+            }
+        }
 
         public virtual string Name
         {

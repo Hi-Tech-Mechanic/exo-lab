@@ -10,6 +10,8 @@
     {
         [Header("Базовая информация о предмете")]
         [Space(5)]
+        [Tooltip("Идентификационный номер - GUID")]
+        public string Id;
         [Tooltip("Имя")]
         public string Name;
         [Tooltip("Описание")]
@@ -21,5 +23,30 @@
         public Sprite Icon;
         [Tooltip("Модель")]
         public GameObject Prefab;
+
+        public ItemData()
+        {
+            this.Id = this.CreateGUID();
+        }
+
+        public string CreateGUID()
+        {
+            return System.Guid.NewGuid().ToString();
+        }
+
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// Автоматически собрать все <see cref="ItemData"/>> из проекта (только в редакторе)
+        /// </summary>
+        [ContextMenu("Create GUID")]
+        public void AutoCollectItems()
+        {
+            this.Id = CreateGUID();
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+#endif
+
     }
 }
