@@ -3,7 +3,9 @@
     using ExoLab.StructuralСomponents;
     using System.Collections.Generic;
     using System.Linq;
+    using TMPro;
     using UnityEngine;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Визуализатор инвентаря
@@ -21,6 +23,10 @@
         [Tooltip ("Шаблон предмета")]
         [SerializeField]
         private GameObject itemPrefab;
+
+        [Tooltip("Выпадающий список типов сортировки")]
+        [SerializeField]
+        private TMP_Dropdown sortDropdown;
 
         /// <summary>
         /// Слоты в которых хранятся предметы
@@ -83,6 +89,31 @@
             {
                 Destroy(child);
             }
+        }
+
+        /// <summary>
+        /// Заполнить вападающий список <see cref="this.sortDropdown"/>
+        /// </summary>
+        /// <param name="optionNames">Список имен настроек</param>
+        /// <param name="valueChangedHandler">Обработчик нажатий из модели <see cref="InventoryModel"/></param>
+        public void FillSortDropdown(string[] optionNames, UnityAction<int> valueChangedHandler)
+        {
+            var options = new List<TMP_Dropdown.OptionData>();
+
+            foreach (var option in optionNames)
+            {
+                options.Add(new TMP_Dropdown.OptionData(option));
+            }
+
+            this.sortDropdown.ClearOptions();
+            this.sortDropdown.AddOptions(options);
+
+            this.sortDropdown.onValueChanged.AddListener(valueChangedHandler);
+        }
+
+        public void SelectSortMode(int modeIndex)
+        {
+            this.sortDropdown.value = modeIndex;
         }
 
         private GameObject SpawnItemSlot()

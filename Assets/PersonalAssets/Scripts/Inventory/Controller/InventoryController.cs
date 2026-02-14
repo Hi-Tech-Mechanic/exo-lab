@@ -20,8 +20,18 @@
         [SerializeField]
         private ItemRepository itemRepository;
 
+        private string[] optionsNames = Enum.GetNames(typeof(SortMode));
+
         //public Action<string, int> OnItemAdded;
         //public Action<string, int> OnItemUsed;
+
+        public enum SortMode
+        {
+            Name = 0,
+            Weight = 1,
+            Durability = 2,
+        }
+
 
         private void Awake()
         {
@@ -43,6 +53,8 @@
         private void InitInventoryView()
         {
             this.view.CreateSlots(maxSlotsCount);
+            this.view.FillSortDropdown(this.optionsNames, SortHandler);
+            this.view.SelectSortMode((int)SortMode.Name);
             this.RefreshView();
         }
 
@@ -53,6 +65,28 @@
             {
                 this.RefreshView(); // обновляем UI
             }
+        }
+
+        /// <summary>
+        /// Для обработки выбранного режима сортировки из выпадающего списка
+        /// </summary>
+        /// <param name="selectedSortModeIndex"></param>
+        private void SortHandler(int selectedSortModeIndex)
+        {
+            switch (selectedSortModeIndex)
+            {
+                case (int)SortMode.Name:
+                    this.model.SortByName();
+                    break;
+                case (int)SortMode.Weight:
+                    this.model.SortByWeight();
+                    break;
+                case (int)SortMode.Durability:
+                    this.model.SortByDurability();
+                    break;
+            }
+
+            this.RefreshView();
         }
 
         private void RefreshView()

@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Unity.VisualScripting;
     using UnityEngine;
 
     internal class InventoryModel
@@ -71,5 +72,54 @@
 
             return true;
         }
+
+        #region Sort methods
+
+        public void SortByName()
+        {
+            // Убирает в локальную переменную для снапшота состояния массива
+            var tempItems = this.items;
+            var newItemList = tempItems.OrderBy(x => x.ItemData.Name).ToList();
+            this.items.Clear();
+            this.items.AddRange(newItemList);
+        }
+
+        public void SortByWeight()
+        {
+            var tempItems = this.items;
+            var newItemList = tempItems.OrderBy(x => x.ItemData.Weight).ToList();
+            this.items.Clear();
+            this.items.AddRange(newItemList);
+        }
+
+        public void SortByDurability()
+        {
+            var tempItems = this.items;
+            List<AssemblyComponentData> componentDataList = new();
+            List<StoredItem> resultItemList = new();
+            resultItemList.AddRange(tempItems); // Создаем копию текущих предметов, а не ссылку
+
+            foreach (var item in tempItems)
+            {
+                if (item.ItemData is not AssemblyComponentData componentData)
+                {
+                    throw new ArgumentException($"[{item.ItemData.Name}] не является типом {nameof(AssemblyComponentData)}");
+                }
+
+                componentDataList.Add(componentData);
+            }
+
+            var sortedComponentDataList = componentDataList.OrderBy(x => x.Durability).ToList();
+            for (var i = 0; i < sortedComponentDataList.Count; i++)
+            {
+                resultItemList[i].ItemData = sortedComponentDataList[i].ConvertTo<ItemData>();
+            }
+
+            this.items.Clear();
+            this.items.AddRange(resultItemList);
+        }
+
+        #endregion
+
     }
 }
