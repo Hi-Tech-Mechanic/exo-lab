@@ -1,5 +1,6 @@
 ﻿namespace ExoLab.Data
 {
+    using Unity.Tutorials.Core.Editor;
     using UnityEngine;
 
     /// <summary>
@@ -36,12 +37,13 @@
 
 #if UNITY_EDITOR
 
-        /// <summary>
-        /// Автоматически собрать все <see cref="ItemData"/>> из проекта (только в редакторе)
-        /// </summary>
+        [Tooltip("Создать GUID для объекта если таковой не задан")]
         [ContextMenu("Create GUID")]
-        public void AutoCollectItems()
+        public void SetItemGuidIfNotExist()
         {
+            if (this.Id.IsNullOrEmpty() == false)
+                return;
+
             this.Id = CreateGUID();
             UnityEditor.EditorUtility.SetDirty(this);
         }

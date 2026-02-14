@@ -1,4 +1,4 @@
-namespace Exolab
+namespace ExoLab
 {
     using UnityEngine;
     using static ExoLab.Constants.Constants;
@@ -111,7 +111,7 @@ namespace Exolab
 
         private void SetZoomWithMouseScroll()
         {
-            float scroll = Input.GetAxis(InputAxes.MouseScrollWheel);
+            float scroll = UnityEngine.Input.GetAxis(InputAxes.MouseScrollWheel);
             if (scroll == 0f)
                 return;
 

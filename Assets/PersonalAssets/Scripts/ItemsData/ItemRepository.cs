@@ -14,7 +14,9 @@
         [SerializeField]
         private List<ItemData> allItems = new List<ItemData>();
 
-        // Кэш по ID
+        /// <summary>
+        /// Кэш по ID
+        /// </summary>
         private Dictionary<string, ItemData> itemCache;
 
         public List<ItemData> GetAllItems()
@@ -93,7 +95,8 @@
         {
             foreach (var item in allItems)
             {
-                item.Id = item.CreateGUID();
+                if (item.Id == null || item.Id == string.Empty)
+                    item.Id = item.CreateGUID();
             }
 
             UnityEditor.EditorUtility.SetDirty(this);
