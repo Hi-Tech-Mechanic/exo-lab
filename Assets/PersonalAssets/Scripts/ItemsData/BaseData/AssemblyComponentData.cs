@@ -43,7 +43,7 @@
             public Quaternion Rotation;
 
             [Tooltip("Масштаб данного объекта")]
-            public Vector3 Scale;
+            public Vector3 Scale = new Vector3(1F, 1F, 1F);
         }
 
         /// <summary>
