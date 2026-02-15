@@ -1,6 +1,5 @@
 ﻿namespace ExoLab.Data
 {
-    using Unity.Tutorials.Core.Editor;
     using UnityEngine;
 
     /// <summary>
@@ -41,7 +40,7 @@
         [ContextMenu("Create GUID")]
         public void SetItemGuidIfNotExist()
         {
-            if (this.Id.IsNullOrEmpty() == false)
+            if (this.Id == null || this.Id == string.Empty)
                 return;
 
             this.Id = CreateGUID();
