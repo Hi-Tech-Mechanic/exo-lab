@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f9b39ba0fb45f4e97e052df635bc07, type: 3}
   m_Name: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A_01"
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.UnderbarrelAttachmentsData
+  Id: 80949f16-dd33-4857-80d5-96049ecb2952
   Name: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A"
   Description: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A"
   Weight: 0.1
@@ -24,4 +25,5 @@ MonoBehaviour:
   - ParentData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
     AttachmentPoint: {x: 0.074, y: -0.0076, z: 0.19}
     Rotation: {x: 0.000000089406946, y: -0, z: 0.70710653, w: 0.70710707}
+    Scale: {x: 1, y: 1, z: 1}
   CompabilityComponents: []

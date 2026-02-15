@@ -1,8 +1,10 @@
 namespace ExoLab.Data
 {
+    using ExoLab.Assembly;
     using ExoLab.Constants;
     using System;
     using UnityEngine;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Для оптимизации использования данных приложения
@@ -21,6 +23,7 @@ namespace ExoLab.Data
         private Camera? mainCamera;
         private Camera? assemblyCamera;
         private GameObject? constructionRoot;
+        private ItemInspect? itemInspect;
 
         /// <summary>
         /// Ссылка на объект <see cref="Caches"/>
@@ -51,6 +54,37 @@ namespace ExoLab.Data
                 }
 
                 return this.constructionRoot;
+            }
+        }
+
+        /// <summary>
+        /// Контроллер просмотрщик объектов
+        /// </summary>
+        public ItemInspect ItemInspect
+        {
+            get
+            {
+                if (this.itemInspect == null)
+                {
+                    var tag = Constants.Tags.ItemInspect;
+                    var gameObject = GameObject.FindWithTag(tag);
+                    if (gameObject == null)
+                    {
+                        Debug.LogError($"Не найден объект с тегом {tag}");
+                        return null;
+                    }
+
+                    var localItemInspect = gameObject.GetComponent<ItemInspect>();
+                    if (localItemInspect == null)
+                    {
+                        throw new NullReferenceException($"Не найден компонент {nameof(ItemInspect)}");
+                    }
+
+                    this.itemInspect = localItemInspect;
+
+                }
+
+                return this.itemInspect;
             }
         }
 
@@ -116,5 +150,10 @@ namespace ExoLab.Data
         /// Запрещаем делать экземпляры
         /// </summary>
         private Caches() { }
+
+        public void UpdateConstructionRoot(GameObject newConstructionRoot)
+        {
+            this.constructionRoot = newConstructionRoot;
+        }
     }
 }

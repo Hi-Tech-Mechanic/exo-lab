@@ -396,9 +396,11 @@ GameObject:
   - component: {fileID: 40088447}
   - component: {fileID: 40088448}
   - component: {fileID: 40088449}
+  - component: {fileID: 40088450}
+  - component: {fileID: 40088451}
   m_Layer: 0
   m_Name: ConstructionAssembly
-  m_TagString: Untagged
+  m_TagString: ItemInspect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -472,6 +474,38 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &40088450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40088445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
+  inspectCamera: {fileID: 1812741088}
+--- !u!114 &40088451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40088445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83542b715b59a594e9e5c8eb6b9a9319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.AssemblyModesController
+  itemInspect: {fileID: 40088450}
+  weaponPreset: {fileID: 11400000, guid: c94fa34c38afb3648b82a77c6e505ed8, type: 2}
+  weaponAssemblyRoot: {fileID: 1968001647}
+  exoskeletonPreset: {fileID: 11400000, guid: 4c79793271d1ccc4b9f1ec5551d02bd9, type: 2}
+  exoskeletonAssemblyRoot: {fileID: 1719934082}
+  wellborePreset: {fileID: 11400000, guid: ebe4fab2247e2424498b79ca5d95adc8, type: 2}
+  wellboreAssemblyRoot: {fileID: 724697303}
 --- !u!1001 &53302101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -767,7 +801,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3061,7 +3095,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3697,7 +3731,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8196,7 +8230,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9428,7 +9462,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10008,7 +10042,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10873,6 +10907,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 40088451}
+        m_TargetAssemblyTypeName: ExoLab.Assembly.AssemblyModesController, Assembly-CSharp
+        m_MethodName: SetExoskeletonPreset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11772,14 +11818,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 724697303}
-  - component: {fileID: 724697304}
   m_Layer: 0
   m_Name: Construction-Wellbore
-  m_TagString: ConstructionRoot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &724697303
 Transform:
   m_ObjectHideFlags: 0
@@ -11796,27 +11841,6 @@ Transform:
   - {fileID: 543450651961905568}
   m_Father: {fileID: 40088446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &724697304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724697302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
-  inspectCamera: {fileID: 1812741088}
-  rotationSpeed: 2
-  zoomSpeed: 5
-  minCameraDistance: 1
-  maxCameraDistance: 10
-  zoomEnabled: 1
-  rotateByCoordinate_X: 1
-  rotateByCoordinate_Y: 1
-  useGraphicRaycaster: 1
 --- !u!1001 &725784662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13665,7 +13689,7 @@ PrefabInstance:
     - target: {fileID: 7624194510196704252, guid: fe9b3e6678fdb4343864540feacf686e, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1968001648}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -18345,7 +18369,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19354,7 +19378,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19629,7 +19653,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21899,7 +21923,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1968001648}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ExoLab.Assembly.ItemInspect, Assembly-CSharp
         m_MethodName: set_DefaultCameraDistance
         m_Mode: 4
@@ -22506,7 +22530,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23099,7 +23123,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24174,14 +24198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
   inspectCamera: {fileID: 1307188585}
-  rotationSpeed: 2
-  zoomSpeed: 5
-  minCameraDistance: 0.8
-  maxCameraDistance: 5
-  zoomEnabled: 0
-  rotateByCoordinate_X: 0
-  rotateByCoordinate_Y: 0
-  useGraphicRaycaster: 0
 --- !u!1 &1349125497
 GameObject:
   m_ObjectHideFlags: 0
@@ -24523,7 +24539,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25648,6 +25664,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 40088451}
+        m_TargetAssemblyTypeName: ExoLab.Assembly.AssemblyModesController, Assembly-CSharp
+        m_MethodName: SetWeaponPreset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1443152552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25841,7 +25869,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27470,7 +27498,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29158,7 +29186,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30885,6 +30913,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 40088451}
+        m_TargetAssemblyTypeName: ExoLab.Assembly.AssemblyModesController, Assembly-CSharp
+        m_MethodName: SetWellborePreset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -33022,7 +33062,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33150,7 +33190,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33245,10 +33285,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1719934082}
-  - component: {fileID: 1719934083}
   m_Layer: 0
   m_Name: Construction-Exoskeleton
-  m_TagString: ConstructionRoot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33269,27 +33308,6 @@ Transform:
   - {fileID: 346969033}
   m_Father: {fileID: 40088446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1719934083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719934081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
-  inspectCamera: {fileID: 1812741088}
-  rotationSpeed: 2
-  zoomSpeed: 5
-  minCameraDistance: 0.8
-  maxCameraDistance: 5
-  zoomEnabled: 1
-  rotateByCoordinate_X: 1
-  rotateByCoordinate_Y: 0
-  useGraphicRaycaster: 1
 --- !u!1 &1733164277
 GameObject:
   m_ObjectHideFlags: 0
@@ -33660,7 +33678,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33806,7 +33824,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36664,7 +36682,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37769,7 +37787,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -39034,14 +39052,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968001647}
-  - component: {fileID: 1968001648}
   m_Layer: 0
   m_Name: Construction-Weapon
   m_TagString: ConstructionRoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1968001647
 Transform:
   m_ObjectHideFlags: 0
@@ -39058,27 +39075,6 @@ Transform:
   - {fileID: 794121928}
   m_Father: {fileID: 40088446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1968001648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968001646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
-  inspectCamera: {fileID: 1812741088}
-  rotationSpeed: 2
-  zoomSpeed: 5
-  minCameraDistance: 1
-  maxCameraDistance: 5
-  zoomEnabled: 1
-  rotateByCoordinate_X: 1
-  rotateByCoordinate_Y: 1
-  useGraphicRaycaster: 1
 --- !u!1 &1969492233
 GameObject:
   m_ObjectHideFlags: 0
@@ -40645,7 +40641,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41704,7 +41700,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -44647,27 +44643,27 @@ PrefabInstance:
     - target: {fileID: 401504456283287687, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 619226435914418549, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 1165494400462929193, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 1234537755729232701, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 1794278289860511526, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 3077640753846840876, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 4134987513629790442, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -44715,27 +44711,27 @@ PrefabInstance:
     - target: {fileID: 5463363431089858085, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 5531798140357887964, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 5952947142961331035, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 6709842472623922398, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 8855107577972167746, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     - target: {fileID: 9138888038058137056, guid: 533961889565e8646b7e9bbb3137787b, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -44823,7 +44819,7 @@ PrefabInstance:
     - target: {fileID: 8833070856994635481, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
       propertyPath: itemInspector
       value: 
-      objectReference: {fileID: 1719934083}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

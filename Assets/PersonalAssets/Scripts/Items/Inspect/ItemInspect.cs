@@ -21,15 +21,12 @@ namespace ExoLab.Assembly
 
         [Header("Настройки")]
         [SerializeField] private Camera inspectCamera;
-        [SerializeField] private float rotationSpeed = 2f;
-        [SerializeField] private float zoomSpeed = 5f;
-        [SerializeField] private float minCameraDistance = 1f;
-        [SerializeField] private float maxCameraDistance = 5f;
-        [SerializeField] private bool zoomEnabled = true;
-        [SerializeField] private bool rotateByCoordinate_X = true;
-        [SerializeField] private bool rotateByCoordinate_Y = true;
-        [Tooltip("Режим поиска сталкиваемых объектов, через Physics.Raycast или GraphicRaycaster")]
-        [SerializeField] private bool useGraphicRaycaster = true;
+
+        /// <summary>
+        /// Перечень передаваемых настроек, так как режимов может быть несколько,
+        /// а экземпляр <see cref="ItemInspect"/> должен быть 1 на сцене
+        /// </summary>
+        public ItemInspectOptions ItemInspectOptions { private get; set; }
 
         private float currentCameraDistance;
         private Quaternion defaultRotation;
@@ -48,7 +45,7 @@ namespace ExoLab.Assembly
         public event Action<float> OnZoomChanged;
         public event Action OnCameraPositionChanged;
 
-        private void Awake()
+        private void Start()
         {
             this.Initialize();
         }
@@ -85,8 +82,8 @@ namespace ExoLab.Assembly
         /// </summary>
         public void ResetToDefaultView()
         {
-            this.transform.DOLocalMove(this.defaultPosition, resetViewDuration);
-            this.transform.DOLocalRotate(this.defaultRotation.eulerAngles, resetViewDuration);
+            this.ItemInspectOptions.TargetTransform.DOLocalMove(this.defaultPosition, resetViewDuration);
+            this.ItemInspectOptions.TargetTransform.DOLocalRotate(this.defaultRotation.eulerAngles, resetViewDuration);
             this.inspectCamera.transform.DOLocalMoveZ(this.DefaultCameraDistance, resetViewDuration);
         }
 
@@ -97,6 +94,15 @@ namespace ExoLab.Assembly
         public void ToggleInspectMode()
         {
             this.isInspecting = !this.isInspecting;
+        }
+
+        /// <summary>
+        /// Обновить поля
+        /// </summary>
+        public void UpdateOptions()
+        {
+            this.defaultPosition = this.ItemInspectOptions.TargetTransform.localPosition;
+            this.defaultRotation = this.ItemInspectOptions.TargetTransform.localRotation;
         }
 
         private void Initialize()
@@ -113,13 +119,12 @@ namespace ExoLab.Assembly
 
             this.currentCameraDistance = this.inspectCamera.transform.localPosition.z;
             this.DefaultCameraDistance = this.currentCameraDistance;
-            this.defaultPosition = this.transform.localPosition;
-            this.defaultRotation = this.transform.localRotation;
+            this.UpdateOptions();
         }
 
         private bool CursorInAssemblyZone()
         {
-            if (this.useGraphicRaycaster)
+            if (this.ItemInspectOptions.UseGraphicRaycaster)
             {
                 var results = new List<RaycastResult>();
 
@@ -160,31 +165,31 @@ namespace ExoLab.Assembly
             if (mouseLeftClicked == false && mouseRightClicked == false)
                 return;
 
-            if (this.rotateByCoordinate_X)
+            if (this.ItemInspectOptions.RotateByCoordinate_X)
             {
-                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.rotationSpeed;
-                this.transform.Rotate(Vector3.up, -mouseX, Space.World);
+                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.ItemInspectOptions.RotationSpeed;
+                this.ItemInspectOptions.TargetTransform.Rotate(Vector3.up, -mouseX, Space.World);
             }
-            if (this.rotateByCoordinate_Y)
+            if (this.ItemInspectOptions.RotateByCoordinate_Y)
             {
-                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.rotationSpeed;
-                this.transform.Rotate(Vector3.right, mouseY, Space.World);
+                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.ItemInspectOptions.RotationSpeed;
+                this.ItemInspectOptions.TargetTransform.Rotate(Vector3.right, mouseY, Space.World);
             }
 
-            this.OnRotationChanged?.Invoke(this.transform.rotation);
+            this.OnRotationChanged?.Invoke(this.ItemInspectOptions.TargetTransform.rotation);
         }
 
         private void SetZoomWithMouseScroll()
         {
-            if (this.zoomEnabled == false)
+            if (this.ItemInspectOptions.ZoomEnabled == false)
                 return;
 
             float scroll = Input.GetAxis(InputAxes.MouseScrollWheel);
             if (scroll == 0f)
                 return;
 
-            this.currentCameraDistance += scroll * this.zoomSpeed;
-            this.currentCameraDistance = Mathf.Clamp(this.currentCameraDistance, -this.maxCameraDistance, -this.minCameraDistance);
+            this.currentCameraDistance += scroll * this.ItemInspectOptions.ZoomSpeed;
+            this.currentCameraDistance = Mathf.Clamp(this.currentCameraDistance, -this.ItemInspectOptions.MaxCameraDistance, -this.ItemInspectOptions.MinCameraDistance);
             this.inspectCamera.transform.localPosition = new Vector3(this.inspectCamera.transform.localPosition.x, this.inspectCamera.transform.localPosition.y, this.currentCameraDistance);
 
             this.OnZoomChanged?.Invoke(this.currentCameraDistance);

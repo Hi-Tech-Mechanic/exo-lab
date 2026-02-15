@@ -1,5 +1,6 @@
 namespace ExoLab.UI
 {
+    using ExoLab.Assembly;
     using ExoLab.Data;
     using ExoLab.Helpers;
     using ExoLab.Interaction;
@@ -48,6 +49,21 @@ namespace ExoLab.UI
             base.Awake();
 
             this.constructionRoot = Caches.Instance.ConstructionRoot;
+        }
+
+        private void OnEnable()
+        {
+            AssemblyModesController.OnChangedConstructionRoot += this.UpdateConstructionRoot;
+        }
+
+        private void OnDisable()
+        {
+            AssemblyModesController.OnChangedConstructionRoot -= this.UpdateConstructionRoot;
+        }
+
+        private void UpdateConstructionRoot(GameObject newConstructionRoot)
+        {
+            this.constructionRoot = newConstructionRoot;
         }
 
         public override void OnBeginDrag(PointerEventData eventData)

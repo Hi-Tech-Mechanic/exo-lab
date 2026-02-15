@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "\u0410\u043A\u0443\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439
     \u043F\u0440\u043E\u0444\u0438\u043B\u0435\u043C\u0435\u0440"
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.WellboreComponentItemData
+  Id: 118aaa29-998b-42e8-9342-17389eafe5f5
   Name: "\u0410\u043A\u0443\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439
     \u043F\u0440\u043E\u0444\u0438\u043B\u0435\u043C\u0435\u0440"
   Description: 
@@ -26,6 +27,7 @@ MonoBehaviour:
   - ParentData: {fileID: 11400000, guid: dfd4d69eb98c91c49b1208bae7e36474, type: 2}
     AttachmentPoint: {x: 0, y: -0, z: -1.257}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
   CompabilityComponents: []
   MaxRotationSpeed: 1200
   MaxTemperature: 285

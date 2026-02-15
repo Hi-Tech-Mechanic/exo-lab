@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d7dc86325e8a44e86a3875c9421f77, type: 3}
   m_Name: "\u0411\u0443\u0440\u0438\u043B\u044C\u043D\u0430\u044F \u0442\u0440\u0443\u0431\u0430"
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.WellboreComponentItemData
+  Id: 20c8b0a6-c704-4ae0-9574-132a80507584
   Name: "\u0411\u0443\u0440\u0438\u043B\u044C\u043D\u0430\u044F \u0442\u0440\u0443\u0431\u0430"
   Description: 
   Weight: 30
@@ -24,6 +25,7 @@ MonoBehaviour:
   - ParentData: {fileID: 11400000}
     AttachmentPoint: {x: 0, y: 0, z: -0.01295}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
   CompabilityComponents: []
   MaxRotationSpeed: 1200
   MaxTemperature: 390

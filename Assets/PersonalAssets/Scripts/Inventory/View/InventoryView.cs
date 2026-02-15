@@ -95,7 +95,7 @@
         /// Заполнить вападающий список <see cref="this.sortDropdown"/>
         /// </summary>
         /// <param name="optionNames">Список имен настроек</param>
-        /// <param name="valueChangedHandler">Обработчик нажатий из модели <see cref="InventoryModel"/></param>
+        /// <param name="valueChangedHandler">Обработчик нажатий</param>
         public void FillSortDropdown(string[] optionNames, UnityAction<int> valueChangedHandler)
         {
             var options = new List<TMP_Dropdown.OptionData>();

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8b68aee1d8bf34ab3169bcafe6c809, type: 3}
   m_Name: Barrel_01
   m_EditorClassIdentifier: Assembly-CSharp::Assets.PersonalAssets.ScriptableObjects.BarrelItemData
+  Id: 31f663bb-e370-4f16-a5f7-e9e2e72052a3
   Name: "\u0421\u0442\u0432\u043E\u043B"
   Description: "\u041E\u0431\u044B\u043A\u043D\u043E\u0432\u0435\u043D\u043D\u044B\u0439
     \u0441\u0442\u0432\u043E\u043B"
@@ -25,3 +26,5 @@ MonoBehaviour:
   - ParentData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
     AttachmentPoint: {x: 0, y: 0, z: 0.561}
     Rotation: {x: 0, y: -0, z: -0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+  CompabilityComponents: []
