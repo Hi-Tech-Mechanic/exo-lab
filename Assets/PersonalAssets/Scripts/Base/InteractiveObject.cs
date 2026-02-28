@@ -7,13 +7,15 @@
     /// <summary>
     /// Любой интерактивный объект
     /// </summary>
-    [RequireComponent(typeof(SphereCollider))]
     public class InteractiveObject : MonoBehaviour
     {
         public static InteractiveObject Instance;
 
+        [SerializeField]
+        private string tooltipText = "Взаимодействовать";
+
         protected string KeyName => this.GetKeyName();
-        protected string TooltipText => this.GetTooltipText();
+        protected string TooltipText => this.tooltipText;
 
         public delegate void KeypressDelegate();
 
@@ -30,6 +32,25 @@
         }
 
         /// <summary>
+        /// Сделать что либо, переопределять вкладывая сюда метод с какой-либо логикой
+        /// для взаимодействия
+        /// </summary>
+        public virtual void DoAction()
+        {
+            Debug.Log("TestAction");
+        }
+
+        public void DisplayMessage()
+        {
+            HUD.Instance.DisplayTooltipText($"{this.TooltipText} - {this.KeyName}");
+        }
+
+        public void HideMessage()
+        {
+            HUD.Instance.DisplayTooltipText(string.Empty);
+        }
+
+        /// <summary>
         /// Вернуть имя кнопки 
         /// </summary>
         /// <returns></returns>
@@ -39,42 +60,12 @@
         }
 
         /// <summary>
-        /// Вернуть текст подсказки
-        /// </summary>
-        /// <returns></returns>
-        protected virtual string GetTooltipText()
-        {
-            return "Взаимодействовать";
-        }
-
-        /// <summary>
         /// Событие которое должно происходить после нажатия клавиши
         /// </summary>
         protected virtual void KeypressEvent()
         {
             StarterAssetsInputs.Instance.ToggleCursorInputForLook();
             StarterAssetsInputs.Instance.ToggleCursorLocked();
-        }
-
-        private void DisplayInteractioveButton()
-        {
-            HUD.Instance.DisplayTooltipText($"{this.TooltipText} - {this.KeyName}");
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.transform.tag == Constants.Constants.Tags.Player)
-            {
-                this.DisplayInteractioveButton();
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.transform.tag == Constants.Constants.Tags.Player)
-            {
-                HUD.Instance.HideTooltipText();
-            }
         }
     }
 }
