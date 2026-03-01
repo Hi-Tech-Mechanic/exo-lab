@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: ItemDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.ItemRepository
   allItems:
-  - {fileID: 11400000, guid: 27aa0e0fef70e434bb95edcdf15d6ad6, type: 2}
   - {fileID: 11400000, guid: e47103007c37f034d8b9b9c68a124b09, type: 2}
   - {fileID: 11400000, guid: 058482083bf01df408a68c4b798b71db, type: 2}
   - {fileID: 11400000, guid: 1f98ca112779fff4a9b9f2381272e4b3, type: 2}

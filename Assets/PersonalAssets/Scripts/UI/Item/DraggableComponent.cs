@@ -173,7 +173,7 @@ namespace ExoLab.UI
         /// </summary>
         private void CacheFields()
         {
-            this.cachedCurrentComponent = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
+            this.cachedCurrentComponent = this.Item.TypedItemData.Prefab.GetComponent<AssemblyComponentBase>();
             this.cachedAllComponents = this.constructionRoot.transform.GetComponentsInChildren<AssemblyComponentBase>().ToList();
         }
 
