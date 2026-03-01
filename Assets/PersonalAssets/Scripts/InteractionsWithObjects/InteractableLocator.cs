@@ -1,5 +1,6 @@
 ﻿namespace ExoLab.Interaction
 {
+    using ExoLab.Data;
     using UnityEngine;
 
     /// <summary>
@@ -12,6 +13,7 @@
 
         private LayerMask interactableLayer;
         private LayerMask componentLayer;
+        private Camera camera;
 
         /// <summary>
         /// Храним временно объект на который смотрим
@@ -31,7 +33,7 @@
 
                 if (Input.GetKeyDown(KeyCode.E) == true)
                 {
-                    this.hoveredObject?.DoAction();
+                    this.hoveredObject?.Interact();
                 }
             }
             else
@@ -43,6 +45,7 @@
 
         private void Init()
         {
+            this.camera = Caches.Instance.MainCamera;
             this.interactableLayer = LayerMask.GetMask(Constants.Constants.Layers.Interactable.ToString());
             this.componentLayer = LayerMask.GetMask(Constants.Constants.Layers.Component.ToString());
         }
@@ -51,7 +54,9 @@
         {
             RaycastHit hit;
 
-            var ray = new Ray(this.transform.position, transform.forward);
+            // Пока через камеру лучше все таки работает
+            Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            //var ray = new Ray(this.transform.position, transform.forward);
 
             // Проверяем 2 слоя так как у компонентов уже задан слой и его не желательно менять
             if (Physics.Raycast(ray, out hit, maxDistance, interactableLayer) == false &&

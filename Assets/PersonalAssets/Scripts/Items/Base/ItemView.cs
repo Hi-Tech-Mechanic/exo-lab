@@ -3,11 +3,12 @@
     using TMPro;
     using UnityEngine.UI;
     using ExoLab.Constants;
+    using ExoLab.Data;
 
     /// <summary>
     /// Визуальная часть предмета
     /// </summary>
-    public class ItemView : Item
+    public class ItemView : ItemAbstract<ItemData>
     {
         private const string nameIdentifier = "Txt_ItemName";
         private const string amountIdentifier = "Txt_Amount";

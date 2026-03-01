@@ -1,5 +1,6 @@
 ﻿namespace ExoLab
 {
+    using ExoLab.Data;
     using ExoLab.UI;
     using System;
     using System.Linq;
@@ -32,11 +33,26 @@
             Durability = 2,
         }
 
-
         private void Awake()
         {
             this.InitInventoryModel();
             this.InitInventoryView();
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.OnItemCollected += AddItem;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnItemCollected -= AddItem;
+        }
+
+        private void AddItem(ItemData itemData)
+        {
+            this.model.AddItem(itemData);
+            this.RefreshView();
         }
 
         private void InitInventoryModel()

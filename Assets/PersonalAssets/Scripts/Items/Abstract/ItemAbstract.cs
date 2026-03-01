@@ -1,7 +1,6 @@
 namespace ExoLab
 {
     using System;
-    using UnityEngine;
     using ExoLab.Data;
     using System.Collections.Generic;
     using ExoLab.Helpers;
@@ -10,19 +9,12 @@ namespace ExoLab
     /// Класс описывающий абстрактный предмет
     /// </summary>
     public abstract class ItemAbstract<T> :
-        MonoBehaviour,
+        ItemBase,
         IName,
         IDescription,
         IWeight
         where T : ItemData
     {
-        /// <summary>
-        /// Поле скрыто, так как для получения информации надо использовать <see cref="TypedItemData"/>>
-        /// </summary>
-        [Tooltip("Ссылка на характеристики компонента (ScriptableObject)")]
-        [SerializeField]
-        protected ItemData itemData;
-
         private string? id;
         private string? name;
         private string? description;
@@ -135,7 +127,6 @@ namespace ExoLab
         protected virtual void Start()
         {
             this.CheckItemData();
-            //this.InitializeItemData();
         }
 
         /// <summary>
@@ -145,7 +136,6 @@ namespace ExoLab
         public void SetItemData(ItemData itemData)
         {
             this.itemData = itemData;
-            //this.InitializeItemData();
         }
 
         /// <summary>

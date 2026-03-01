@@ -1,7 +1,8 @@
-﻿namespace ExoLab
+﻿namespace ExoLab.Interaction
 {
     using Assets.PersonalAssets.Scripts.UI;
     using StarterAssets;
+    using Unity.Tutorials.Core.Editor;
     using UnityEngine;
 
     /// <summary>
@@ -12,7 +13,7 @@
         public static InteractiveObject Instance;
 
         [SerializeField]
-        private string tooltipText = "Взаимодействовать";
+        private string tooltipText = string.Empty;
 
         protected string KeyName => this.GetKeyName();
         protected string TooltipText => this.tooltipText;
@@ -24,18 +25,22 @@
         protected void Awake()
         {
             Instance = this;
+            this.keypressDelegate = new KeypressDelegate(this.KeypressEvent);
         }
 
-        private InteractiveObject()
+        private void OnValidate()
         {
-            this.keypressDelegate = new KeypressDelegate(this.KeypressEvent);
+            if (this.tooltipText.IsNullOrEmpty() == true)
+            {
+                this.tooltipText = this.GetTooltipText();
+            }
         }
 
         /// <summary>
         /// Сделать что либо, переопределять вкладывая сюда метод с какой-либо логикой
         /// для взаимодействия
         /// </summary>
-        public virtual void DoAction()
+        public virtual void Interact()
         {
             Debug.Log("TestAction");
         }
@@ -48,6 +53,15 @@
         public void HideMessage()
         {
             HUD.Instance.DisplayTooltipText(string.Empty);
+        }
+
+        /// <summary>
+        /// Вернуть текст подсказки
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetTooltipText()
+        {
+            return "Взаимодействовать";
         }
 
         /// <summary>
