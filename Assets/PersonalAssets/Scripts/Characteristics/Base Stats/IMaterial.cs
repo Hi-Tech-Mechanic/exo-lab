@@ -11,6 +11,7 @@ public interface IMaterial : IStatistic
         Chromium,
         Titanium,
         Tungsten,
-        Plastic
+        Plastic,
+        Gold
     }
 }
