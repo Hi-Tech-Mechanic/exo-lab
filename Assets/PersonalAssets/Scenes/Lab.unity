@@ -15977,9 +15977,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 541360294211659687, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1351048198}
-    - targetCorrespondingSourceObject: {fileID: 541360294211659687, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7326017790866764354, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1351048199}
+      addedObject: {fileID: 1742044134}
   m_SourcePrefab: {fileID: 100100000, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
 --- !u!4 &961322803 stripped
 Transform:
@@ -24391,21 +24391,9 @@ MonoBehaviour:
   - {fileID: 1905307802}
   assemblyMenu: {fileID: 40088445}
   assemblyProps: {fileID: 839606137}
-  menu: {fileID: 2019105509}
+  mainMenu: {fileID: 2019105509}
   inventory: {fileID: 870147168}
   stats: {fileID: 1768049881}
---- !u!114 &1351048199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351048197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba82d2563b8bf34e80dfb1e1aa9f32b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InteractableLocator
 --- !u!1 &1352140593
 GameObject:
   m_ObjectHideFlags: 0
@@ -30702,11 +30690,41 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2826034745070715707, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826034745070715707, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1648754566}
   m_SourcePrefab: {fileID: 100100000, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+--- !u!1 &1648754565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+  m_PrefabInstance: {fileID: 1648754564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1648754566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648754565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feefb168d61f7f34dbebde0ca091d374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.PickableItem
+  tooltipText: "\u0412\u0437\u044F\u0442\u044C"
 --- !u!1 &1652058500
 GameObject:
   m_ObjectHideFlags: 0
@@ -33638,6 +33656,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736935160}
   m_CullTransparentMesh: 1
+--- !u!1 &1742044127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7326017790866764354, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+  m_PrefabInstance: {fileID: 961322802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742044134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742044127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba82d2563b8bf34e80dfb1e1aa9f32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InteractableLocator
 --- !u!1001 &1744226586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40024,10 +40059,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2826034745070715707, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826034745070715707, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2028953094}
   m_SourcePrefab: {fileID: 100100000, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
 --- !u!4 &2000618264 stripped
 Transform:
@@ -40239,6 +40286,24 @@ MonoBehaviour:
     m_CSVersion: 2
     m_ObsoleteSphereInfiniteProjection: 0
     m_ObsoleteBoxInfiniteProjection: 0
+--- !u!1 &2028953084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+  m_PrefabInstance: {fileID: 1993766980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2028953094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028953084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feefb168d61f7f34dbebde0ca091d374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.PickableItem
+  tooltipText: "\u0412\u0437\u044F\u0442\u044C"
 --- !u!1001 &2029157704
 PrefabInstance:
   m_ObjectHideFlags: 0

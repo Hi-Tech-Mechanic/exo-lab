@@ -19,7 +19,7 @@ namespace ExoLab.Input
         [SerializeField] private GameObject assemblyMenu;
         [SerializeField] private GameObject assemblyProps;
 
-        [SerializeField] private GameObject menu;
+        [SerializeField] private GameObject mainMenu;
 
         private List<Vector3> targetPosition = new();
         private List<Quaternion> targetEulerAngles = new();
@@ -31,41 +31,38 @@ namespace ExoLab.Input
         private delegate void ProcessKey_E();
         private Delegate processKey_E;
 
-        private Camera lastEnabledCamera;
+        private Camera? lastEnabledCamera;
 
-        private bool assemblyMode = false;
+        private GameObject playerArmature;
+
+        private bool _assemblyMode = false;
         private bool AssemblyMode
         {
-            get => assemblyMode;
+            get => _assemblyMode;
             set
             {
-                lastEnabledCamera = _cameraBack.gameObject.activeInHierarchy ? _cameraBack : _cameraForward;
+                this._assemblyMode = value;
 
-                if (value == true)
+                if (this.lastEnabledCamera == null)
                 {
-                    this.menu.gameObject.SetActive(false);
-                    this.transform.GetChild(0).gameObject.SetActive(false);
-
-                    assemblyMenu.SetActive(true);
-                    assemblyProps.SetActive(true);
-
-                    lastEnabledCamera.gameObject.SetActive(false);
+                    this.lastEnabledCamera = _cameraBack.gameObject.activeInHierarchy ? _cameraBack : _cameraForward;
                 }
-                else
-                {
-                    this.menu.gameObject.SetActive(false);
-                    this.transform.GetChild(0).gameObject.SetActive(true);
 
-                    assemblyMenu.SetActive(false);
-                    assemblyProps.SetActive(false);
+                this.playerArmature.SetActive(!value);
+                this.lastEnabledCamera.gameObject.SetActive(!value);
 
-                    lastEnabledCamera.gameObject.SetActive(true);
-                }
+                this.assemblyMenu.SetActive(value);
+                this.assemblyProps.SetActive(value);
+                
+                StarterAssetsInputs.Instance.ToggleCursorInputForLook(!value);
+                StarterAssetsInputs.Instance.ToggleCursorLocked(!value);
             }
         }
 
         private void Awake()
         {
+            this.playerArmature = this.transform.GetChild(0).gameObject;
+
             foreach (var e in suitComponents)
             {
                 targetPosition.Add(e.transform.localPosition);
@@ -86,28 +83,46 @@ namespace ExoLab.Input
             }
         }
 
-        private void AssemblyModeToggle()
+        private void AssemblyModeToggle(bool? state = null)
         {
-            this.AssemblyMode = !this.AssemblyMode;
+            if (state != null)
+            {
+                this.AssemblyMode = (bool)state;
+                return;
+            }
+
+            var d = !this.AssemblyMode;
+            this.AssemblyMode = d;
         }
 
+        private void ToggleMainMenu(bool? state = null)
+        {
+            if (state!= null)
+            {
+                this.mainMenu.SetActive((bool)state);
+                return;
+            }
+
+            this.mainMenu.gameObject.SetActive(!this.mainMenu.activeInHierarchy);
+        }
 
         // Update is called once per frame
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                AssemblyMode = false;
+                AssemblyModeToggle(false);
 
                 _cameraBack.gameObject.SetActive(true);
                 _cameraForward.gameObject.SetActive(false);
+
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 if (_cameraBack.gameObject.activeInHierarchy == false)
                     return;
 
-                AssemblyMode = false;
+                AssemblyModeToggle(false);
                 
                 _cameraBack.gameObject.SetActive(false);
                 _cameraForward.gameObject.SetActive(true);
@@ -138,15 +153,8 @@ namespace ExoLab.Input
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                AssemblyMode = false;
-                this.menu.gameObject.SetActive(!menu.activeInHierarchy);
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                StarterAssetsInputs.Instance.ToggleCursorInputForLook();
-                StarterAssetsInputs.Instance.ToggleCursorLocked();
-                //DelegateProcess(this.processKey_E);
+                this.AssemblyModeToggle(false);
+                this.ToggleMainMenu();
             }
         }
 

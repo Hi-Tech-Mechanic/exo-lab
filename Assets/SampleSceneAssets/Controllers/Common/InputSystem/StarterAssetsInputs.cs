@@ -74,19 +74,34 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-        public void ToggleCursorInputForLook()
+        public void ToggleCursorInputForLook(bool? state = null)
         {
+			if (state != null)
+			{
+				this.cursorInputForLook = (bool)state;
+				return;
+            }
+
             this.cursorInputForLook = !this.cursorInputForLook;
         }
 
-        public void ToggleCursorLocked()
+        public void ToggleCursorLocked(bool? state = null)
         {
-            this.SetCursorState(!this.cursorLocked);
+            if (state != null)
+            {
+                this.cursorLocked = (bool)state;
+            }
+			else
+			{
+                this.cursorLocked = !this.cursorLocked;
+            }
+
+            this.SetCursorState(this.cursorLocked);
         }
 
-		private void SetCursorState(bool newState)
+		private void SetCursorState(bool isLocked)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 }
