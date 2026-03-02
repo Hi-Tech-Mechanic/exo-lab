@@ -11,7 +11,7 @@
         /// <summary>
         /// Пока константой, затравка на расширение инвентаря
         /// </summary>
-        public const ushort maxSlotsCount = 21;
+        public const ushort maxSlotsCount = 30;
 
         [SerializeField]
         private InventoryView view;
