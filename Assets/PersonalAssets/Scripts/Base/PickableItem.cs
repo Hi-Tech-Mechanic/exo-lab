@@ -8,7 +8,10 @@
         public override void Interact()
         {
             var item = this.GetComponent<ItemBase>();
-            item.Pickup();
+            var itemData = item.GetBaseItemData();
+            GameEvents.RaiseItemCollected(itemData);
+
+            Destroy(this.gameObject);
         }
 
         protected override string GetTooltipText()

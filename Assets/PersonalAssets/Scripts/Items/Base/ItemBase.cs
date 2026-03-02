@@ -18,12 +18,12 @@
         protected ItemData itemData;
 
         /// <summary>
-        /// Делать return в переопределении если не надо подбирать предмет
+        /// Получить самый стандартный (минимальный) объем данных об объекте
         /// </summary>
-        public virtual void Pickup()
+        /// <returns></returns>
+        public ItemData GetBaseItemData()
         {
-            GameEvents.RaiseItemCollected(this.itemData);
-            Destroy(this.gameObject);
+            return this.itemData;
         }
     }
 }
