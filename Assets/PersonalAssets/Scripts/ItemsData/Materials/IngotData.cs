@@ -1,13 +1,10 @@
 ﻿namespace ExoLab.Data
 {
+    using Exolab;
     using UnityEngine;
 
-    /// <summary>
-    /// Локтевая бронепластина
-    /// </summary>
     [CreateAssetMenu(fileName = "IngotData", menuName = "Materials/Ingot")]
-    public class IngotData : ItemData
+    public class IngotData : MaterialData
     {
-        public IMaterial.MaterialType material;
     }
 }
