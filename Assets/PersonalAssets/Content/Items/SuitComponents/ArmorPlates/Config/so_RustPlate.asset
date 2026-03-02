@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6787c4d2a6231ef42ade31ce8638d64f, type: 3}
+  m_Name: so_RustPlate
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.ArmorPlateData
+  Id: 8cb5135b-b451-43f4-acf7-02b0cd134b4a
+  Name: "\u0420\u0436\u0430\u0432\u0430\u044F \u043F\u043B\u0430\u0441\u0442\u0438\u043D\u0430"
+  Description: "\u041A\u0443\u0441\u043E\u043A \u0436\u0435\u0441\u0442\u0438 \u0441\u043E
+    \u0441\u0432\u0430\u043B\u043A\u0438"
+  Weight: 2
+  MaxStackSize: 1
+  Icon: {fileID: 21300000, guid: 7b10a74fdf67c4a4bbd467bf640b6d57, type: 3}
+  Prefab: {fileID: 204895085230520841, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
+  Durability: 45
+  Material: 0
+  AttachmentOptions:
+  - ParentData: {fileID: 11400000, guid: b83f2b19dbef56b4595bc99e50cac312, type: 2}
+    AttachmentPoint: {x: -0.17845502, y: -0.1610696, z: 0.24983492}
+    Rotation: {x: -0.03902082, y: 0.9817773, z: -0.041073542, w: 0.18139373}
+    Scale: {x: 0.07828096, y: 0.24315326, z: 0.019999998}
+  - ParentData: {fileID: 11400000, guid: d1d9159ae365e1742ace399b8995f571, type: 2}
+    AttachmentPoint: {x: -0.17241456, y: -0.17093445, z: 0.21584302}
+    Rotation: {x: -0.060201515, y: 0.030932615, z: 0.018760884, w: 0.99753046}
+    Scale: {x: 0.078280956, y: 0.24315323, z: 0.019999994}
+  - ParentData: {fileID: 11400000, guid: 55baf851d55a7d448b1ba5f0426c3644, type: 2}
+    AttachmentPoint: {x: -0.17232144, y: -0.14290804, z: 0.23372479}
+    Rotation: {x: 0.06892937, y: 0.014479749, z: 0.99676406, w: 0.038737994}
+    Scale: {x: 0.062429965, y: 0.23613988, z: 0.020000005}
+  - ParentData: {fileID: 11400000, guid: 1e12f0d0e60f22f46bba91d5fc618730, type: 2}
+    AttachmentPoint: {x: -0.16392986, y: -0.14121065, z: 0.24951829}
+    Rotation: {x: 0.06892937, y: 0.014479749, z: 0.99676406, w: 0.038737994}
+    Scale: {x: 0.062429965, y: 0.23613988, z: 0.020000005}
+  CompabilityComponents: []

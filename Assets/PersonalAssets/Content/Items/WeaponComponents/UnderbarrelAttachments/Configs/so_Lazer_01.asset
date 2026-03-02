@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f9b39ba0fb45f4e97e052df635bc07, type: 3}
+  m_Name: so_Lazer_01
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.UnderbarrelAttachmentsData
+  Id: cf71fbb0-fdf2-4105-b097-fb5785b20daf
+  Name: "\u041B\u0430\u0437\u0435\u0440"
+  Description: "\u041B\u0430\u0437\u0435\u0440"
+  Weight: 0.1
+  MaxStackSize: 1
+  Icon: {fileID: 21300000, guid: 4eb0b2e8c5e5483408d82d60325177e3, type: 3}
+  Prefab: {fileID: 447358193027093782, guid: db6e3596430ec394d81b6392d4d7ce1e, type: 3}
+  Durability: 20
+  Material: 7
+  AttachmentOptions:
+  - ParentData: {fileID: 11400000, guid: 5ad45315ef9b654428082d1ddefee807, type: 2}
+    AttachmentPoint: {x: -0.072, y: -0.0058989525, z: 0.231}
+    Rotation: {x: -0.00000008940696, y: -0, z: -0.7071069, w: 0.7071067}
+    Scale: {x: 1, y: 1, z: 1}
+  CompabilityComponents: []

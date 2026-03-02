@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e059776d811b1c049a3f4b9dbfcddf9c, type: 3}
+  m_Name: so_ArmorPlateHandle_LowerArm_Back
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.ArmorPlateHandleData
+  Name: ArmorPlateHandle_LowerArm_Back
+  Description: 
+  Weight: 0
+  MaxStackSize: 0
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
+  Durability: 0
+  Material: 0
+  AttachmentOptions: []
+  CompabilityComponents: []
