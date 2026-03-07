@@ -69,9 +69,10 @@
             var counter = 0;
             foreach (var item in items)
             {
-                var itemObject = Instantiate(this.itemPrefab, this.slots[counter].transform);
+                var targetSlot = this.slots[counter].transform;
+                var itemObject = Instantiate(this.itemPrefab, targetSlot);
                 var itemView = itemObject.GetComponent<ItemView>();
-                itemView.SetItemData(item.ItemData);
+                itemView.SetItemData(item);
 
                 var assemblyComponent = itemObject.GetComponent<AssemblyComponentBase>();
                 assemblyComponent.SetItemData(item.ItemData);

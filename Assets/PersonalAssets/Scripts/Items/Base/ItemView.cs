@@ -21,12 +21,19 @@
         protected override void Start()
         {
             base.Start();
-            this.Initialize();
+            this.InitializeComponents();
 
-            this.FillAmount(10); //todo временно test
+            this.FillName();
+            this.FillIcon();
         }
 
-        private void Initialize()
+        public void SetItemData(StoredItem storedItem)
+        {
+            this.itemData = storedItem.ItemData;
+            this.FillAmount(storedItem.Amount);
+        }
+
+        private void InitializeComponents()
         {
             var texts = GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -51,23 +58,34 @@
                     this.iconHolder = image;
                 }
             }
+        }
 
-            this.FillName();
-            this.FillIcon();
+        private void InitializeComponentsIfNotExist()
+        {
+            if (this.nameText == null || this.amountText == null)
+            {
+                this.InitializeComponents();
+            }
         }
 
         private void FillName()
         {
+            this.InitializeComponentsIfNotExist();
+
             this.nameText.text = this.Name;
         }
 
         private void FillIcon()
         {
+            this.InitializeComponentsIfNotExist();
+
             this.iconHolder.sprite = this.itemData.Icon;
         }
 
         private void FillAmount(int amount)
         {
+            this.InitializeComponentsIfNotExist();
+
             this.amountText.text = amount.ToString();
         }
     }
