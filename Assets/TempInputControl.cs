@@ -88,11 +88,13 @@ namespace ExoLab.Input
             if (state != null)
             {
                 this.AssemblyMode = (bool)state;
-                return;
+            }
+            else
+            {
+                this.AssemblyMode = !this.AssemblyMode;
             }
 
-            var d = !this.AssemblyMode;
-            this.AssemblyMode = d;
+            GameEvents.RaiseAssemblyModeEnabled(this.AssemblyMode);
         }
 
         private void ToggleMainMenu(bool? state = null)

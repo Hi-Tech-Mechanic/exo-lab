@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 8376265006563182658}
   - component: {fileID: 855123808805365175}
   - component: {fileID: 5273186925420554030}
-  - component: {fileID: 602463462827266802}
   - component: {fileID: 576138529711459003}
-  - component: {fileID: 8757621045494118740}
-  - component: {fileID: 6158186502206792031}
-  m_Layer: 0
+  - component: {fileID: 602463462827266802}
+  - component: {fileID: 2950178199269962860}
+  - component: {fileID: 8795652054011993396}
+  m_Layer: 10
   m_Name: pref_Muzzle_Attachment_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,19 +117,6 @@ CapsuleCollider:
   m_Height: 0.12
   m_Direction: 2
   m_Center: {x: 0, y: -0.00009703264, z: 0}
---- !u!114 &602463462827266802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3577246875093298010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2525faa8eb0d9c44484f4b8fa2f352a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.MuzzleAttachment
-  itemData: {fileID: 11400000, guid: 0177ee1869bdca343aa90c118883991a, type: 2}
 --- !u!136 &576138529711459003
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -153,7 +140,7 @@ CapsuleCollider:
   m_Height: 0.05
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8757621045494118740
+--- !u!114 &602463462827266802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,10 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3577246875093298010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2525faa8eb0d9c44484f4b8fa2f352a0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &6158186502206792031
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.MuzzleAttachment
+  itemData: {fileID: 11400000, guid: 0177ee1869bdca343aa90c118883991a, type: 2}
+--- !u!114 &2950178199269962860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,6 +162,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3577246875093298010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &8795652054011993396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577246875093298010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode

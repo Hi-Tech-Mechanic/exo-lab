@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 8808735497623739338}
   - component: {fileID: 8312094934995707016}
   - component: {fileID: 6836359018561770132}
-  - component: {fileID: 3053789651037439522}
   - component: {fileID: 8346001106582056897}
-  - component: {fileID: 8243639675584316718}
-  - component: {fileID: 6968964361584582695}
-  m_Layer: 0
+  - component: {fileID: 3053789651037439522}
+  - component: {fileID: 2026427406276578812}
+  - component: {fileID: 1144575243148145575}
+  m_Layer: 10
   m_Name: pref_Handle_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,19 +93,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3053789651037439522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6670929282803556542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4052af939a4dc2f4f9e1c6d17efc7f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Handle
-  itemData: {fileID: 11400000, guid: 058482083bf01df408a68c4b798b71db, type: 2}
 --- !u!65 &8346001106582056897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -127,7 +114,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.14280352, y: 0.17007047, z: 0.044648252}
   m_Center: {x: 0.011474788, y: -0.014153309, z: -0.0000062724575}
---- !u!114 &8243639675584316718
+--- !u!114 &3053789651037439522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,10 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6670929282803556542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4052af939a4dc2f4f9e1c6d17efc7f9a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &6968964361584582695
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Handle
+  itemData: {fileID: 11400000, guid: 058482083bf01df408a68c4b798b71db, type: 2}
+--- !u!114 &2026427406276578812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,6 +136,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6670929282803556542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &1144575243148145575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670929282803556542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode

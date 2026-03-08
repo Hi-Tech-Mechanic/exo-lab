@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 40088447}
   - component: {fileID: 40088450}
   - component: {fileID: 40088451}
+  - component: {fileID: 40088452}
   m_Layer: 0
   m_Name: ConstructionAssembly
   m_TagString: ItemInspect
@@ -472,6 +473,18 @@ MonoBehaviour:
   exoskeletonAssemblyRoot: {fileID: 1719934082}
   wellborePreset: {fileID: 11400000, guid: ebe4fab2247e2424498b79ca5d95adc8, type: 2}
   wellboreAssemblyRoot: {fileID: 724697303}
+--- !u!114 &40088452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40088445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20edbe203719624d8cc9e374273dfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodesLocator
 --- !u!1 &44974900
 GameObject:
   m_ObjectHideFlags: 0
@@ -14131,7 +14144,9 @@ PrefabInstance:
       propertyPath: itemInspector
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5808981230518585970, guid: fe9b3e6678fdb4343864540feacf686e, type: 3}
+    - {fileID: 7624194510196704252, guid: fe9b3e6678fdb4343864540feacf686e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 140854472726428273, guid: fe9b3e6678fdb4343864540feacf686e, type: 3}
@@ -24437,7 +24452,7 @@ GameObject:
   - component: {fileID: 1307188586}
   m_Layer: 0
   m_Name: OrbitCamera
-  m_TagString: AssemblyInspectCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

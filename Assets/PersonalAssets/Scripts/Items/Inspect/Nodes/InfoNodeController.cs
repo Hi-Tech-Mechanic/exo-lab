@@ -1,24 +1,23 @@
-﻿namespace ExoLab.UI
+﻿namespace ExoLab.Interaction
 {
     using DG.Tweening;
     using ExoLab.Assembly;
     using ExoLab.Data;
-    using System;
     using UnityEngine;
 
     /// <summary>
     /// Контроллер смещений и размеров ноды относительно вращений и зума <see cref="ItemInspect"/>>
     /// </summary>
-    [RequireComponent (typeof(NodeInfoPopup))]
-    public class NodeLayoutController : MonoBehaviour
+    [RequireComponent (typeof(InfoNode))]
+    public class InfoNodeController : MonoBehaviour
     {
         private ItemInspect itemInspector;
-        private NodeInfoPopup nodeSelector;
+        private InfoNode infoNode;
 
         private Tweener offsetTween;
         private Tweener sizeTween;
 
-        private float duration;
+        private float animationDuration;
         private Ease easeType;
         private Vector2 rotationOffsetMultiplier;
 
@@ -27,13 +26,7 @@
 
         private void Awake()
         {
-            this.itemInspector = Caches.Instance.ItemInspect;
-
-            this.nodeSelector = this.GetComponent<NodeInfoPopup>();
-            this.nodeSelector.InitializeComponents();
-
-            this.duration = this.nodeSelector.NodeOptions.AnimationDuration;
-            this.rotationOffsetMultiplier = this.nodeSelector.NodeOptions.rotationOffsetMultiplier;
+            this.InitializeComponents();
         }
 
         private void OnEnable()
@@ -41,6 +34,10 @@
             this.itemInspector.OnRotationChanged += this.HandleRotationUpdate;
             this.itemInspector.OnZoomChanged += this.HandleZoomUpdate;
             this.itemInspector.OnCameraPositionChanged += this.HandleCameraChangeUpdate;
+
+
+
+            //GameEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
         }
 
         private void OnDisable()
@@ -48,6 +45,35 @@
             this.itemInspector.OnRotationChanged -= this.HandleRotationUpdate;
             this.itemInspector.OnZoomChanged -= this.HandleZoomUpdate;
             this.itemInspector.OnCameraPositionChanged -= this.HandleCameraChangeUpdate;
+            //GameEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
+        }
+
+        private void AssemblyModeHandler(bool assemblyEnabled)
+        {
+            if (assemblyEnabled)
+            {
+                this.InitializeComponents();
+                this.SubscribeEvents();
+            }
+        }
+
+        private void InitializeComponents()
+        {
+            if (this.itemInspector != null)
+                return;
+
+            this.infoNode = this.GetComponent<InfoNode>();
+            this.itemInspector = Caches.Instance.ItemInspect;
+            this.animationDuration = Caches.Instance.Interface.NodeOptions.AnimationDuration;
+            this.rotationOffsetMultiplier = Caches.Instance.Interface.NodeOptions.rotationOffsetMultiplier;
+        }
+
+        private void SubscribeEvents()
+        {
+            // Отписываемся на всякий
+       
+
+      
         }
 
         private void HandleRotationUpdate(Quaternion rotation)
@@ -74,18 +100,18 @@
         {
             Vector2 rotOffset = Vector2.Lerp(Vector2.one, rotationOffsetMultiplier, currentRotationDot);
 
-            var targetOffset = this.nodeSelector.BaseOffset * rotOffset * this.currentZoomFactor;
+            var targetOffset = this.infoNode.BaseOffset * rotOffset * this.currentZoomFactor;
             Vector3 targetScale = new Vector3(this.currentZoomFactor, this.currentZoomFactor, this.currentZoomFactor);
 
             this.offsetTween?.Kill();
             this.sizeTween?.Kill();
 
-            this.offsetTween = DOTween.To(() => this.nodeSelector.CurrentOffset, x => this.nodeSelector.CurrentOffset = x, targetOffset, this.duration)
+            this.offsetTween = DOTween.To(() => this.infoNode.CurrentOffset, x => this.infoNode.CurrentOffset = x, targetOffset, this.animationDuration)
                 .SetEase(easeType);
 
-            this.sizeTween = DOTween.To(() => this.nodeSelector.CurrentScale, x => {
-                this.nodeSelector.CurrentScale = x;
-            }, targetScale, this.duration).SetEase(this.easeType);
+            this.sizeTween = DOTween.To(() => this.infoNode.CurrentScale, x => {
+                this.infoNode.CurrentScale = x;
+            }, targetScale, this.animationDuration).SetEase(this.easeType);
         }
     }
 }

@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 2160350189186527231}
   - component: {fileID: 5470608553344042122}
   - component: {fileID: 7110972830935682400}
-  - component: {fileID: 3213207299612321615}
   - component: {fileID: 8846060801635111759}
-  - component: {fileID: 2255277796206143789}
-  - component: {fileID: 8843407920245396316}
-  m_Layer: 0
+  - component: {fileID: 3213207299612321615}
+  - component: {fileID: 983028715463136455}
+  - component: {fileID: 1035033730259698072}
+  m_Layer: 10
   m_Name: pref_Stock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,19 +93,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3213207299612321615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5670803139626572363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 173b36291787bd24fa9ac466c452b723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Butt
-  itemData: {fileID: 11400000, guid: 45603ffe55c45ca44a8892c49337b8c4, type: 2}
 --- !u!64 &8846060801635111759
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -128,7 +115,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2877959901470381799, guid: 0e6fd6362d78cbf4081c46ec80526642, type: 3}
---- !u!114 &2255277796206143789
+--- !u!114 &3213207299612321615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,10 +124,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5670803139626572363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 173b36291787bd24fa9ac466c452b723, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &8843407920245396316
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Attachments.Butt
+  itemData: {fileID: 11400000, guid: 45603ffe55c45ca44a8892c49337b8c4, type: 2}
+--- !u!114 &983028715463136455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,6 +137,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5670803139626572363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &1035033730259698072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670803139626572363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode

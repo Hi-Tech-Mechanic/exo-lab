@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6450759726187789336}
   - component: {fileID: 8193287817353458779}
   - component: {fileID: 5984299323329533826}
-  - component: {fileID: 3476187133353796602}
-  - component: {fileID: 6559030074262999224}
-  - component: {fileID: 297946346362863074}
   - component: {fileID: 5213238784421233849}
-  m_Layer: 0
+  - component: {fileID: 3476187133353796602}
+  - component: {fileID: 817916383443553501}
+  - component: {fileID: 4865512379252671286}
+  m_Layer: 10
   m_Name: pref_Flashlight_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,43 +94,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3476187133353796602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3114264194160026685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f12ef5cc7311efb4780c941fda632bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Weapon.UnderbarrelAttachments"
-  itemData: {fileID: 11400000, guid: 9b0e560a3d2768a4994e9cd6a03ad924, type: 2}
---- !u!114 &6559030074262999224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3114264194160026685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &297946346362863074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3114264194160026685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
 --- !u!65 &5213238784421233849
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -152,6 +115,43 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06669286, y: 0.073087685, z: 0.23006599}
   m_Center: {x: 0.00037687644, y: -0.0065269927, z: -0.004943952}
+--- !u!114 &3476187133353796602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3114264194160026685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12ef5cc7311efb4780c941fda632bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Weapon.UnderbarrelAttachments"
+  itemData: {fileID: 11400000, guid: 9b0e560a3d2768a4994e9cd6a03ad924, type: 2}
+--- !u!114 &817916383443553501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3114264194160026685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &4865512379252671286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3114264194160026685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode
 --- !u!1 &7106013259097483884
 GameObject:
   m_ObjectHideFlags: 0

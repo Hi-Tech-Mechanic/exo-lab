@@ -1,4 +1,4 @@
-﻿namespace ExoLab.UI
+﻿namespace ExoLab.Interaction
 {
     using UnityEngine;
     using UnityEngine.UI;
