@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6165780611339267838}
   - component: {fileID: 383486836774535685}
   - component: {fileID: 2826034745070715707}
-  - component: {fileID: 2688750419483840425}
-  - component: {fileID: 8833070856994635481}
   - component: {fileID: 3484240629969094051}
+  - component: {fileID: 4066998620744864956}
+  - component: {fileID: 8584449766741607805}
   m_Layer: 10
   m_Name: pref_AverageArmorPlate
   m_TagString: Untagged
@@ -142,30 +142,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2688750419483840425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204895085230520841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &8833070856994635481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204895085230520841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
 --- !u!114 &3484240629969094051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +155,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Suit.ArmorPlate"
   itemData: {fileID: 11400000, guid: 27aa0e0fef70e434bb95edcdf15d6ad6, type: 2}
+--- !u!114 &4066998620744864956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204895085230520841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &8584449766741607805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204895085230520841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode

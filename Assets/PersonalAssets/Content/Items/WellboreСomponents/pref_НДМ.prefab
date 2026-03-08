@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4937997347912444857}
   - component: {fileID: 218381732206056296}
   - component: {fileID: 4267553846768941281}
-  - component: {fileID: 5003931393342851586}
-  - component: {fileID: 7801881137858752598}
-  - component: {fileID: 4653407315145956102}
   - component: {fileID: 7359559049206905040}
+  - component: {fileID: 4653407315145956102}
   - component: {fileID: 8789394465442918193}
+  - component: {fileID: 6711728090166032292}
+  - component: {fileID: 2343167455490620462}
   m_Layer: 0
   m_Name: "pref_\u041D\u0414\u041C"
   m_TagString: Untagged
@@ -94,44 +94,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5003931393342851586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6176351353071607959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b76b6722793804aa4e3dc5d280a99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeLayoutController
-  itemInspector: {fileID: 0}
---- !u!114 &7801881137858752598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6176351353071607959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ec0f72c0aa55469ff6ab79c3c74e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.NodeInfoPopup
---- !u!114 &4653407315145956102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6176351353071607959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea2acf931a32fe44ba2ccb948939484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Weapon.WellboreComponentBase"
-  itemData: {fileID: 11400000, guid: 8a0855d0e29b85543951b2ac7c41da06, type: 2}
 --- !u!136 &7359559049206905040
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +117,19 @@ CapsuleCollider:
   m_Height: 0.5168594
   m_Direction: 1
   m_Center: {x: 0.0010209084, y: 0.0005103946, z: 0.026236884}
+--- !u!114 &4653407315145956102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6176351353071607959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea2acf931a32fe44ba2ccb948939484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: "Assembly-CSharp::ExoLab.Structural\u0421omponents.Weapon.WellboreComponentBase"
+  itemData: {fileID: 11400000, guid: 8a0855d0e29b85543951b2ac7c41da06, type: 2}
 --- !u!114 &8789394465442918193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +143,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotatingObjects
   rotationSpeed: 1
+--- !u!114 &6711728090166032292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6176351353071607959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &2343167455490620462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6176351353071607959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode
