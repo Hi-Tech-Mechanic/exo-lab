@@ -11,6 +11,7 @@ namespace ExoLab.Input
 
     public class TempInputControl : MonoBehaviour
     {
+        [SerializeField] private Camera _firstPersonCamera;
         [SerializeField] private Camera _cameraBack;
         [SerializeField] private Camera _cameraForward;
 
@@ -71,6 +72,66 @@ namespace ExoLab.Input
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                this.AssemblyModeToggle(false);
+
+                this._cameraBack.gameObject.SetActive(true);
+                this._cameraForward.gameObject.SetActive(false);
+                this._firstPersonCamera.gameObject.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (_cameraBack.gameObject.activeInHierarchy == false)
+                    return;
+
+                this.AssemblyModeToggle(false);
+
+                this._cameraBack.gameObject.SetActive(false);
+                this._cameraForward.gameObject.SetActive(true);
+                this._firstPersonCamera.gameObject.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                this.AssemblyModeToggle(false);
+
+                this._cameraBack.gameObject.SetActive(false);
+                this._cameraForward.gameObject.SetActive(false);
+                this._firstPersonCamera.gameObject.SetActive(true);
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                inventory.SetActive(!inventory.activeInHierarchy);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                stats.SetActive(!stats.activeInHierarchy);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                IEnumerator c = DescroySuit();
+                StartCoroutine(c);
+                Notifications.InvokeWarnNotify("Разрушение экзоскелета запущено", TransformDirections.RectDirection.Center);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                IEnumerator c = RepairSuit();
+                StartCoroutine(c);
+                Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
+            }
+            else if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                this.AssemblyModeToggle();
+            }
+            else if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                this.AssemblyModeToggle(false);
+                this.ToggleMainMenu();
+            }
+        }
+
         // По событию изменения настроек клавиш будет обновляться привязки
         private void UpdateKeyBindings(Dictionary<KeyCode, Delegate> bindings)
         {
@@ -107,59 +168,6 @@ namespace ExoLab.Input
 
             this.mainMenu.gameObject.SetActive(!this.mainMenu.activeInHierarchy);
         }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                AssemblyModeToggle(false);
-
-                _cameraBack.gameObject.SetActive(true);
-                _cameraForward.gameObject.SetActive(false);
-
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                if (_cameraBack.gameObject.activeInHierarchy == false)
-                    return;
-
-                AssemblyModeToggle(false);
-                
-                _cameraBack.gameObject.SetActive(false);
-                _cameraForward.gameObject.SetActive(true);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                inventory.SetActive(!inventory.activeInHierarchy);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                stats.SetActive(!stats.activeInHierarchy);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                IEnumerator c = DescroySuit();
-                StartCoroutine(c);
-                Notifications.InvokeWarnNotify("Разрушение экзоскелета запущено", TransformDirections.RectDirection.Center);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                IEnumerator c = RepairSuit();
-                StartCoroutine(c);
-                Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
-            }
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                this.AssemblyModeToggle();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                this.AssemblyModeToggle(false);
-                this.ToggleMainMenu();
-            }
-        }
-
         IEnumerator DescroySuit()
         {
             foreach (var e in suitComponents)
