@@ -24,28 +24,14 @@
         private float currentZoomFactor = 1F;
         private float currentRotationDot = 0F;
 
-        private void Awake()
-        {
-            this.InitializeComponents();
-        }
-
         private void OnEnable()
         {
-            this.itemInspector.OnRotationChanged += this.HandleRotationUpdate;
-            this.itemInspector.OnZoomChanged += this.HandleZoomUpdate;
-            this.itemInspector.OnCameraPositionChanged += this.HandleCameraChangeUpdate;
-
-
-
-            //GameEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
+            GameEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
         }
 
         private void OnDisable()
         {
-            this.itemInspector.OnRotationChanged -= this.HandleRotationUpdate;
-            this.itemInspector.OnZoomChanged -= this.HandleZoomUpdate;
-            this.itemInspector.OnCameraPositionChanged -= this.HandleCameraChangeUpdate;
-            //GameEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
+            GameEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
         }
 
         private void AssemblyModeHandler(bool assemblyEnabled)
@@ -55,6 +41,10 @@
                 this.InitializeComponents();
                 this.SubscribeEvents();
             }
+            else
+            {
+                this.UnsubscribeEvents();
+            }   
         }
 
         private void InitializeComponents()
@@ -70,10 +60,22 @@
 
         private void SubscribeEvents()
         {
-            // Отписываемся на всякий
-       
+            if (this.itemInspector == null)
+                return;
 
-      
+            this.itemInspector.OnRotationChanged += this.HandleRotationUpdate;
+            this.itemInspector.OnZoomChanged += this.HandleZoomUpdate;
+            this.itemInspector.OnCameraPositionChanged += this.HandleCameraChangeUpdate;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            if (this.itemInspector == null)
+                return;
+
+            this.itemInspector.OnRotationChanged -= this.HandleRotationUpdate;
+            this.itemInspector.OnZoomChanged -= this.HandleZoomUpdate;
+            this.itemInspector.OnCameraPositionChanged -= this.HandleCameraChangeUpdate;
         }
 
         private void HandleRotationUpdate(Quaternion rotation)
