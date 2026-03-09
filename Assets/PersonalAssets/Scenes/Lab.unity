@@ -7622,11 +7622,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 77349975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &418770228 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 794329200856815206, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
-  m_PrefabInstance: {fileID: 961322802}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &419418949
 GameObject:
   m_ObjectHideFlags: 0
@@ -15544,7 +15539,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.15
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -17120,13 +17115,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9169400838615879478, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442976052}
-    - targetCorrespondingSourceObject: {fileID: 794329200856815206, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5277081446174370484, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1271017367}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 541360294211659687, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1351048198}
+      addedObject: {fileID: 1351048199}
     - targetCorrespondingSourceObject: {fileID: 7326017790866764354, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1742044134}
@@ -24548,13 +24543,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271017366}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.24871816, z: 0}
+  m_LocalRotation: {x: -0.15949209, y: -0.68888485, z: -0.15949209, w: 0.68888485}
+  m_LocalPosition: {x: -0.094368584, y: -0.22222015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 885923156}
-  m_Father: {fileID: 418770228}
+  m_Father: {fileID: 1379461297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273063931
 GameObject:
@@ -25812,7 +25807,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 541360294211659687, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
   m_PrefabInstance: {fileID: 961322802}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1351048198
+--- !u!114 &1351048199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25821,12 +25816,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1351048197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cc86c8cd517e843a0554336a609cf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 899a101577339b7459adbf4798c165f1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  _firstPersonCamera: {fileID: 885923160}
-  _cameraBack: {fileID: 1513241420}
-  _cameraForward: {fileID: 1025168014}
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.InputController
+  firstPersonCamera: {fileID: 885923160}
+  cameraBack: {fileID: 1513241420}
+  cameraForward: {fileID: 1025168014}
   suitComponents:
   - {fileID: 1233165468}
   - {fileID: 498954761}
@@ -25834,12 +25829,12 @@ MonoBehaviour:
   - {fileID: 2039949244}
   - {fileID: 1270037534}
   - {fileID: 1362544560}
+  - {fileID: 1632108005}
+  - {fileID: 1905307802}
   - {fileID: 2000618264}
   - {fileID: 570918160}
   - {fileID: 1094088320}
   - {fileID: 442976052}
-  - {fileID: 1632108005}
-  - {fileID: 1905307802}
   assemblyMenu: {fileID: 40088445}
   assemblyProps: {fileID: 839606137}
   mainMenu: {fileID: 2019105509}
@@ -26049,6 +26044,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2659282029025045299, guid: 3e115b5cb2cd35c458a4931298d6f87f, type: 3}
   m_PrefabInstance: {fileID: 1362544559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1379461297 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5277081446174370484, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+  m_PrefabInstance: {fileID: 961322802}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1383169937
 GameObject:

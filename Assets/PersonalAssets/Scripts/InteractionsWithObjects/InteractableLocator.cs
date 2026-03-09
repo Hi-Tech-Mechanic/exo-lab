@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Interaction
 {
     using ExoLab.Data;
+    using ExoLab.Input;
     using UnityEngine;
 
     /// <summary>
@@ -9,7 +10,7 @@
     /// </summary>
     internal class InteractableLocator : MonoBehaviour
     {
-        private const float maxDistance = 10F;
+        private const float maxDistance = 2F;
 
         private LayerMask interactableLayer;
         private LayerMask componentLayer;
@@ -25,22 +26,39 @@
             this.Init();
         }
 
+        private void OnEnable()
+        {
+            InputController.Instance.OnInteractPressed += Interact;
+        }
+
+        private void OnDisable()
+        {
+            InputController.Instance.OnInteractPressed -= Interact;
+        }
+
         private void Update()
         {
-            if (this.TryFindInteractableObject())
+            if (this.TryFindInteractableObject(out var localHoveredObject))
             {
+                this.hoveredObject = localHoveredObject;
                 this.hoveredObject?.DisplayMessage();
-
-                if (Input.GetKeyDown(KeyCode.E) == true)
-                {
-                    this.hoveredObject?.Interact();
-                }
             }
             else
             {
+                if (this.hoveredObject == null)
+                    return;
+
                 this.hoveredObject?.HideMessage();
                 this.hoveredObject = null;
             }
+        }
+
+        private void Interact()
+        {
+            if (this.hoveredObject == null)
+                return;
+
+            this.hoveredObject?.Interact();
         }
 
         private void Init()
@@ -50,9 +68,10 @@
             this.componentLayer = LayerMask.GetMask(Constants.Constants.Layers.Component.ToString());
         }
         
-        private bool TryFindInteractableObject()
+        private bool TryFindInteractableObject(out InteractiveObject? hoveredObject)
         {
             RaycastHit hit;
+            hoveredObject = null;
 
             // Пока через камеру лучше все таки работает
             Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -65,7 +84,7 @@
                 return false;
             }
 
-            this.hoveredObject = hit.transform.GetComponent<InteractiveObject>();
+            hoveredObject = hit.transform.GetComponent<InteractiveObject>();
             return true;
         }
     }
