@@ -18,6 +18,6 @@ MonoBehaviour:
     \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"
   Weight: 1
   MaxStackSize: 64
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: b3896d9ebd510d0438a705cf1cc485c6, type: 3}
   Prefab: {fileID: 6058524611287952855, guid: e9aae8e73c8ab7241bb877e708e9cfbc, type: 3}
   material: 2

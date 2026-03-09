@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 526117778301329863, guid: 9bf97c936a1bfee46a55588fbf078d90, type: 3}
       propertyPath: m_Name
-      value: Copper_Ingot
+      value: pref_Copper_Ingot
       objectReference: {fileID: 0}
     - target: {fileID: 866650425680165757, guid: 9bf97c936a1bfee46a55588fbf078d90, type: 3}
       propertyPath: m_LocalPosition.x
