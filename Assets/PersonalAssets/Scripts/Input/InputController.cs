@@ -6,11 +6,14 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using UnityEngine;
     using UnityEngine.InputSystem;
 
     internal class InputController : MonoBehaviour
     {
+        private const string BindingSavePath = "bindings.json";
+
         public static InputController Instance { get; private set; }
 
         [SerializeField] private Camera firstPersonCamera;
@@ -55,6 +58,8 @@
                 StarterAssetsInputs.Instance.ToggleCursorLocked(!value);
             }
         }
+
+        public event Action<string> OnBindingChanged;
 
         #region Input Actions
 
@@ -329,6 +334,82 @@
 
                 yield return new WaitForSeconds(0.5f);
             }
+        }
+
+        /// <summary>
+        /// Запускает процесс ожидания нажатия клавиши для конкретного действия
+        /// </summary>
+        /// <param name="action">Какое действие меняем (например, _jumpAction)</param>
+        /// <param name="onComplete">Коллбек, когда игрок нажал новую кнопку</param>
+        public void StartRebind(InputAction action, Action<string> onComplete)
+        {
+            // Отключаем действие, чтобы во время настройки оно не срабатывало в игре
+            action.Disable();
+
+            action.PerformInteractiveRebinding()
+                .WithControlsExcluding("Mouse") // Игнорируем мышь, если меняем клавиатуру (опционально)
+                .OnMatchWaitForAnother(0.1f)    // Ждем, если нажато несколько кнопок (комбо)
+                .OnComplete(callback =>
+                {
+                    // Получаем имя новой клавиши для UI
+                    string newBindingName = callback.action.controls[0].displayName;
+
+                    // Завершаем ребиндинг
+                    callback.Dispose();
+
+                    // Включаем действие обратно
+                    action.Enable();
+
+                    // Сохраняем изменения
+                    SaveBindings();
+
+                    // Сообщаем UI и вызываем коллбек
+                    OnBindingChanged?.Invoke(newBindingName);
+                    onComplete?.Invoke(newBindingName);
+                })
+                .Start();
+        }
+
+        public void SaveBindings()
+        {
+            string json = controls.asset.SaveBindingOverridesAsJson();
+            string path = Path.Combine(Application.persistentDataPath, BindingSavePath);
+            File.WriteAllText(path, json);
+            Debug.Log("Настройки управления сохранены");
+        }
+
+        public void LoadBindings()
+        {
+            string path = Path.Combine(Application.persistentDataPath, BindingSavePath);
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path);
+                controls.asset.LoadBindingOverridesFromJson(json);
+                Debug.Log("Настройки управления загружены");
+            }
+        }
+
+        public void ResetToDefaults()
+        {
+            this.controls.asset.RemoveAllBindingOverrides();
+            SaveBindings();
+            Debug.Log("Управление сброшено к стандартному");
+        }
+
+        // Хелпер для UI, чтобы узнать текущую клавишу
+        public string GetBindingName(InputAction action)
+        {
+            return action.controls[0].displayName;
+        }
+
+        internal InputAction GetJumpAction()
+        {
+            return this.jumpAction;
+        }
+
+        internal InputAction GetInteractAction()
+        {
+            return this.interactAction;
         }
     }
 }
