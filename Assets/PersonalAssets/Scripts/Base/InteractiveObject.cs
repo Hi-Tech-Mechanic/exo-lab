@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Interaction
 {
     using Assets.PersonalAssets.Scripts.UI;
+    using ExoLab.Input;
     using StarterAssets;
     using Unity.Tutorials.Core.Editor;
     using UnityEngine;
@@ -70,7 +71,8 @@
         /// <returns></returns>
         protected virtual string GetKeyName()
         {
-            return Constants.Constants.InputButtons.InteractiveButton;
+            var action = InputController.Instance.GetInteractAction();
+            return InputController.Instance.GetBindingName(action);
         }
 
         /// <summary>
