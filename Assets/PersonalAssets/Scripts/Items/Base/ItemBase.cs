@@ -161,7 +161,7 @@
             var result = new Dictionary<string, object>();
 
             result.AddRange(this.GetNumericStats());
-            result[nameof(this.MaxStackSize)] = this.MaxStackSize;
+            result["Max stack size"] = $"{this.MaxStackSize} pcs.";
 
             return result;
         }
@@ -176,7 +176,7 @@
             var result = new Dictionary<string, object>();
 
             result.AddRange(this.GetTranslatedNumericStats());
-            result["Размер стака"] = this.MaxStackSize;
+            result["Размер стака"] = $"{this.MaxStackSize} шт.";
 
             return result;
         }
@@ -190,7 +190,7 @@
         {
             var result = new Dictionary<string, object>();
 
-            result[nameof(this.Weight)] = this.Weight;
+            result[nameof(this.Weight)] = $"{this.Weight} kg.";
 
             return result;
         }
@@ -204,7 +204,7 @@
         {
             var result = new Dictionary<string, object>();
 
-            result["Вес"] = this.Weight;
+            result["Вес"] = $"{this.Weight} кг.";
 
             return result;
         }

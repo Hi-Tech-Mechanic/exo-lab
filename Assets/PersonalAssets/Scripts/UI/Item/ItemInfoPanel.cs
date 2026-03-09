@@ -65,7 +65,7 @@
 
         private void FillStats(ItemBase itemBase)
         {
-            var statsData = itemBase.GetTranslatedAllStats();
+            var statsData = itemBase.GetAllStats();
             var prefabHeight = this.statTextPrefab.GetComponent<RectTransform>().rect.height;
             this.allStatsHeight = prefabHeight * statsData.Count;
 
