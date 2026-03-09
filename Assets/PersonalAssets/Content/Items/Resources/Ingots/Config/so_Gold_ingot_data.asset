@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: so_Gold_ingot_data
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Data.IngotData
   Id: 144ae236-a26d-4ade-ac25-5d0d4af6ff92
-  Name: "\u041E\u043B\u043E\u0432\u044F\u043D\u043D\u044B\u0439 \u0441\u043B\u0438\u0442\u043E\u043A"
-  Description: "\u041C\u044F\u0433\u043A\u0438\u0439 \u0445\u043E\u0440\u043E\u0448\u0438\u0439
+  Name: "\u0417\u043E\u043B\u043E\u0442\u043E\u0439 \u0441\u043B\u0438\u0442\u043E\u043A"
+  Description: "\u0418\u0434\u0435\u0430\u043B\u044C\u043D\u044B\u0439 \u0438\u043D\u0435\u0440\u0442\u043D\u044B\u0439
     \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"
   Weight: 1
   MaxStackSize: 64
