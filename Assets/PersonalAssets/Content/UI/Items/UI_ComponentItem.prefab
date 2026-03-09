@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 349201419610116235, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
       propertyPath: m_Name
-      value: ComponentItem
+      value: UI_ComponentItem
       objectReference: {fileID: 0}
     - target: {fileID: 5059981537482206933, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
       propertyPath: m_Pivot.x
@@ -92,10 +92,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5148051031385229654, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
+    - {fileID: -7659338484702889384, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 349201419610116235, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 7079358133683222592}
     - targetCorrespondingSourceObject: {fileID: 349201419610116235, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4319220122223529451}
@@ -105,6 +110,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 349201419610116235, guid: d803e8ed932f05b47a0498f352e012f6, type: 3}
   m_PrefabInstance: {fileID: 5990201763008463961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7079358133683222592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339348722163750098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e283ce64e4e376542b21edc30d14d47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.DraggableComponent
+  previewMaterial: {fileID: 2100000, guid: b08cad1e108e849458c9fd34745834de, type: 2}
 --- !u!114 &4319220122223529451
 MonoBehaviour:
   m_ObjectHideFlags: 0

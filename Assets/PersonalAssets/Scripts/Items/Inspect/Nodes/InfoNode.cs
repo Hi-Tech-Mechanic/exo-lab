@@ -1,7 +1,6 @@
 ﻿namespace ExoLab.Interaction
 {
     using ExoLab.Data;
-    using ExoLab.StructuralСomponents;
     using ExoLab.UI;
     using UnityEngine;
 
@@ -165,9 +164,9 @@
             if (this.currentNodeWindow == null)
             {
                 this.currentNodeWindow = Instantiate(this.nodeWindowPrefab, Caches.Instance.Interface.HudCanvas.transform);
-                var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
+                var itemBase = this.GetComponent<ItemBase>();
                 var itemInfo = this.currentNodeWindow.GetComponent<ItemInfoPanel>();
-                itemInfo.Initialize(assemblyComponent);
+                itemInfo.Initialize(itemBase);
 
                 this.line = this.currentNodeWindow.GetComponentInChildren<NodeLine>();
                 this.nodeWindowRect = this.currentNodeWindow.GetComponent<RectTransform>();

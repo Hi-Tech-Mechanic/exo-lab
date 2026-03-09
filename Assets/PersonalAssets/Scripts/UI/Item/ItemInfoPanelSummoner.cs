@@ -2,7 +2,7 @@ namespace ExoLab.UI
 {
     using Assets.PersonalAssets.Scripts.UI.Base;
     using ExoLab.Data;
-    using ExoLab.StructuralСomponents;
+    using System;
     using UnityEngine;
 
     /// <summary>
@@ -16,6 +16,8 @@ namespace ExoLab.UI
         private RectTransform? infoPanelRectTransform = null;
         private Vector2 offsetFromCursor = new Vector2(20F, 0);
         private RectTransform? _canvasRect;
+
+        [NonSerialized] private ItemBase? cachedItemBase;
 
         /// <summary>
         /// Родитель всех созданных панелей и окон
@@ -35,13 +37,12 @@ namespace ExoLab.UI
 
         protected override void ActionAfterClick()
         {
-            this.InvokeFloatingWindow();
+            this.InvokeRealItemInfoPanel();
         }
 
         protected override void ActionAfterPointerEnter()
         {
-            this.CreateItemInfoPanel();
-            //this.UpdatePosition();
+            this.InvokeTooltipItemInfoPanel();
         }
 
         protected override void ActionAfterPointerExit()
@@ -56,32 +57,43 @@ namespace ExoLab.UI
             if (infoPanelRectTransform == null)
                 return;
 
-            this.UpdatePosition2();
+            this.UpdatePosition();
         }
 
         /// <summary>
         /// Вызвать инфо панель в физичном окне, например по нажатию
         /// </summary>
-        private void InvokeFloatingWindow()
+        private void InvokeRealItemInfoPanel()
         {
-            var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
-            var windowName = $"Характеристики - [{assemblyComponent.TypedItemData.Name}]";
+            if (this.cachedItemBase == null)
+            {
+                this.cachedItemBase = this.GetComponent<ItemBase>();
+            }
+
+            var windowName = $"Характеристики - [{this.cachedItemBase.Name}]";
             FloatingWindowsController.Instance.AddWindow(this.createdInfoPanel, windowName);
         }
 
-        private void CreateItemInfoPanel()
+        /// <summary>
+        /// Создать плавающее окно подсказка
+        /// </summary>
+        private void InvokeTooltipItemInfoPanel()
         {
+            if (this.cachedItemBase == null)
+            {
+                this.cachedItemBase = this.GetComponent<ItemBase>();
+            }
+
             this.createdInfoPanel = Instantiate(this.infoPanelPrefab, this.canvasRect.transform);
             this.infoPanelRectTransform = this.createdInfoPanel.GetComponent<RectTransform>();
             // Устанавливаем Anchor и Pivot в левый нижний угол для удобства расчетов
             this.infoPanelRectTransform.pivot = new Vector2(0, 0);
 
-            var assemblyComponent = this.GetComponent<AssemblyComponentBase>();
             var itemInfo = this.createdInfoPanel.GetComponent<ItemInfoPanel>();
-            itemInfo.Initialize(assemblyComponent);
+            itemInfo.Initialize(this.cachedItemBase);
         }
    
-        private void UpdatePosition2()
+        private void UpdatePosition()
         {
             Vector2 mousePos = Input.mousePosition;
 

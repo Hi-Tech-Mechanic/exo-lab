@@ -23,7 +23,7 @@ namespace ExoLab.UI
         /// <summary>
         /// Ссылка на содержимый объект
         /// </summary>
-        public ItemView Item { get; set; }
+        public ItemBase Item { get; set; }
 
         protected virtual void Awake()
         {
@@ -92,9 +92,9 @@ namespace ExoLab.UI
             if (this.currentRectTransform == null)
                 throw new NullReferenceException($"Не найден {nameof(RectTransform)} у {this.gameObject.name}");
 
-            this.Item = this.gameObject.GetComponent<ItemView>();
+            this.Item = this.gameObject.GetComponent<ItemBase>();
             if (this.Item == null)
-                throw new NullReferenceException($"Не найден {nameof(ItemView)} у {this.gameObject.name}");
+                throw new NullReferenceException($"Не найден {nameof(ItemBase)} у {this.gameObject.name}");
 
             this.canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
             if (this.canvasGroup == null)

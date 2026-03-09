@@ -2,8 +2,6 @@ namespace ExoLab.UI
 {
     using ExoLab.Assembly;
     using ExoLab.Data;
-    using ExoLab.Helpers;
-    using ExoLab.Interaction;
     using ExoLab.Structural—omponents;
     using System.Collections.Generic;
     using System.Linq;
@@ -173,7 +171,7 @@ namespace ExoLab.UI
         /// </summary>
         private void CacheFields()
         {
-            this.cachedCurrentComponent = this.Item.TypedItemData.Prefab.GetComponent<AssemblyComponentBase>();
+            this.cachedCurrentComponent = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
             this.cachedAllComponents = this.constructionRoot.transform.GetComponentsInChildren<AssemblyComponentBase>().ToList();
         }
 

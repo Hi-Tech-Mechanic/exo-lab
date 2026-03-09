@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5059981537482206933}
   - component: {fileID: 9175930119474580666}
-  - component: {fileID: 6124868710350255144}
   - component: {fileID: 7267070483047411943}
+  - component: {fileID: 5148051031385229654}
   - component: {fileID: 2354666806534152565}
+  - component: {fileID: -7659338484702889384}
   m_Layer: 5
   m_Name: UI_Item
   m_TagString: Untagged
@@ -52,20 +53,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6124868710350255144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349201419610116235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e283ce64e4e376542b21edc30d14d47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.DraggableComponent
-  connectionPointPrefab: {fileID: 8272604278556951836, guid: 2abcfd76c1723814b8fda73184813018, type: 3}
-  previewMaterial: {fileID: 2100000, guid: b08cad1e108e849458c9fd34745834de, type: 2}
 --- !u!114 &7267070483047411943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +65,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8532d81371c7be4c8e5c650c683612a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.ItemUI
-  itemData: {fileID: 0}
+--- !u!114 &5148051031385229654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349201419610116235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85699a11e037d14db0ba01b34d984e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.DraggableInventoryItem
 --- !u!114 &2354666806534152565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +90,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.ItemInfoSummoner
   infoPanelPrefab: {fileID: 3529114107429709546, guid: 85a52535c7dd8454da5e2d2059235f6e, type: 3}
+--- !u!114 &-7659338484702889384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349201419610116235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4dcd703363f8749a752671774a947a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.ItemBase
+  itemData: {fileID: 0}
 --- !u!1 &953758814393824414
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,23 +4,25 @@
     using UnityEngine.UI;
     using ExoLab.Constants;
     using ExoLab.Data;
+    using UnityEngine;
 
     /// <summary>
     /// Визуальная часть предмета
     /// </summary>
-    public class ItemView : ItemAbstract<ItemData>
+    [RequireComponent(typeof(ItemBase))]
+    public class ItemView : MonoBehaviour
     {
         private const string nameIdentifier = "Txt_ItemName";
         private const string amountIdentifier = "Txt_Amount";
 
+        private ItemData itemData;
+
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI amountText;
-
         private Image iconHolder;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             this.InitializeComponents();
 
             this.FillName();
@@ -72,7 +74,7 @@
         {
             this.InitializeComponentsIfNotExist();
 
-            this.nameText.text = this.Name;
+            this.nameText.text = this.itemData.Name;
         }
 
         private void FillIcon()
