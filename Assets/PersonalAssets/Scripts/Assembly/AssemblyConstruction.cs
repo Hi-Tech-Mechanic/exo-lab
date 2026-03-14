@@ -5,6 +5,7 @@ namespace ExoLab.Assembly
     using ExoLab.UI;
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -32,7 +33,9 @@ namespace ExoLab.Assembly
         private double durability;
         private double weight;
         private double bullets;
-        
+
+        private readonly Regex numberFilter = new Regex(@"\d+(\.\d+)?", RegexOptions.IgnoreCase);
+
         /// <summary>
         /// Вместо кучи отдельных полей идет один словарь
         /// </summary>
@@ -106,13 +109,21 @@ namespace ExoLab.Assembly
 
             foreach (var stat in StatValues)
             {
+                var match = numberFilter.Match(stat.Value.ToString()).Value;
+                var valueIsNumeric = double.TryParse(match, out var numericValue);
+
+                if (valueIsNumeric == false)
+                {
+                    continue;
+                }
+
                 if (this.numericStats.ContainsKey(stat.Key))
                 {
-                    this.numericStats[stat.Key] += (double)stat.Value;
+                    this.numericStats[stat.Key] += numericValue;
                 }
                 else
                 {
-                    this.numericStats.TryAdd(stat.Key, (double)stat.Value);
+                    this.numericStats.TryAdd(stat.Key, numericValue);
                 }
             }
 
