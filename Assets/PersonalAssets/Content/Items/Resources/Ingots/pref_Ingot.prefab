@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
       propertyPath: m_Name
-      value: Ingot
+      value: pref_Ingot
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
       propertyPath: m_Layer
@@ -72,6 +72,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4436925563465848510}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7986918440117066863}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8200114871960183218}
   m_SourcePrefab: {fileID: 100100000, guid: 61f789aca6c26434482f33d88d362ac9, type: 3}
 --- !u!1 &526117778301329863 stripped
 GameObject:
@@ -152,3 +158,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.PickableItem
   tooltipText: "\u0412\u0437\u044F\u0442\u044C"
+--- !u!114 &7986918440117066863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526117778301329863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a99015611356ba419df06f4910c0512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNodeController
+--- !u!114 &8200114871960183218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526117778301329863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971b32cbd7dd7884ebcfa452a34d2de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InfoNode

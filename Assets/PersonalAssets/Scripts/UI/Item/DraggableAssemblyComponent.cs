@@ -3,6 +3,7 @@ namespace ExoLab.UI
     using ExoLab.Assembly;
     using ExoLab.Data;
     using ExoLab.StructuralСomponents;
+    using ExoLab.StructuralСomponents.Weapon;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -13,7 +14,7 @@ namespace ExoLab.UI
     /// Надстройка над обычным <see cref="DraggableInventoryItem"/> для комплектующих
     /// имеет возможность после перетаскивания встраиваться в конструкцию
     /// </summary>
-    public class DraggableComponent : DraggableInventoryItem
+    public class DraggableAssemblyComponent : DraggableInventoryItem
     {
         [Tooltip ("Материал для предпросмотра соединяемого компонента")]
         [SerializeField] private Material previewMaterial;
@@ -103,7 +104,7 @@ namespace ExoLab.UI
         /// </summary>
         private bool TryBindComponent()
         {
-            if (this.cachedCurrentComponent == null || this.cachedAllComponents.Count == 0 || this.visualizedElements.Count == 0)
+            if (this.cachedCurrentComponent == null || this.visualizedElements.Count == 0)
                 return false;
 
             GameObject selectedComponent = cachedCurrentComponent.gameObject;
@@ -127,6 +128,14 @@ namespace ExoLab.UI
                 }
             }
 
+            // todo жестко забит тип, выделить интерфейс
+            if (this.cachedAllComponents.Count == 0 && this.cachedCurrentComponent is Receiver)
+            {
+                var currentItemObject = Instantiate(selectedComponent, this.constructionRoot.transform);
+                currentItemObject.transform.SetParent(this.constructionRoot.transform);
+                return true;
+            }
+
             foreach (var parentComponent in this.cachedAllComponents)
             {
                 if (this.cachedCurrentComponent.CanBeAttached(parentComponent.TypedItemData))
@@ -146,8 +155,27 @@ namespace ExoLab.UI
         /// </summary>
         private void DrawPreviewComponent()
         {
-            if (this.cachedCurrentComponent == null || cachedAllComponents.Count == 0)
+            if (this.cachedCurrentComponent == null)
                 return;
+
+            if (this.cachedAllComponents.Count == 0)
+            {
+                // todo жестко забит тип, выделить интерфейс
+                if (this.cachedCurrentComponent is not Receiver)
+                {
+                    return;
+                }
+
+                var previewModel = Instantiate(this.cachedCurrentComponent.TypedItemData.Prefab, this.constructionRoot.transform);
+
+                var previewModelMaterial = previewModel.GetComponent<Renderer>();
+                this.startMaterial = previewModelMaterial.material;
+                previewModelMaterial.material = this.previewMaterial;
+
+                this.visualizedElements.Add(previewModel);
+
+                return;
+            }
 
             foreach (var targetComponent in this.cachedAllComponents)
             {
