@@ -2,8 +2,6 @@
 {
     using Assets.PersonalAssets.Scripts.UI;
     using ExoLab.Input;
-    using StarterAssets;
-    using Unity.Tutorials.Core.Editor;
     using UnityEngine;
 
     /// <summary>
@@ -21,17 +19,14 @@
 
         public delegate void KeypressDelegate();
 
-        public KeypressDelegate keypressDelegate;
-
         protected void Awake()
         {
             Instance = this;
-            this.keypressDelegate = new KeypressDelegate(this.KeypressEvent);
         }
 
         private void OnValidate()
         {
-            if (this.tooltipText.IsNullOrEmpty() == true)
+            if (this.tooltipText == null || this.tooltipText == string.Empty)
             {
                 this.tooltipText = this.GetTooltipText();
             }
@@ -71,17 +66,8 @@
         /// <returns></returns>
         protected virtual string GetKeyName()
         {
-            var action = InputController.Instance.GetInteractAction();
-            return InputController.Instance.GetBindingName(action);
-        }
-
-        /// <summary>
-        /// Событие которое должно происходить после нажатия клавиши
-        /// </summary>
-        protected virtual void KeypressEvent()
-        {
-            StarterAssetsInputs.Instance.ToggleCursorInputForLook();
-            StarterAssetsInputs.Instance.ToggleCursorLocked();
+            var action = InputControllersManager.Instance.Interaction.Interact;
+            return InputControllersManager.Instance.GetBindingName(action);
         }
     }
 }

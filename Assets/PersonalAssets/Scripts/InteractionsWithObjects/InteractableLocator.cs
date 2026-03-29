@@ -28,12 +28,12 @@
 
         private void OnEnable()
         {
-            InputController.Instance.OnInteractPressed += Interact;
+            InputControllersManager.Instance.Interaction.OnInteractPressed += Interact;
         }
 
         private void OnDisable()
         {
-            InputController.Instance.OnInteractPressed -= Interact;
+            InputControllersManager.Instance.Interaction.OnInteractPressed -= Interact;
         }
 
         private void Update()
