@@ -3,29 +3,39 @@
     using TMPro;
     using UnityEngine.UI;
     using ExoLab.Constants;
+    using ExoLab.Data;
+    using UnityEngine;
 
     /// <summary>
     /// Визуальная часть предмета
     /// </summary>
-    public class ItemView : Item
+    [RequireComponent(typeof(ItemBase))]
+    public class ItemView : MonoBehaviour
     {
         private const string nameIdentifier = "Txt_ItemName";
         private const string amountIdentifier = "Txt_Amount";
 
+        private ItemData itemData;
+
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI amountText;
-
         private Image iconHolder;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
-            this.Initialize();
+            this.InitializeComponents();
 
-            this.FillAmount(10); //todo временно test
+            this.FillName();
+            this.FillIcon();
         }
 
-        private void Initialize()
+        public void SetItemData(StoredItem storedItem)
+        {
+            this.itemData = storedItem.ItemData;
+            this.FillAmount(storedItem.Amount);
+        }
+
+        private void InitializeComponents()
         {
             var texts = GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -50,23 +60,34 @@
                     this.iconHolder = image;
                 }
             }
+        }
 
-            this.FillName();
-            this.FillIcon();
+        private void InitializeComponentsIfNotExist()
+        {
+            if (this.nameText == null || this.amountText == null)
+            {
+                this.InitializeComponents();
+            }
         }
 
         private void FillName()
         {
-            this.nameText.text = this.Name;
+            this.InitializeComponentsIfNotExist();
+
+            this.nameText.text = this.itemData.Name;
         }
 
         private void FillIcon()
         {
+            this.InitializeComponentsIfNotExist();
+
             this.iconHolder.sprite = this.itemData.Icon;
         }
 
         private void FillAmount(int amount)
         {
+            this.InitializeComponentsIfNotExist();
+
             this.amountText.text = amount.ToString();
         }
     }

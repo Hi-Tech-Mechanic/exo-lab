@@ -1,6 +1,6 @@
 ﻿namespace ExoLab.UI
 {
-    using ExoLab.StructuralСomponents;
+    using ExoLab.Data;
     using System.Collections.Generic;
     using System.Linq;
     using TMPro;
@@ -16,13 +16,17 @@
         [SerializeField]
         private GameObject slotsHandler;
 
-        [Tooltip ("Шаблон слота инвентаря")]
+        [Tooltip ("Слот инвентаря")]
         [SerializeField]
         private GameObject slotPrefab;
 
-        [Tooltip ("Шаблон предмета")]
+        [Tooltip("Обычный предмет")]
         [SerializeField]
         private GameObject itemPrefab;
+
+        [Tooltip ("Предмет-компонент")]
+        [SerializeField]
+        private GameObject itemComponentPrefab;
 
         [Tooltip("Выпадающий список типов сортировки")]
         [SerializeField]
@@ -69,14 +73,25 @@
             var counter = 0;
             foreach (var item in items)
             {
-                var itemObject = Instantiate(this.itemPrefab, this.slots[counter].transform);
+                GameObject itemObject;
+                var targetSlot = this.slots[counter].transform;
+
+                if (item.ItemData is AssemblyComponentData assemblyComponentData)
+                {
+                    itemObject = Instantiate(this.itemComponentPrefab, targetSlot);
+                }
+                else
+                {
+                    itemObject = Instantiate(this.itemPrefab, targetSlot);
+                }
+
                 var itemView = itemObject.GetComponent<ItemView>();
-                itemView.SetItemData(item.ItemData);
+                itemView.SetItemData(item);
 
-                var assemblyComponent = itemObject.GetComponent<AssemblyComponentBase>();
-                assemblyComponent.SetItemData(item.ItemData);
+                var itemBase = itemObject.GetComponent<ItemBase>();
+                itemBase.SetItemData(item.ItemData);
 
-                this.slots[counter].SetStoredItem(itemView);
+                this.slots[counter].SetStoredItem(itemBase);
                 this.itemsInSlots.Add(itemView.gameObject);
 
                 counter++;

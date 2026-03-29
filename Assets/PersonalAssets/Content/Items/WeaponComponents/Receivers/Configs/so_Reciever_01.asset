@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e581134472c4f5e4cb928e9f85e7ebe3, type: 3}
+  m_Name: so_Reciever_01
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.PersonalAssets.ScriptableObjects.ReceiverItemData
+  Name: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430"
+  Description: "\u0421\u0442\u0432\u043E\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430
+    \u043E\u0431\u044B\u0447\u043D\u0430\u044F"
+  Weight: 4
+  MaxStackSize: 1
+  Icon: {fileID: 21300000, guid: ab0e82d82b8b5034db90c0626c4c52e2, type: 3}
+  Prefab: {fileID: 7129776249590637568, guid: fe9b3e6678fdb4343864540feacf686e, type: 3}
+  Durability: 150
+  Material: 0
+  AttachmentOptions: []
+  CompabilityComponents:
+  - componentType: 1
+    Count: 1
+  - componentType: 0
+    Count: 1
+  - componentType: 3
+    Count: 1
+  - componentType: 2
+    Count: 2
+  - componentType: 4
+    Count: 2

@@ -1,6 +1,5 @@
 ﻿namespace ExoLab.UI
 {
-    using ExoLab.StructuralСomponents;
     using TMPro;
     using Unity.VisualScripting;
     using UnityEngine;
@@ -43,12 +42,12 @@
             this.rectTransform = this.GetComponent<RectTransform>();
         }
 
-        public void Initialize(AssemblyComponentBase assemblyComponent)
+        public void Initialize(ItemBase itemBase)
         {
-            this.FillStats(assemblyComponent);
-            this.SetHeaderText(assemblyComponent.Name);
-            this.SetDescriptionText(assemblyComponent.Description);
-            this.SetIcon(assemblyComponent.TypedItemData.Icon);
+            this.FillStats(itemBase);
+            this.SetHeaderText(itemBase.Name);
+            this.SetDescriptionText(itemBase.Description);
+            this.SetIcon(itemBase.GetBaseItemData().Icon);
 
             this.SetPanelSize();
         }
@@ -64,9 +63,9 @@
             }
         }
 
-        private void FillStats(AssemblyComponentBase assemblyComponent)
+        private void FillStats(ItemBase itemBase)
         {
-            var statsData = assemblyComponent.GetTranslatedAllStats();
+            var statsData = itemBase.GetAllStats();
             var prefabHeight = this.statTextPrefab.GetComponent<RectTransform>().rect.height;
             this.allStatsHeight = prefabHeight * statsData.Count;
 

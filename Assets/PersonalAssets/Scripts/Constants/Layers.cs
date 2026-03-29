@@ -6,7 +6,8 @@ namespace ExoLab.Constants
         {
             Default = 0,
             UI = 5,
-            Component = 10
+            Component = 10,
+            Interactable = 11,
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace ExoLab
 {
+    using ExoLab.Data;
     using ExoLab.UI;
     using System;
     using System.Linq;
@@ -10,7 +11,7 @@
         /// <summary>
         /// Пока константой, затравка на расширение инвентаря
         /// </summary>
-        public const ushort maxSlotsCount = 21;
+        public const ushort maxSlotsCount = 30;
 
         [SerializeField]
         private InventoryView view;
@@ -32,11 +33,26 @@
             Durability = 2,
         }
 
-
         private void Awake()
         {
             this.InitInventoryModel();
             this.InitInventoryView();
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.OnItemCollected += AddItem;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnItemCollected -= AddItem;
+        }
+
+        private void AddItem(ItemData itemData)
+        {
+            this.model.AddItem(itemData);
+            this.RefreshView();
         }
 
         private void InitInventoryModel()

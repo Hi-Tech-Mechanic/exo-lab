@@ -93,7 +93,7 @@
         /// Присоединиться к передаваемому объекту
         /// </summary>
         /// <param name="targetObject">Объект к которому происходит привязка</param>
-        public void AttachAnObject(GameObject targetObject)
+        public virtual void AttachAnObject(GameObject targetObject)
         {
             var component = targetObject.GetComponent<AssemblyComponentBase>();
             if (component == null)
@@ -118,12 +118,12 @@
         /// <summary>
         /// Может ли быть объект прикреплен
         /// </summary>
-        public bool CanBeAttached(AssemblyComponentData assemblyComponent)
+        public virtual bool CanBeAttached(AssemblyComponentData assemblyComponent)
         {
             return this.TryGetAttachmentOptionAfterCompared(assemblyComponent) != null;
         }
 
-        public bool CanBeAttached(GameObject targetObject)
+        public virtual bool CanBeAttached(GameObject targetObject)
         {
             var component = targetObject.GetComponent<AssemblyComponentBase>();
             if (component == null)

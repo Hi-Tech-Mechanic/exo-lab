@@ -8,9 +8,9 @@ namespace ExoLab.UI
     /// </summary>
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        private ItemView? storedItem { get; set; } = null;
+        private ItemBase? storedItem { get; set; } = null;
 
-        public void SetStoredItem(ItemView? item)
+        public void SetStoredItem(ItemBase? item)
         {
             this.storedItem = item;
         }

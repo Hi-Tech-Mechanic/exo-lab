@@ -67,7 +67,7 @@ namespace ExoLab.Data
                 if (this.itemInspect == null)
                 {
                     var tag = Constants.Tags.ItemInspect;
-                    var gameObject = GameObject.FindWithTag(tag);
+                    var gameObject =  GameObject.FindWithTag(tag);
                     if (gameObject == null)
                     {
                         Debug.LogError($"Не найден объект с тегом {tag}");

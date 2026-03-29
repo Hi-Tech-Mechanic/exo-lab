@@ -2,11 +2,10 @@ namespace ExoLab.Assembly
 {
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
-    using ExoLab.StructuralСomponents.Weapon;
     using ExoLab.UI;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Text.RegularExpressions;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -34,7 +33,9 @@ namespace ExoLab.Assembly
         private double durability;
         private double weight;
         private double bullets;
-        
+
+        private readonly Regex numberFilter = new Regex(@"\d+(\.\d+)?", RegexOptions.IgnoreCase);
+
         /// <summary>
         /// Вместо кучи отдельных полей идет один словарь
         /// </summary>
@@ -87,39 +88,6 @@ namespace ExoLab.Assembly
 
             this.ClearStatRows();
             this.CreateAndFillStatRows(assemblyComponent);
-
-            //foreach (var row in this.statRows)
-            //{
-
-            //    foreach (var statValue in dictStatValues)
-            //    {
-            //        // Если содержится данная характеристика в панели то ничего не делаем
-            //        if (row.text != string.Empty)
-            //            continue;
-
-            //        this.FillStatRow(row, statValue);
-            //    }
-            //}
-
-            return;
-
-            //void CreateAndFillRows()
-            //{
-            //    if (this.statRows.Count < statCount)
-            //    {
-            //        foreach (var statValue in dictStatValues)
-            //        {
-            //            var result = this.CreateAndFillStatRows(statValue);
-            //            this.statRows.Add(result.Item1);
-            //        }
-            //        //var remainder = statCount - this.statRows.Amount;
-            //        //for (var i = 0; i < remainder; i++)
-            //        //{
-                  
-            //        //}
-            //    }
-            //}
-
         }
 
         private void ClearStatRows()
@@ -137,17 +105,25 @@ namespace ExoLab.Assembly
         /// </summary>
         private void CreateAndFillStatRows(AssemblyComponentBase assemblyComponent)
         {
-            var StatValues = assemblyComponent.GetTranslatedNumericStats();
+            var StatValues = assemblyComponent.GetNumericStats();
 
             foreach (var stat in StatValues)
             {
+                var match = numberFilter.Match(stat.Value.ToString()).Value;
+                var valueIsNumeric = double.TryParse(match, out var numericValue);
+
+                if (valueIsNumeric == false)
+                {
+                    continue;
+                }
+
                 if (this.numericStats.ContainsKey(stat.Key))
                 {
-                    this.numericStats[stat.Key] += (double)stat.Value;
+                    this.numericStats[stat.Key] += numericValue;
                 }
                 else
                 {
-                    this.numericStats.TryAdd(stat.Key, (double)stat.Value);
+                    this.numericStats.TryAdd(stat.Key, numericValue);
                 }
             }
 

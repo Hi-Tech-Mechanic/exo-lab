@@ -13,6 +13,8 @@ TagManager:
   - CanvasHUD
   - PivotPoint
   - ConstructionRoot
+  - Selected Items
+  - ItemInspect
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - PostProcessing
   - Not in Reflection
   - Component
-  - 
+  - Interactable
   - 
   - 
   - 

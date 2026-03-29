@@ -1,41 +1,54 @@
-﻿namespace ExoLab
+﻿namespace ExoLab.Interaction
 {
     using Assets.PersonalAssets.Scripts.UI;
-    using StarterAssets;
+    using ExoLab.Input;
     using UnityEngine;
 
     /// <summary>
     /// Любой интерактивный объект
     /// </summary>
-    [RequireComponent(typeof(SphereCollider))]
     public class InteractiveObject : MonoBehaviour
     {
         public static InteractiveObject Instance;
 
+        [SerializeField]
+        private string tooltipText = string.Empty;
+
         protected string KeyName => this.GetKeyName();
-        protected string TooltipText => this.GetTooltipText();
+        protected string TooltipText => this.tooltipText;
 
         public delegate void KeypressDelegate();
-
-        public KeypressDelegate keypressDelegate;
 
         protected void Awake()
         {
             Instance = this;
         }
 
-        private InteractiveObject()
+        private void OnValidate()
         {
-            this.keypressDelegate = new KeypressDelegate(this.KeypressEvent);
+            if (this.tooltipText == null || this.tooltipText == string.Empty)
+            {
+                this.tooltipText = this.GetTooltipText();
+            }
         }
 
         /// <summary>
-        /// Вернуть имя кнопки 
+        /// Сделать что либо, переопределять вкладывая сюда метод с какой-либо логикой
+        /// для взаимодействия
         /// </summary>
-        /// <returns></returns>
-        protected virtual string GetKeyName()
+        public virtual void Interact()
         {
-            return Constants.Constants.InputButtons.InteractiveButton;
+            Debug.Log("TestAction");
+        }
+
+        public void DisplayMessage()
+        {
+            HUD.Instance.DisplayTooltipText($"{this.TooltipText} - {this.KeyName}");
+        }
+
+        public void HideMessage()
+        {
+            HUD.Instance.DisplayTooltipText(string.Empty);
         }
 
         /// <summary>
@@ -48,33 +61,13 @@
         }
 
         /// <summary>
-        /// Событие которое должно происходить после нажатия клавиши
+        /// Вернуть имя кнопки 
         /// </summary>
-        protected virtual void KeypressEvent()
+        /// <returns></returns>
+        protected virtual string GetKeyName()
         {
-            StarterAssetsInputs.Instance.ToggleCursorInputForLook();
-            StarterAssetsInputs.Instance.ToggleCursorLocked();
-        }
-
-        private void DisplayInteractioveButton()
-        {
-            HUD.Instance.DisplayTooltipText($"{this.TooltipText} - {this.KeyName}");
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.transform.tag == Constants.Constants.Tags.Player)
-            {
-                this.DisplayInteractioveButton();
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.transform.tag == Constants.Constants.Tags.Player)
-            {
-                HUD.Instance.HideTooltipText();
-            }
+            var action = InputControllersManager.Instance.Interaction.Interact;
+            return InputControllersManager.Instance.GetBindingName(action);
         }
     }
 }

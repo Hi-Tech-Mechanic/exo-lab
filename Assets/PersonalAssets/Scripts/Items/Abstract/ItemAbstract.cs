@@ -1,33 +1,18 @@
 namespace ExoLab
 {
     using System;
-    using UnityEngine;
     using ExoLab.Data;
-    using System.Collections.Generic;
-    using ExoLab.Helpers;
 
     /// <summary>
     /// Класс описывающий абстрактный предмет
     /// </summary>
-    public abstract class ItemAbstract<T> :
-        MonoBehaviour,
-        IName,
-        IDescription,
-        IWeight
-        where T : ItemData
+    public abstract class ItemAbstract<T> : ItemBase where T : ItemData
     {
-        /// <summary>
-        /// Поле скрыто, так как для получения информации надо использовать <see cref="TypedItemData"/>>
-        /// </summary>
-        [Tooltip("Ссылка на характеристики компонента (ScriptableObject)")]
-        [SerializeField]
-        protected ItemData itemData;
-
-        private string? id;
-        private string? name;
-        private string? description;
-        private double? weight;
-        private int? maxStackSize;
+        [NonSerialized] private string? id;
+        [NonSerialized] private string? name;
+        [NonSerialized] private string? description;
+        [NonSerialized] private double? weight;
+        [NonSerialized] private int? maxStackSize;
 
         /// <summary>
         /// Типизированная информация о компоненте, содержит полную инфомацию о нём
@@ -37,7 +22,7 @@ namespace ExoLab
         /// <summary>
         /// Уникальный номер предмета, желательно использовать GUID
         /// </summary>
-        public virtual string Id
+        public override string Id
         {
             get
             {
@@ -56,7 +41,7 @@ namespace ExoLab
             }
         }
 
-        public virtual string Name
+        public override string Name
         {
             get
             {
@@ -75,7 +60,7 @@ namespace ExoLab
             }
         }
 
-        public virtual string Description
+        public override string Description
         {
             get
             {
@@ -94,7 +79,7 @@ namespace ExoLab
             }
         }
 
-        public virtual double Weight
+        public override double Weight
         {
             get
             {
@@ -113,7 +98,7 @@ namespace ExoLab
             }
         }
 
-        public virtual int MaxStackSize
+        public override int MaxStackSize
         {
             get
             {
@@ -135,77 +120,7 @@ namespace ExoLab
         protected virtual void Start()
         {
             this.CheckItemData();
-            //this.InitializeItemData();
         }
-
-        /// <summary>
-        /// Обновить данные у предмета
-        /// </summary>
-        /// <param name="itemData"></param>
-        public void SetItemData(ItemData itemData)
-        {
-            this.itemData = itemData;
-            //this.InitializeItemData();
-        }
-
-        /// <summary>
-        /// Вернуть все характеристики предмета
-        /// Кроме Name и Description
-        /// </summary>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual Dictionary<string, object> GetAllStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(this.GetNumericStats());
-            result[nameof(this.MaxStackSize)] = this.MaxStackSize;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Тоже самое что <see cref="GetAllStats"/>,
-        /// но названия характеристик переведены
-        /// </summary>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual Dictionary<string, object> GetTranslatedAllStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(this.GetTranslatedNumericStats());
-            result["Размер стака"] = this.MaxStackSize;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Получить только числовые характеристики
-        /// </summary>
-        /// <param name="names"></param>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual Dictionary<string, object> GetNumericStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result[nameof(this.Weight)] = this.Weight;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Тоже самое что <see cref="GetNumericStats"/>,
-        /// но названия характеристик переведены
-        /// </summary>
-        /// <returns></returns>
-        public virtual Dictionary<string, object> GetTranslatedNumericStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result["Вес"] = this.Weight;
-
-            return result;
-        }
-
 
         /// <summary>
         /// Инициализация данных предмета из ScriptableObject
