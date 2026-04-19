@@ -93,7 +93,7 @@
             this.OnPressedKeyboard_4 += this.ShowStats;
             this.OnPressedKeyboard_8 += this.InvokeSuitDestruction;
             this.OnPressedKeyboard_9 += this.InvokeSuitRegenerate;
-            this.OnAssemblyModePressed += this.ToggleAssemblyMode;
+            this.OnAssemblyModePressed += this.ToggleAssemblyModeHandler;
             this.OnInventoryPressed += this.ShowInventory;
             this.OnEscapePressed += this.EscapeHandler;
         }
@@ -121,7 +121,7 @@
             this.OnPressedKeyboard_4 -= this.ShowStats;
             this.OnPressedKeyboard_8 -= this.InvokeSuitDestruction;
             this.OnPressedKeyboard_9 -= this.InvokeSuitRegenerate;
-            this.OnAssemblyModePressed -= this.ToggleAssemblyMode;
+            this.OnAssemblyModePressed -= this.ToggleAssemblyModeHandler;
             this.OnInventoryPressed -= this.ShowInventory;
             this.OnEscapePressed -= this.EscapeHandler;
         }
@@ -220,7 +220,7 @@
             Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
         }
         
-        private void ToggleAssemblyMode()
+        private void ToggleAssemblyModeHandler()
         {
             this.ToggleAssemblyMode();
         }

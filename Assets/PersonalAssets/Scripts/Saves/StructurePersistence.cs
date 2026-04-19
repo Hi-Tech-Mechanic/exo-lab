@@ -14,7 +14,7 @@
         private string dbPath => Path.Combine(Application.persistentDataPath, DB_FILENAME);
 
         private LiteDatabase db;
-        private ILiteCollection<AssembledStructure> savedStructures;
+        private ILiteCollection<AssembledConstructionModelBase> savedStructures;
 
         public static StructurePersistence Instance { get; private set; }
 
@@ -41,7 +41,7 @@
             try
             {
                 db = new LiteDatabase(dbPath);
-                savedStructures = db.GetCollection<AssembledStructure>("structures");
+                savedStructures = db.GetCollection<AssembledConstructionModelBase>("structures");
                 savedStructures.EnsureIndex(x => x.structureId, true); // уникальный индекс
                 Debug.Log($"LiteDB initialized at: {dbPath}");
             }
@@ -52,7 +52,7 @@
         }
 
         // Сохранить или обновить конструкцию
-        public void SaveStructure(AssembledStructure structure)
+        public void SaveStructure(AssembledConstructionModelBase structure)
         {
             if (string.IsNullOrEmpty(structure.structureId))
             {
@@ -72,7 +72,7 @@
         }
 
         // Загрузить конструкцию по ID
-        public AssembledStructure LoadStructure(string structureId)
+        public AssembledConstructionModelBase LoadStructure(string structureId)
         {
             try
             {
@@ -86,7 +86,7 @@
         }
 
         // Загрузить все конструкции (опционально)
-        public List<AssembledStructure> LoadAllStructures()
+        public List<AssembledConstructionModelBase> LoadAllStructures()
         {
             return savedStructures.FindAll().ToList();
         }

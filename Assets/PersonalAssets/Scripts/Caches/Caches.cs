@@ -2,6 +2,7 @@ namespace ExoLab.Data
 {
     using ExoLab.Assembly;
     using ExoLab.Constants;
+    using ExoLab.Helpers;
     using System;
     using UnityEngine;
     using UnityEngine.Events;
@@ -55,6 +56,12 @@ namespace ExoLab.Data
 
                 return this.constructionRoot;
             }
+            private set
+            {
+                // warn set убрать, вариант пересмотреть, архитектуру поменять либо на
+                // несколько рутов либо на одичночный константный как сейчас
+                this.constructionRoot = value; 
+            }
         }
 
         /// <summary>
@@ -67,14 +74,15 @@ namespace ExoLab.Data
                 if (this.itemInspect == null)
                 {
                     var tag = Constants.Tags.ItemInspect;
-                    var gameObject =  GameObject.FindWithTag(tag);
+                    var gameObject = GameObject.FindWithTag(tag);
                     if (gameObject == null)
                     {
                         Debug.LogError($"Не найден объект с тегом {tag}");
                         return null;
                     }
 
-                    var localItemInspect = gameObject.GetComponent<ItemInspect>();
+                    // Находим выключенный объект внутри родителя
+                    var localItemInspect = gameObject.GetComponentInChildren<ItemInspect>(true);
                     if (localItemInspect == null)
                     {
                         throw new NullReferenceException($"Не найден компонент {nameof(ItemInspect)}");
@@ -82,6 +90,16 @@ namespace ExoLab.Data
 
                     this.itemInspect = localItemInspect;
 
+                    // todo убрать ConstructionRoot вовсе, так как их может быть несколько
+                    var childs = gameObject.GetChilds();
+                    foreach (var child in childs)
+                    {
+                        if (child.tag.Equals(Constants.Tags.ConstructionRoot))
+                        {
+                            this.ConstructionRoot = child.gameObject;
+                            break;
+                        }
+                    }
                 }
 
                 return this.itemInspect;

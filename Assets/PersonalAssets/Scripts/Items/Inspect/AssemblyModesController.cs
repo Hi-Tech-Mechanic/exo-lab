@@ -12,22 +12,16 @@
         [SerializeField]
         private ItemInspect itemInspect;
 
-        [Header("Настройки для режима сборки оружия")]
-        [SerializeField] private ItemInspectOptions weaponPreset;
-        [Tooltip("Родительский объект сборной конструкции")]
-        [SerializeField] private Transform weaponAssemblyRoot;
-        [Space(5)]
+        [Header("Настройки режимов сборки")]
 
-        [Header("Настройки для режима сборки экзоскелета")]
-        [SerializeField] private ItemInspectOptions exoskeletonPreset;
-        [Tooltip("Родительский объект сборной конструкции")]
-        [SerializeField] private Transform exoskeletonAssemblyRoot;
+        [SerializeField]
+        private AssemblyPreset weaponPreset;
         [Space(5)]
-
-        [Header("Настройки для режима сборки ствола скважины")]
-        [SerializeField] private ItemInspectOptions wellborePreset;
-        [Tooltip("Родительский объект сборной конструкции")]
-        [SerializeField] private Transform wellboreAssemblyRoot;
+        [SerializeField]
+        private AssemblyPreset exoskeletonPreset;
+        [Space(5)]
+        [SerializeField]
+        private AssemblyPreset wellborePreset;
 
         public static Action<GameObject> OnChangedConstructionRoot;
 
@@ -36,18 +30,6 @@
             if (this.itemInspect == null)
             {
                 Debug.LogError($"[{nameof(this.itemInspect)}] не назначен");
-            }
-            if (this.weaponPreset == null)
-            {
-                Debug.LogError($"[{nameof(this.weaponPreset)}] не назначен");
-            }
-            if (this.exoskeletonPreset == null)
-            {
-                Debug.LogError($"[{nameof(this.exoskeletonPreset)}] не назначен");
-            }
-            if (this.wellborePreset == null)
-            {
-                Debug.LogError($"[{nameof(this.wellborePreset)}] не назначен");
             }
 
             this.Init();
@@ -61,35 +43,46 @@
 
         public void SetWeaponPreset()
         {
-            this.weaponPreset.TargetTransform = this.weaponAssemblyRoot;
-            this.itemInspect.ItemInspectOptions = this.weaponPreset;
+            this.weaponPreset.ItemInspectOptions.TargetTransform = this.weaponPreset.RootTransofrm;
+            this.itemInspect.ItemInspectOptions = this.weaponPreset.ItemInspectOptions;
+
             this.itemInspect.UpdateOptions();
 
-            var newRoot = this.weaponAssemblyRoot.gameObject;
+            var newRoot = this.weaponPreset.RootTransofrm.gameObject;
             Caches.Instance.UpdateConstructionRoot(newRoot);
             OnChangedConstructionRoot?.Invoke(newRoot);
         }
 
         public void SetExoskeletonPreset()
         {
-            this.exoskeletonPreset.TargetTransform = this.exoskeletonAssemblyRoot;
-            this.itemInspect.ItemInspectOptions = this.exoskeletonPreset;
+            this.exoskeletonPreset.ItemInspectOptions.TargetTransform = this.exoskeletonPreset.RootTransofrm;
+            this.itemInspect.ItemInspectOptions = this.exoskeletonPreset.ItemInspectOptions;
             this.itemInspect.UpdateOptions();
 
-            var newRoot = this.exoskeletonAssemblyRoot.gameObject;
+            var newRoot = this.exoskeletonPreset.RootTransofrm.gameObject;
             Caches.Instance.UpdateConstructionRoot(newRoot);
             OnChangedConstructionRoot?.Invoke(newRoot);
         }
 
         public void SetWellborePreset()
         {
-            this.wellborePreset.TargetTransform = this.wellboreAssemblyRoot;
-            this.itemInspect.ItemInspectOptions = this.wellborePreset;
+            this.wellborePreset.ItemInspectOptions.TargetTransform = this.wellborePreset.RootTransofrm;
+            this.itemInspect.ItemInspectOptions = this.wellborePreset.ItemInspectOptions;
             this.itemInspect.UpdateOptions();
 
-            var newRoot = this.wellboreAssemblyRoot.gameObject;
+            var newRoot = this.wellborePreset.RootTransofrm.gameObject;
             Caches.Instance.UpdateConstructionRoot(newRoot);
             OnChangedConstructionRoot?.Invoke(newRoot);
+        }
+
+        [Serializable]
+        private struct AssemblyPreset
+        {
+            [Tooltip("Ссылка на SO-config настроек")]
+            public ItemInspectOptions ItemInspectOptions;
+
+            [Tooltip("Родительский объект сборной конструкции")]
+            public Transform RootTransofrm;
         }
     }
 }

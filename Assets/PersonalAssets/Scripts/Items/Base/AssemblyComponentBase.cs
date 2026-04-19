@@ -112,7 +112,7 @@
             this.UpdateAttachmentOptions(option);
             this.SetAttachmentOptionInCurrentObject(targetObject);
 
-            AssemblyConstruction.OnAttached?.Invoke(this);
+            GameEvents.Assembly.RaiseComponentAttached(this);
         }
 
         /// <summary>

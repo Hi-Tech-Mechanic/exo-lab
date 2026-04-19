@@ -32,7 +32,8 @@ namespace ExoLab.StructuralÑomponents.Weapon
 
             this.SetAttachmentOptionInCurrentObject(targetObject);
 
-            AssemblyConstruction.OnAttached?.Invoke(this);
+            // todo ÷îòî òóò äîäåëàòü
+            GameEvents.Assembly.RaiseComponentAttached(this);
         }
     }
 }

@@ -5,7 +5,7 @@
     using System.ComponentModel;
     using UnityEngine;
 
-    public class ExoskeletonAssembly : AssembledStructure
+    public class ExoskeletonAssembly : AssembledConstructionModelBase
     {
         // todo раскоментить
         protected override void Save()

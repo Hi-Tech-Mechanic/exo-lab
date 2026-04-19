@@ -14,6 +14,11 @@
 
         private InfoNode? lastUsedInfoNode;
 
+        private void Awake()
+        {
+            InitializeComponents();
+        }
+
         private void OnEnable()
         {
             GameEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
