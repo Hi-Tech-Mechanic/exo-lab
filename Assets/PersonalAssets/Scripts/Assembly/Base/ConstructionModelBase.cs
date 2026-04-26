@@ -9,20 +9,26 @@
     /// <summary>
     /// Модель собранной какой-либо конструкций. Основа для всех сборных конструкций
     /// </summary>
-    public class AssembledConstructionModelBase
+    public class ConstructionModelBase
     {
+        /// <summary>
+        /// Идентификационный номер структуры
+        /// </summary>
         [BsonId]
-        public string structureId;
+        public string StructureId;
 
+        /// <summary>
+        /// Список всех компонентов структуры
+        /// </summary>
         protected List<AssemblyComponentBase> Components = new();
 
         private readonly Regex numberFilter = new Regex(@"\d+(\.\d+)?", RegexOptions.IgnoreCase);
 
-        public AssembledConstructionModelBase() { }
+        public ConstructionModelBase() { }
 
-        public AssembledConstructionModelBase(string id)
+        public ConstructionModelBase(string id)
         {
-            this.structureId = id;
+            this.StructureId = id;
         }
 
         public void AddComponent(AssemblyComponentBase component)
@@ -73,14 +79,15 @@
 
         protected virtual void Save()
         {
-
+            // TODO
         }
 
         protected virtual void Load()
         {
-
+             // TODO
         }
 
+        
         private string GetStatText(string propertyName, string propertyValue)
         {
             AssemblyComponentBase assemblyComponentTmp; // Просто пустышка для взятия имен
@@ -106,7 +113,6 @@
         /// <returns></returns>
         private Dictionary<string, double> GetStatValues(AssemblyComponentBase assemblyComponent)
         {
-
             //this.durability += assemblyComponent.Durability;
             //this.weight += assemblyComponent.Weight;
 

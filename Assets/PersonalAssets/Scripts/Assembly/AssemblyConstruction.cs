@@ -3,7 +3,6 @@ namespace ExoLab.Assembly
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
     using ExoLab.UI;
-    using System;
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -31,7 +30,7 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Модель для взаимодействия с сборными объектами
         /// </summary>
-        private AssembledConstructionModelBase constructionModel = new();
+        private ConstructionModelBase constructionModel = new();
 
         /// <summary>
         /// Список уже хранящихся строк характеристик,

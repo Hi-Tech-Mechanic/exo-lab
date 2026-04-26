@@ -14,7 +14,7 @@
         private string dbPath => Path.Combine(Application.persistentDataPath, DB_FILENAME);
 
         private LiteDatabase db;
-        private ILiteCollection<AssembledConstructionModelBase> savedStructures;
+        private ILiteCollection<ConstructionModelBase> savedStructures;
 
         public static StructurePersistence Instance { get; private set; }
 
@@ -41,8 +41,8 @@
             try
             {
                 db = new LiteDatabase(dbPath);
-                savedStructures = db.GetCollection<AssembledConstructionModelBase>("structures");
-                savedStructures.EnsureIndex(x => x.structureId, true); // уникальный индекс
+                savedStructures = db.GetCollection<ConstructionModelBase>("structures");
+                savedStructures.EnsureIndex(x => x.StructureId, true); // уникальный индекс
                 Debug.Log($"LiteDB initialized at: {dbPath}");
             }
             catch (Exception ex)
@@ -52,9 +52,9 @@
         }
 
         // Сохранить или обновить конструкцию
-        public void SaveStructure(AssembledConstructionModelBase structure)
+        public void SaveStructure(ConstructionModelBase structure)
         {
-            if (string.IsNullOrEmpty(structure.structureId))
+            if (string.IsNullOrEmpty(structure.StructureId))
             {
                 Debug.LogError("Cannot save structure: missing ID");
                 return;
@@ -63,7 +63,7 @@
             try
             {
                 savedStructures.Upsert(structure);
-                Debug.Log($"Saved structure: {structure.structureId}");
+                Debug.Log($"Saved structure: {structure.StructureId}");
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@
         }
 
         // Загрузить конструкцию по ID
-        public AssembledConstructionModelBase LoadStructure(string structureId)
+        public ConstructionModelBase LoadStructure(string structureId)
         {
             try
             {
@@ -86,7 +86,7 @@
         }
 
         // Загрузить все конструкции (опционально)
-        public List<AssembledConstructionModelBase> LoadAllStructures()
+        public List<ConstructionModelBase> LoadAllStructures()
         {
             return savedStructures.FindAll().ToList();
         }

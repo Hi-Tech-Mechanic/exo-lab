@@ -1,4 +1,4 @@
-﻿namespace Exolab
+﻿namespace ExoLab
 {
     using ExoLab.Data;
     using UnityEngine;
