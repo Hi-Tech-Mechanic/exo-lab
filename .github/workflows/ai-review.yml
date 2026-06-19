@@ -12,22 +12,32 @@ jobs:
       contents: read
 
     steps:
+      # Шаг 1 — явно получаем base-ветку, чтобы она существовала как origin/<base>
+      - name: Fetch base branch
+        run: |
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
+
+      # Шаг 2 — checkout с полной историей
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # Шаг 3 — ещё раз убеждаемся, что base-ветка доступна
+      - name: Ensure base ref exists
+        run: |
+          git fetch origin ${{ github.base_ref }} || true
+          git branch -a | grep "${{ github.base_ref }}"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20 
 
       - name: Run Code Review via OpenRouter
-        run: npx code-review-gpt review --ci=github --base=origin/${{ github.base_ref }}
+        run: npx shippie review --ci=github --base=${{ github.base_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Подменяем стандартный адрес OpenAI на OpenRouter:
-          OPENAI_API_BASE: "https://openrouter.ai"
+          OPENAI_API_BASE: "https://openrouter.ai/api/v1"
           OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          # Указываем, какую именно модель вызвать с OpenRouter:
           MODEL: "meta-llama/llama-3.3-70b-instruct:free"
