@@ -23,7 +23,7 @@ jobs:
           node-version: 18
 
       - name: Run Code Review via OpenRouter
-        run: npx code-review-gpt review --ci=github
+        run: npx code-review-gpt review --ci=github --base=origin/${{ github.base_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Подменяем стандартный адрес OpenAI на OpenRouter:
