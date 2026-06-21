@@ -55,13 +55,11 @@ jobs:
 
       - name: Run Code Review via OpenRouter
         if: steps.check_diff.outputs.has_changes == 'true'
-        run: npx shippie@latest review --ci=github --platform=github --base=${{ github.base_ref }} --head=${{ github.head_ref }}
+        run: npx shippie@latest review --ci=github --platform=github --base=${{ github.base_ref }} --head=${{ github.head_ref }} --provider=openrouter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTIONS: "true"
-          # ✅ Явно передаем SHA коммитов, которые shippie не может найти сам
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          OPENAI_API_BASE: "https://openrouter.ai/api/v1"
-          OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}  # ← Используйте правильное имя переменной
           MODEL: "meta-llama/llama-3.3-70b-instruct:free"
