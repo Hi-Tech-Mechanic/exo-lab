@@ -12,14 +12,12 @@ jobs:
       contents: read
 
     steps:
-      # 1. Сначала делаем checkout с полной историей
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. Теперь, когда .git существует, явно получаем base-ветку
-      - name: Fetch base branch
+      - name: Fetch base branch explicitly
         run: |
           git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
 
@@ -28,11 +26,31 @@ jobs:
         with:
           node-version: 20
 
-      # 3. Используем shippie вместо code-review-gpt
+      # 🔍 Диагностика: проверяем, видит ли git изменения
+      - name: Check for changes
+        id: check_diff
+        run: |
+          echo "Checking diff between ${{ github.base_ref }} and HEAD..."
+          DIFF_STATS=$(git diff --stat ${{ github.base_ref }}...HEAD)
+          echo "diff_stats<<EOF" >> $GITHUB_OUTPUT
+          echo "$DIFF_STATS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          if [ -z "$DIFF_STATS" ]; then
+            echo "⚠️ NO CHANGES DETECTED! Review will be skipped."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Changes found:"
+            echo "$DIFF_STATS"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run Code Review via OpenRouter
+        if: steps.check_diff.outputs.has_changes == 'true'
         run: npx shippie review --ci=github --base=${{ github.base_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ✅ ВАЖНО: Полный путь к API OpenRouter
           OPENAI_API_BASE: "https://openrouter.ai/api/v1"
           OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           MODEL: "meta-llama/llama-3.3-70b-instruct:free"
