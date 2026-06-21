@@ -47,12 +47,7 @@ jobs:
 
       - name: Run Code Review via OpenRouter
         if: steps.check_diff.outputs.has_changes == 'true'
-        run: |
-          # Явно указываем head-ref вашей PR-ветки
-          npx shippie review \
-            --ci=github \
-            --base=${{ github.base_ref }} \
-            --head=${{ github.head_ref }}
+        run: npx shippie@latest review --ci=github --platform=github --base=${{ github.base_ref }} --head=${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_BASE: "https://openrouter.ai/api/v1"
