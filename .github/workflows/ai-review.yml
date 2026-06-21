@@ -12,28 +12,23 @@ jobs:
       contents: read
 
     steps:
-      # Шаг 1 — явно получаем base-ветку, чтобы она существовала как origin/<base>
-      - name: Fetch base branch
-        run: |
-          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
-
-      # Шаг 2 — checkout с полной историей
+      # 1. Сначала делаем checkout с полной историей
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Шаг 3 — ещё раз убеждаемся, что base-ветка доступна
-      - name: Ensure base ref exists
+      # 2. Теперь, когда .git существует, явно получаем base-ветку
+      - name: Fetch base branch
         run: |
-          git fetch origin ${{ github.base_ref }} || true
-          git branch -a | grep "${{ github.base_ref }}"
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 
+          node-version: 20
 
+      # 3. Используем shippie вместо code-review-gpt
       - name: Run Code Review via OpenRouter
         run: npx shippie review --ci=github --base=${{ github.base_ref }}
         env:
