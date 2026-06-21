@@ -45,11 +45,23 @@ jobs:
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Debug GitHub env vars
+        run: |
+          echo "BASE_SHA from context: ${{ github.event.pull_request.base.sha }}"
+          echo "HEAD_SHA from context: ${{ github.event.pull_request.head.sha }}"
+          echo "GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH"
+          echo "Checking if event file exists:"
+          cat $GITHUB_EVENT_PATH | jq '.pull_request | {base_sha: .base.sha, head_sha: .head.sha}' 2>/dev/null || echo "Event file not found or invalid"
+
       - name: Run Code Review via OpenRouter
         if: steps.check_diff.outputs.has_changes == 'true'
         run: npx shippie@latest review --ci=github --platform=github --base=${{ github.base_ref }} --head=${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTIONS: "true"
+          # ✅ Явно передаем SHA коммитов, которые shippie не может найти сам
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           OPENAI_API_BASE: "https://openrouter.ai/api/v1"
           OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           MODEL: "meta-llama/llama-3.3-70b-instruct:free"
