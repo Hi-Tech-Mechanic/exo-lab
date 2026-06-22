@@ -1,33 +1,47 @@
-name: AI Code Review (OpenRouter)
+name: 🤖 AI Review
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  # Ручной запуск пайплайна из вкладки Actions (можно заменить на on: pull_request)
+  workflow_dispatch:
+    inputs:
+      review-command:
+        type: choice
+        default: "run"
+        options: [ run, run-inline, run-context, run-summary, run-inline-reply, run-summary-reply ]
+        required: true
+        description: "AI Review command"
+
+      pull-request-number:
+        type: string
+        required: true
+        description: "Pull request number"
 
 jobs:
-  review:
+  ai-review:
+    name: Run AI Review
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: read
-
     steps:
-      - name: Checkout code
+      # 1️⃣ Клонируем репозиторий и получаем diff изменений
+      - name: 🧱 Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Run Code Review via OpenRouter
-        run: npx code-review-gpt review --ci=github
+      # 2️⃣ Запускаем AI Review
+      - name: 🚀 Run AI Review
+        uses: Nikita-Filonov/ai-review@v0.68.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Подменяем стандартный адрес OpenAI на OpenRouter:
-          OPENAI_API_BASE: "https://openrouter.ai"
-          OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          # Указываем, какую именно модель вызвать с OpenRouter:
-          MODEL: "meta-llama/llama-3.3-70b-instruct:free"
+          # 🔑 Токен GitHub для доступа к Pull Request и публикации комментариев
+          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # 📦 Контекст PR — владелец, репозиторий и номер запроса
+          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+          VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number }}
+
+          # 🤖 Токен OpenRouter для доступа к LLM
+          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.OPENROUTER_API_TOKEN }}
+
+        with:
+          # 🧠 Команда ревью: полный анализ, только inline, только summary и т.д.
+          review-command: ${{ inputs.review-command }}
