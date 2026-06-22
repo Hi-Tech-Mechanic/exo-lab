@@ -29,7 +29,7 @@ jobs:
 
       # 2️⃣ Запускаем AI Review
       - name: 🚀 Run AI Review
-        uses: ai-review@v0.36.0
+        uses: Nikita-Filonov/ai-review@v0.36.0
         env:
           # 🔑 Токен GitHub для доступа к Pull Request и публикации комментариев
           VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
