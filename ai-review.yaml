@@ -1,0 +1,18 @@
+llm:
+  provider: OPENROUTER
+
+  meta:
+    model: meta-llama/llama-3.3-70b-instruct:free  # Бесплатная модель через OpenRouter
+    max_tokens: 15000              # Максимальное количество токенов в ответе
+    temperature: 0.3               # Чем ниже значение, тем строже ответы
+
+  http_client:
+    timeout: 120
+    api_url: https://openrouter.ai/api/v1      # Базовый URL API
+
+vcs:
+  provider: GITHUB                # Используем GitHub как систему контроля версий
+
+  http_client:
+    timeout: 120
+    api_url: https://api.github.com            # API GitHub
