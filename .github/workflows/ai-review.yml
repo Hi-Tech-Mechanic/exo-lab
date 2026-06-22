@@ -1,65 +1,47 @@
-name: AI Code Review (OpenRouter)
+name: 🤖 AI Review
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  # Ручной запуск пайплайна из вкладки Actions (можно заменить на on: pull_request)
+  workflow_dispatch:
+    inputs:
+      review-command:
+        type: choice
+        default: "run"
+        options: [ run, run-inline, run-context, run-summary, run-inline-reply, run-summary-reply ]
+        required: true
+        description: "AI Review command"
+
+      pull-request-number:
+        type: string
+        required: true
+        description: "Pull request number"
 
 jobs:
-  review:
+  ai-review:
+    name: Run AI Review
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: read
-
     steps:
-      - name: Checkout code
+      # 1️⃣ Клонируем репозиторий и получаем diff изменений
+      - name: 🧱 Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Fetch base branch explicitly
-        run: |
-          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      # 🔍 Диагностика: проверяем, видит ли git изменения
-      - name: Check for changes
-        id: check_diff
-        run: |
-          echo "Checking diff between ${{ github.base_ref }} and HEAD..."
-          DIFF_STATS=$(git diff --stat ${{ github.base_ref }}...HEAD)
-          echo "diff_stats<<EOF" >> $GITHUB_OUTPUT
-          echo "$DIFF_STATS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          
-          if [ -z "$DIFF_STATS" ]; then
-            echo "⚠️ NO CHANGES DETECTED! Review will be skipped."
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "✅ Changes found:"
-            echo "$DIFF_STATS"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Debug GitHub env vars
-        run: |
-          echo "BASE_SHA from context: ${{ github.event.pull_request.base.sha }}"
-          echo "HEAD_SHA from context: ${{ github.event.pull_request.head.sha }}"
-          echo "GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH"
-          echo "Checking if event file exists:"
-          cat $GITHUB_EVENT_PATH | jq '.pull_request | {base_sha: .base.sha, head_sha: .head.sha}' 2>/dev/null || echo "Event file not found or invalid"
-
-      - name: Run Code Review via OpenRouter
-        if: steps.check_diff.outputs.has_changes == 'true'
-        run: npx shippie@latest review --ci=github --platform=github --base=${{ github.base_ref }} --head=${{ github.head_ref }} --provider=openrouter
+      # 2️⃣ Запускаем AI Review
+      - name: 🚀 Run AI Review
+        uses: ai-review@v0.36.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTIONS: "true"
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}  # ← Используйте правильное имя переменной
-          MODEL: "meta-llama/llama-3.3-70b-instruct:free"
+          # 🔑 Токен GitHub для доступа к Pull Request и публикации комментариев
+          VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # 📦 Контекст PR — владелец, репозиторий и номер запроса
+          VCS__PIPELINE__OWNER: ${{ github.repository_owner }}
+          VCS__PIPELINE__REPO: ${{ github.event.repository.name }}
+          VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number }}
+
+          # 🤖 Токен OpenRouter для доступа к LLM
+          LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.OPENROUTER_API_TOKEN }}
+
+        with:
+          # 🧠 Команда ревью: полный анализ, только inline, только summary и т.д.
+          review-command: ${{ inputs.review-command }}
