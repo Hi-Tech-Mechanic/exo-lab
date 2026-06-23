@@ -9,9 +9,15 @@ llm:
   http_client:
     timeout: 120
     api_url: https://openrouter.ai/api/v1      # Базовый URL API
+    api_token: ${OPENROUTER_API_KEY}
 
 vcs:
   provider: GITHUB                # Используем GitHub как систему контроля версий
+
+  pipeline:
+    owner: ${GITHUB_REPOSITORY_OWNER}  # Repo owner (e.g. "my-org")
+    repo: ${GITHUB_REPOSITORY_NAME}    # Repo name  (e.g. "my-service")
+    pull_number: ${PR_NUMBER}          # Pull Request number
 
   http_client:
     timeout: 120
