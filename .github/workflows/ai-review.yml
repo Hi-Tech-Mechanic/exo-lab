@@ -31,6 +31,8 @@ jobs:
       - name: 🚀 Run AI Review
         uses: Nikita-Filonov/ai-review@v0.36.0
         env:
+          VCS__PROVIDER: GITHUB
+          
           # 🔑 Токен GitHub для доступа к Pull Request и публикации комментариев
           VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.EXOLAB_TOKEN }}
 
@@ -40,6 +42,7 @@ jobs:
           VCS__PIPELINE__PULL_NUMBER: ${{ inputs.pull-request-number }}
 
           # 🤖 Токен OpenRouter для доступа к LLM
+          LLM__PROVIDER: OPENROUTER
           LLM__HTTP_CLIENT__API_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
 
         with:
