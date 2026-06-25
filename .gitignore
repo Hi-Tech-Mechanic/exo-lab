@@ -76,3 +76,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /AGENTS.md
+
+# Text Mesh Pro generated Assets
+/[Aa]ssets/TextMesh Pro/Resources/Fonts & Materials/
