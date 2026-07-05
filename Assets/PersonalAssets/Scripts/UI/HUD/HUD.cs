@@ -1,6 +1,5 @@
 ﻿namespace Assets.PersonalAssets.Scripts.UI
 {
-    using ExoLab.Helpers;
     using TMPro;
     using UnityEngine;
 
@@ -21,7 +20,7 @@
 
         public void DisplayTooltipText(string text)
         {
-            this.tooltipText.SetTextIfChanged(text);
+            this.tooltipText.text = text;
             this.tooltipText.gameObject.SetActive(true);
         }
 

@@ -3,7 +3,6 @@ namespace ExoLab.Assembly
     using DG.Tweening;
     using ExoLab.Data;
     using ExoLab.Interaction;
-    using ExoLab.UI;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -52,15 +51,15 @@ namespace ExoLab.Assembly
 
         private void OnEnable()
         {
-            DraggableInventoryItem.OnBeginDragAction += this.DisableInspectMode;
-            DraggableInventoryItem.OnEndDragAction += this.EnableInspectMode;
+            GameEvents.Items.OnBeginDragAction += (_) => this.DisableInspectMode();
+            GameEvents.Items.OnEndDragAction += (_) => this.EnableInspectMode();
             InteractiveIKController.OnItemInspectRotationBlock += this.SetRotationBlockState;
         }
 
         private void OnDisable()
         {
-            DraggableInventoryItem.OnBeginDragAction -= this.DisableInspectMode;
-            DraggableInventoryItem.OnEndDragAction -= this.EnableInspectMode;
+            GameEvents.Items.OnBeginDragAction -= (_) => this.DisableInspectMode();
+            GameEvents.Items.OnEndDragAction -= (_) => this.EnableInspectMode();
             InteractiveIKController.OnItemInspectRotationBlock -= this.SetRotationBlockState;
         }
 

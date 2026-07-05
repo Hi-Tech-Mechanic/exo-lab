@@ -41,12 +41,12 @@
 
         private void OnEnable()
         {
-            GameEvents.OnItemCollected += AddItem;
+            GameEvents.Items.OnItemCollected += AddItem;
         }
 
         private void OnDisable()
         {
-            GameEvents.OnItemCollected -= AddItem;
+            GameEvents.Items.OnItemCollected -= AddItem;
         }
 
         private void AddItem(ItemData itemData)

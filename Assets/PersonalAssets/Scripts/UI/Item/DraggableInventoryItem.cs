@@ -1,6 +1,7 @@
 namespace ExoLab.UI
 {
     using Assets.PersonalAssets.Scripts.UI.Base;
+    using ExoLab.Helpers;
     using System;
     using UnityEngine;
     using UnityEngine.EventSystems;
@@ -10,10 +11,6 @@ namespace ExoLab.UI
     /// </summary>
     public class DraggableInventoryItem : DraggableElementAbstract
     {
-        public static Action OnDragAction;
-        public static Action OnBeginDragAction;
-        public static Action OnEndDragAction;
-
         private RectTransform currentRectTransform;
         private Transform startParent;
         private CanvasGroup canvasGroup;
@@ -41,30 +38,55 @@ namespace ExoLab.UI
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
-            OnBeginDragAction?.Invoke();
-            this.canvasGroup.blocksRaycasts = false;
-            this.startParent = this.transform.parent;
+            try
+            {
+                var item = SystemExtensions.FirstOrDefaultComponent<ItemBase>(eventData.hovered);
+                GameEvents.Items.RaiseOnBeginDrag(item);
 
-            this.transform.SetParent(this.canvas.transform); // Выносим на слой в иерархии
-            this.currentRectTransform.SetAsLastSibling();
+                this.canvasGroup.blocksRaycasts = false;
+                this.startParent = this.transform.parent;
+
+                this.transform.SetParent(this.canvas.transform); // Выносим на слой в иерархии
+                this.currentRectTransform.SetAsLastSibling();
+            }
+            catch(Exception exception)
+            {
+                throw new NullReferenceException($"[{nameof(this.OnBeginDrag)}]: {exception}");
+            }
         }
 
         public override void OnDrag(PointerEventData eventData)
         {
-            OnDragAction?.Invoke();
-            this.currentRectTransform.anchoredPosition += eventData.delta / this.canvas.scaleFactor;
+            try
+            {
+                var item = SystemExtensions.FirstOrDefaultComponent<ItemBase>(eventData.hovered);
+                GameEvents.Items.RaiseOnDrag(item);
+                this.currentRectTransform.anchoredPosition += eventData.delta / this.canvas.scaleFactor;
+            }
+            catch (Exception exception)
+            {
+                throw new NullReferenceException($"[{nameof(this.OnDrag)}]: {exception}");
+            }
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
-            OnEndDragAction?.Invoke();
-            this.canvasGroup.blocksRaycasts = true;
- 
-            // Если не присвоился в слоте то возвращаем предмет в родную лагуну
-            if (this.transform.parent.GetComponent<InventorySlot>() == null)
+            try
             {
-                this.transform.SetParent(this.startParent, false);
-                this.PlaceItemIntoSlot();
+                var item = SystemExtensions.FirstOrDefaultComponent<ItemBase>(eventData.hovered);
+                GameEvents.Items.RaiseOnEndDrag(item);
+                this.canvasGroup.blocksRaycasts = true;
+
+                // Если не присвоился в слоте то возвращаем предмет в родную лагуну
+                if (this.transform.parent.GetComponent<InventorySlot>() == null)
+                {
+                    this.transform.SetParent(this.startParent, false);
+                    this.PlaceItemIntoSlot();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new NullReferenceException($"[{nameof(this.OnEndDrag)}]: {exception}");
             }
         }
 

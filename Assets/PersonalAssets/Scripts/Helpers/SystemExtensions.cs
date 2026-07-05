@@ -92,5 +92,26 @@
                 list.Remove(targetObject);
             }
         }
+
+        /// <summary>
+        /// Вернуть первый найденный или <see cref="T"/>> по умолчанию
+        /// компонент. Ищет через <see cref="GameObject.GetComponents"/>>, может быть долгим иногда
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public static T FirstOrDefaultComponent<T>(ICollection<GameObject> collection)
+        {
+            foreach (var item in collection)
+            {
+                var typedItem = item.GetComponents<T>();
+                if (typedItem.Length != 0)
+                {
+                    return typedItem[0];
+                }
+            }
+
+            return default;
+        }
     }
 }

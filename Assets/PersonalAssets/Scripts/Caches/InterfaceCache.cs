@@ -8,6 +8,7 @@
         private Canvas mainCanvas;
         private Canvas hudCanvas;
         private NodeOptions nodeOptions;
+        private ImprovementPanelOptions improvementPanelOptions;
 
         public NodeOptions NodeOptions
         {
@@ -19,6 +20,19 @@
                 }
 
                 return this.nodeOptions;
+            }
+        }
+
+        public ImprovementPanelOptions ImprovementPanelOptions
+        {
+            get
+            {
+                if (this.improvementPanelOptions == null)
+                {
+                    this.improvementPanelOptions = Resources.Load<ImprovementPanelOptions>($"{Constants.GameResourcesPath.MainFolder}/Nodes/ImprovementPanelOptions");
+                }
+
+                return this.improvementPanelOptions;
             }
         }
 

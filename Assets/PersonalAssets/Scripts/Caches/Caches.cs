@@ -81,8 +81,7 @@ namespace ExoLab.Data
                         return null;
                     }
 
-                    // Находим выключенный объект внутри родителя
-                    var localItemInspect = gameObject.GetComponentInChildren<ItemInspect>(true);
+                    var localItemInspect = gameObject.GetComponent<ItemInspect>();
                     if (localItemInspect == null)
                     {
                         throw new NullReferenceException($"Не найден компонент {nameof(ItemInspect)}");
