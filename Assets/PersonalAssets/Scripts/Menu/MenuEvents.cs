@@ -9,7 +9,7 @@ public class MenuEvents : MonoBehaviour
         this.confirmWindow.Show("Вы уверены, что хотите выйти?", ExitTheApplicationEvent);
     }
 
-    private void ExitTheApplicationEvent()
+    public void ExitTheApplicationEvent()
     {
         Application.Quit();
     }
