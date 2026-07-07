@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c95dd65fad5bd4ba2f55b32ca5acce, type: 3}
+  m_Name: OptionsUI
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.OptionsUI
+  ClickSound: {fileID: 8300000, guid: 946a761ba9ad5844fb9cf15c42a497a9, type: 3}
+  PointerEnterSound: {fileID: 8300000, guid: a052f5252bffe24409fd88fc8afc3901, type: 3}
+  PointerExitSound: {fileID: 0}
+  PointerMoveSound: {fileID: 0}

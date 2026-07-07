@@ -6,7 +6,7 @@
     using System.Collections;
 
     [RequireComponent(typeof(Image))]
-    public class UISplashButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class UISplashButton : InteractionElement
     {
         private const string shaderPath = "CustomRenderTexture/SplashButton";
 
@@ -69,8 +69,10 @@
             }
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public override void OnPointerEnter(PointerEventData eventData)
         {
+            base.OnPointerEnter(eventData);
+
             // Останавливаем предыдущую корутину если есть
             StopFillCoroutine();
 
@@ -91,8 +93,10 @@
             fillCoroutine = StartCoroutine(FillIn());
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public override void OnPointerExit(PointerEventData eventData)
         {
+            base.OnPointerExit(eventData);
+
             this.StopFillCoroutine();
 
             // Запускаем корутину очистки (в том же направлении)

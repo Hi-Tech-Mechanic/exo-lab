@@ -6,7 +6,7 @@ namespace ExoLab.UI
     /// <summary>
     /// Описание элемента который откликается при наведении мышкой
     /// </summary>
-    public abstract class HoverableElementAbstract :
+    public abstract class InteractionElementAbstract :
         MonoBehaviour,
         IPointerEnterHandler,
         IPointerExitHandler,
@@ -24,7 +24,9 @@ namespace ExoLab.UI
         public virtual void OnPointerClick(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
+            {
                 return;
+            }
 
             this.ActionAfterClick();
         }
@@ -32,7 +34,9 @@ namespace ExoLab.UI
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
+            {
                 return;
+            }
 
             this.ActionAfterPointerEnter();
         }
@@ -40,7 +44,9 @@ namespace ExoLab.UI
         public virtual void OnPointerExit(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
+            {
                 return;
+            }
 
             this.ActionAfterPointerExit();
         }
@@ -48,7 +54,9 @@ namespace ExoLab.UI
         public virtual void OnPointerMove(PointerEventData eventData)
         {
             if (CursorIsVisible() == false)
+            {
                 return;
+            }
 
             this.ActionAfterPointerMove();
         }
@@ -62,7 +70,5 @@ namespace ExoLab.UI
         {
             return Cursor.visible;
         }
-
-      
     }
 }

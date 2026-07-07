@@ -8,7 +8,7 @@ namespace ExoLab.UI
     /// <summary>
     /// Вызывает <see cref="ItemInfoPanel"/> при наведении курсора на предмет
     /// </summary>
-    public class ItemInfoPanelSummoner : HoverableElementAbstract
+    public class ItemInfoPanelSummoner : InteractionElementAbstract
     {
         [SerializeField] private GameObject infoPanelPrefab;
 

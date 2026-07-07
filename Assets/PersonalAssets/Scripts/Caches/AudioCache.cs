@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Data
 {
     using ExoLab.Constants;
+    using ExoLab.UI;
     using UnityEngine;
 
     public partial class Caches
@@ -8,9 +9,7 @@
         public class AudioCache
         {
             private AudioSource _audioSourceFromCanvas;
-
-            private AudioClip _buttonHover;
-            private AudioClip _buttonClick;
+            private OptionsUI _optionsUI;
 
             /// <summary>
             /// Источник звуков из интерфейса
@@ -39,18 +38,17 @@
                     return this._audioSourceFromCanvas;
                 }
             }
-
-            public AudioClip ButtonHover
+ 
+            public OptionsUI OptionsUI
             {
                 get
                 {
-                    if (_buttonHover == null)
+                    if (this._optionsUI == null)
                     {
-                        _buttonHover = Resources.Load<AudioClip>($"{Constants.GameResourcesPath.MainFolder}/Sound/Effects/SFX_Press_Button_Joystick")
-                            ?? throw new System.NullReferenceException();
+                        this._optionsUI = Resources.Load<OptionsUI>($"{Constants.GameResourcesPath.MainFolder}/UI/{nameof(OptionsUI)}");
                     }
 
-                    return _buttonHover;
+                    return this._optionsUI;
                 }
             }
 
@@ -58,13 +56,31 @@
             {
                 get
                 {
-                    if (_buttonClick == null)
-                    {
-                        _buttonClick = Resources.Load<AudioClip>($"{Constants.GameResourcesPath.MainFolder}/Sound/Effects/SFX_Press_Button_Keyboard")
-                            ?? throw new System.NullReferenceException();
-                    }
+                    return this.OptionsUI.ClickSound ?? throw new System.NullReferenceException();
+                }
+            }
 
-                    return _buttonClick;
+            public AudioClip ButtonEnter
+            {
+                get
+                {
+                    return this.OptionsUI.PointerEnterSound ?? throw new System.NullReferenceException();
+                }
+            }
+
+            public AudioClip ButtonExit
+            {
+                get
+                {
+                    return this.OptionsUI.PointerExitSound ?? throw new System.NullReferenceException();
+                }
+            }
+
+            public AudioClip ButtonMove
+            {
+                get
+                {
+                    return this.OptionsUI.PointerMoveSound ?? throw new System.NullReferenceException();
                 }
             }
         }

@@ -100,7 +100,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 199984331353370988, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -125,6 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b622644fad2a9974b8bdced40a83d8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.UI.UISplashButton
+  clickSound: {fileID: 0}
+  pointerEnterSound: {fileID: 0}
+  pointerExitSound: {fileID: 0}
+  pointerMoveSound: {fileID: 0}
   fillDuration: 0.3
   ribbonColor: {r: 0.9150943, g: 0.67002213, b: 0.18560876, a: 0.4}
   ribbonIntensity: 1

@@ -10,7 +10,7 @@ namespace ExoLab.UI
     /// <summary>
     /// ”величивает вкладку при наведении и уменьша€ соседние
     /// </summary>
-    public class TabScaler : HoverableElement
+    public class TabScaler : InteractionElement
     {
         [Header("ѕараметры размеров при наведении")]
         [SerializeField]
@@ -40,10 +40,8 @@ namespace ExoLab.UI
         private float startWidth;
         private Color startColor;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-
             this.Initialize();
         }
 
