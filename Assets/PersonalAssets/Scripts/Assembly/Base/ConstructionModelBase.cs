@@ -2,7 +2,7 @@
 {
     using ExoLab.StructuralСomponents;
     using System.Collections.Generic;
-    using LiteDB;
+    //using LiteDB;
     using System.Text.RegularExpressions;
     using ExoLab.Helpers;
 
@@ -14,7 +14,7 @@
         /// <summary>
         /// Идентификационный номер структуры
         /// </summary>
-        [BsonId]
+        //[BsonId]
         public string StructureId;
 
         /// <summary>
