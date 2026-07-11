@@ -111,8 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e459e985231105c4591bb6b63a2bacf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PagesScaler
-  hoverSound: {fileID: 8300000, guid: a052f5252bffe24409fd88fc8afc3901, type: 3}
-  clickSound: {fileID: 8300000, guid: 946a761ba9ad5844fb9cf15c42a497a9, type: 3}
+  clickSound: {fileID: 0}
+  pointerEnterSound: {fileID: 0}
+  pointerExitSound: {fileID: 0}
+  pointerMoveSound: {fileID: 0}
   hoverWidth: 300
   neighborWidth: 240
   hoveredColor: {r: 0.25490198, g: 0.1764706, b: 0.019607844, a: 1}
@@ -296,6 +298,7 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
