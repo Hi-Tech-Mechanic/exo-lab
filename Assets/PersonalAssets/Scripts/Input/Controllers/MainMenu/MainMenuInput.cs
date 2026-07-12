@@ -1,9 +1,10 @@
 ﻿namespace ExoLab.Input
 {
+    using Assets.PersonalAssets.Scripts.Input.Helpers;
     using UnityEngine;
     using UnityEngine.UI;
 
-    public class MainMenu : MonoBehaviour
+    public class MainMenuInput : MonoBehaviour, ISubsribable
     {
         [Header("Start")]
         [SerializeField] private Button startButton;
@@ -21,20 +22,50 @@
         [SerializeField] private Button finalExitButton;
         [SerializeField] private GameObject exitWindow;
 
-        private void Awake()
+        private void OnEnable()
+        {
+            this.SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            this.UnsubscribeEvents();
+        }
+
+        public void SubscribeEvents()
         {
             this.startButton.onClick.AddListener(OnStartClicked);
             this.settingsButton.onClick.AddListener(OnSettingsClicked);
             this.exitButton.onClick.AddListener(OnExitClicked);
             this.finalExitButton.onClick.AddListener(OnFinalExitClicked);
+
+            InteractionInputController.OnEscapePressed += this.EscapeHandler;
         }
 
-        private void OnDestroy()
+        public void UnsubscribeEvents()
         {
             this.startButton.onClick.RemoveListener(OnStartClicked);
             this.settingsButton.onClick.RemoveListener(OnSettingsClicked);
             this.exitButton.onClick.RemoveListener(OnExitClicked);
             this.finalExitButton.onClick.RemoveListener(OnFinalExitClicked);
+
+            InteractionInputController.OnEscapePressed -= this.EscapeHandler;
+        }
+
+        private void EscapeHandler()
+        {
+            this.ToggleMainMenu();
+
+            CursorStateController.Instance.ToggleCursor();
+            CharacterInputs.Instance.ToggleCursorInputForLook();
+            CharacterInputs.Instance.SetMove(Vector2.zero);
+            CharacterInputs.Instance.SetLook(Vector2.zero);
+        }
+
+        private void ToggleMainMenu()
+        {
+            var state = !this.mainMenuWindow.activeInHierarchy;
+            this.mainMenuWindow.SetActive(state);
         }
 
         /// <summary>
@@ -46,6 +77,8 @@
             this.mainMenuWindow.SetActive(false);
 
             InputControllersManager.Instance.PlayerArmature.SetActive(true);
+            CharacterInputs.Instance.ToggleCursorInputForLook(true);
+            CursorStateController.Instance.ToggleCursor(false);
         }
 
         private void OnSettingsClicked() 

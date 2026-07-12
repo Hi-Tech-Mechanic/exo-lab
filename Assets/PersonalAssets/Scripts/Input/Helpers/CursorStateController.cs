@@ -9,14 +9,11 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
         /// <summary>
         /// В начале игры курсор должен быть виден
         /// </summary>
-        private bool cursorEnabled = true;
+        [SerializeField] private bool cursorEnabled = true;
 
         private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
-
-            this.ToggleCursor(this.cursorEnabled);
+            this.Init();
         }
 
         public void ToggleCursor(bool? isActive = null)
@@ -26,12 +23,22 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
                 isActive = !this.cursorEnabled;
             }
 
-            this.cursorEnabled = (bool)isActive;
-            this.SetCursorState(this.cursorEnabled);
+            this.SetCursorState((bool)isActive);
+        }
+
+        private void Init()
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+
+            // Init cursor state
+            this.ToggleCursor(this.cursorEnabled);
         }
 
         private void SetCursorState(bool isActive)
         {
+            this.cursorEnabled = isActive;
+
             Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = isActive;
         }

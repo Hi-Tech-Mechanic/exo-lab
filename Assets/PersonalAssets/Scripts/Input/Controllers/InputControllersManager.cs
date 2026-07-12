@@ -14,21 +14,11 @@
 
         [SerializeField] private InputControllerManagerView inputControllerManagerView;
 
-        [Header("Вид")]
-        [SerializeField] private Camera firstPersonCamera;
-        [SerializeField] private Camera cameraBack;
-        [SerializeField] private Camera cameraForward;
-
         [Header("Костюм")]
         [SerializeField] private List<Transform> suitComponents;
         [SerializeField] private GameObject playerArmature;
         [Tooltip("Ссылка на корневой элемент сцене")]
         [SerializeField] private Transform rootSceneTransform;
-
-        [Header("Меню")]
-        [SerializeField] private GameObject mainMenu;
-        [SerializeField] private GameObject assemblyMenu;
-        [SerializeField] private GameObject assemblyProps;
 
         public GameObject inventory;
         public GameObject stats;
@@ -41,17 +31,9 @@
 
         #region Getters
 
-        public Camera FirstPersonCamera => this.firstPersonCamera;
-        public Camera CameraBack => this.cameraBack;
-        public Camera CameraForward => this.cameraForward;
-
         public List<Transform> SuitComponents => this.suitComponents;
         public GameObject PlayerArmature => this.playerArmature;
         public Transform RootSceneTransform => this.rootSceneTransform;
-
-        public GameObject MainMenu => this.mainMenu;
-        public GameObject AssemblyMenu => this.assemblyMenu;
-        public GameObject AssemblyProps => this.assemblyProps;
 
         #endregion
 

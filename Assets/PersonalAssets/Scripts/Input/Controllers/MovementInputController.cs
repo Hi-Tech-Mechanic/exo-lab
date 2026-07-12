@@ -4,6 +4,9 @@
     using UnityEngine;
     using UnityEngine.InputSystem;
 
+    /// <summary>
+    /// Controller only for movements events
+    /// </summary>
     internal class MovementInputController : InputControllerBase
     {
         private Vector2 moveValue;
