@@ -55,17 +55,17 @@
         private void EscapeHandler()
         {
             this.ToggleMainMenu();
-
-            CursorStateController.Instance.ToggleCursor();
-            CharacterInputs.Instance.ToggleCursorInputForLook();
-            CharacterInputs.Instance.SetMove(Vector2.zero);
-            CharacterInputs.Instance.SetLook(Vector2.zero);
         }
 
         private void ToggleMainMenu()
         {
             var state = !this.mainMenuWindow.activeInHierarchy;
             this.mainMenuWindow.SetActive(state);
+
+            CursorStateController.Instance.ToggleCursor(state);
+            CharacterInputs.Instance.ToggleCursorInputForLook(!state);
+            CharacterInputs.Instance.SetMove(Vector2.zero);
+            CharacterInputs.Instance.SetLook(Vector2.zero);
         }
 
         /// <summary>
