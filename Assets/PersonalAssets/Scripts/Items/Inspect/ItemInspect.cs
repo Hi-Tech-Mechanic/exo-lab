@@ -19,7 +19,7 @@ namespace ExoLab.Assembly
     {
         private const float resetViewDuration = Timings.Millisecond_1000;
 
-        [Header("Настройки")]
+        [Header("Options")]
         [SerializeField] private Camera inspectCamera;
 
         /// <summary>
@@ -55,6 +55,7 @@ namespace ExoLab.Assembly
             DraggableInventoryItem.OnBeginDragAction += this.DisableInspectMode;
             DraggableInventoryItem.OnEndDragAction += this.EnableInspectMode;
             InteractiveIKController.OnItemInspectRotationBlock += this.SetRotationBlockState;
+            AssemblyModesController.onItemInspectOptios += this.UpdateOptions;
         }
 
         private void OnDisable()
@@ -62,6 +63,7 @@ namespace ExoLab.Assembly
             DraggableInventoryItem.OnBeginDragAction -= this.DisableInspectMode;
             DraggableInventoryItem.OnEndDragAction -= this.EnableInspectMode;
             InteractiveIKController.OnItemInspectRotationBlock -= this.SetRotationBlockState;
+            AssemblyModesController.onItemInspectOptios -= this.UpdateOptions;
         }
 
         private void Update()
@@ -99,8 +101,10 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Обновить поля
         /// </summary>
-        public void UpdateOptions()
+        public void UpdateOptions(ItemInspectOptions options)
         {
+            this.ItemInspectOptions = options;
+
             this.defaultPosition = this.ItemInspectOptions.TargetTransform.localPosition;
             this.defaultRotation = this.ItemInspectOptions.TargetTransform.localRotation;
         }
@@ -119,7 +123,8 @@ namespace ExoLab.Assembly
 
             this.currentCameraDistance = this.inspectCamera.transform.localPosition.z;
             this.DefaultCameraDistance = this.currentCameraDistance;
-            this.UpdateOptions();
+            this.defaultPosition = this.ItemInspectOptions.TargetTransform.localPosition;
+            this.defaultRotation = this.ItemInspectOptions.TargetTransform.localRotation;
         }
 
         private bool CursorInAssemblyZone()

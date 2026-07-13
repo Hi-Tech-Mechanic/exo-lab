@@ -17,6 +17,16 @@
         private void Awake()
         {
             Instance = this;
+
+            this.InitActiveCamera();
+        }
+
+        /// <summary>
+        /// Set as default first person camera
+        /// </summary>  
+        private void InitActiveCamera()
+        {
+            this.ActiveCamera = this.firstPersonCamera;
         }
 
         private void OnEnable()

@@ -2860,7 +2860,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169544481}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edf207fab9f9ea84890bb088025d976a, type: 3}
   m_Name: 
@@ -24685,7 +24685,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347124748}
-  - component: {fileID: 1347124749}
   m_Layer: 0
   m_Name: PlayerRoot
   m_TagString: Untagged
@@ -24709,19 +24708,6 @@ Transform:
   - {fileID: 169544484}
   m_Father: {fileID: 1427689351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1347124749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347124747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3197f7fc092abb48a543a46814f8799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspect
-  inspectCamera: {fileID: 1307188585}
 --- !u!1 &1349125497
 GameObject:
   m_ObjectHideFlags: 0
@@ -26530,12 +26516,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1451054751}
   m_Layer: 0
-  m_Name: ItemInspect
+  m_Name: AssemblyProps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1451054751
 Transform:
   m_ObjectHideFlags: 0
@@ -33811,6 +33797,7 @@ MonoBehaviour:
   _assemblyModeEnabled: 0
   assemblyWindow: {fileID: 1411752124}
   inventoryWindow: {fileID: 839606137}
+  assemblyProps: {fileID: 1451054750}
 --- !u!1 &1733164277
 GameObject:
   m_ObjectHideFlags: 0
@@ -35744,7 +35731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1812741085
 Transform:
   m_ObjectHideFlags: 0
