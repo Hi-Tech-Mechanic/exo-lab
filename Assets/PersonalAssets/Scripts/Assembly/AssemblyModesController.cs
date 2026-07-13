@@ -1,6 +1,5 @@
 ﻿namespace ExoLab.Assembly
 {
-    using ExoLab.Data;
     using System;
     using UnityEngine;
 
@@ -9,6 +8,13 @@
     /// </summary>
     public class AssemblyModesController : MonoBehaviour
     {
+        /// <summary>
+        /// Current preset root
+        /// </summary>
+        public static Transform ActiveConstructionRoot;
+        
+        public static event Action<ItemInspectOptions> onItemInspectOptios;
+
         [SerializeField]
         private ItemInspect itemInspect;
 
@@ -22,8 +28,6 @@
         [Space(5)]
         [SerializeField]
         private AssemblyPreset wellborePreset;
-
-        public static Action<GameObject> OnChangedConstructionRoot;
 
         private void Awake()
         {
@@ -44,35 +48,28 @@
         public void SetWeaponPreset()
         {
             this.weaponPreset.ItemInspectOptions.TargetTransform = this.weaponPreset.RootTransofrm;
-            this.itemInspect.ItemInspectOptions = this.weaponPreset.ItemInspectOptions;
+            onItemInspectOptios.Invoke(this.weaponPreset.ItemInspectOptions);
 
-            this.itemInspect.UpdateOptions();
-
-            var newRoot = this.weaponPreset.RootTransofrm.gameObject;
-            Caches.Instance.UpdateConstructionRoot(newRoot);
-            OnChangedConstructionRoot?.Invoke(newRoot);
+            var newRoot = this.weaponPreset.RootTransofrm;
+            ActiveConstructionRoot = newRoot;
         }
 
         public void SetExoskeletonPreset()
         {
             this.exoskeletonPreset.ItemInspectOptions.TargetTransform = this.exoskeletonPreset.RootTransofrm;
-            this.itemInspect.ItemInspectOptions = this.exoskeletonPreset.ItemInspectOptions;
-            this.itemInspect.UpdateOptions();
+            onItemInspectOptios.Invoke(this.exoskeletonPreset.ItemInspectOptions);
 
-            var newRoot = this.exoskeletonPreset.RootTransofrm.gameObject;
-            Caches.Instance.UpdateConstructionRoot(newRoot);
-            OnChangedConstructionRoot?.Invoke(newRoot);
+            var newRoot = this.exoskeletonPreset.RootTransofrm;
+            ActiveConstructionRoot = newRoot;
         }
 
         public void SetWellborePreset()
         {
             this.wellborePreset.ItemInspectOptions.TargetTransform = this.wellborePreset.RootTransofrm;
-            this.itemInspect.ItemInspectOptions = this.wellborePreset.ItemInspectOptions;
-            this.itemInspect.UpdateOptions();
+            onItemInspectOptios.Invoke(this.wellborePreset.ItemInspectOptions);
 
-            var newRoot = this.wellborePreset.RootTransofrm.gameObject;
-            Caches.Instance.UpdateConstructionRoot(newRoot);
-            OnChangedConstructionRoot?.Invoke(newRoot);
+            var newRoot = this.wellborePreset.RootTransofrm;
+            ActiveConstructionRoot = newRoot;
         }
 
         [Serializable]

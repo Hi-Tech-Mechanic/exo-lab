@@ -25,11 +25,6 @@ namespace ExoLab.UI
         private Material startMaterial;
 
         /// <summary>
-        /// Корневой узел конструкции, пустышка
-        /// </summary>
-        private GameObject constructionRoot;
-
-        /// <summary>
         /// Отрисованные элементы, точки крепления, модели компонентов
         /// </summary>
         private List<GameObject> visualizedElements = new List<GameObject>();
@@ -46,23 +41,6 @@ namespace ExoLab.UI
         protected override void Awake()
         {
             base.Awake();
-
-            this.constructionRoot = Caches.Instance.ConstructionRoot;
-        }
-
-        private void OnEnable()
-        {
-            AssemblyModesController.OnChangedConstructionRoot += this.UpdateConstructionRoot;
-        }
-
-        private void OnDisable()
-        {
-            AssemblyModesController.OnChangedConstructionRoot -= this.UpdateConstructionRoot;
-        }
-
-        private void UpdateConstructionRoot(GameObject newConstructionRoot)
-        {
-            this.constructionRoot = newConstructionRoot;
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
@@ -112,7 +90,7 @@ namespace ExoLab.UI
             // Если множественный выбор
             if (visualizedElements.Count > 1)
              {
-                var ray = Caches.Instance.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = Caches.Instance.Assembly.AssemblyCamera.ScreenPointToRay(Input.mousePosition);
                 var hits = Physics.RaycastAll(ray, 100F);
 
                 foreach (var hit in hits)
@@ -131,8 +109,8 @@ namespace ExoLab.UI
             // todo жестко забит тип, выделить интерфейс
             if (this.cachedAllComponents.Count == 0 && this.cachedCurrentComponent is Receiver)
             {
-                var currentItemObject = Instantiate(selectedComponent, this.constructionRoot.transform);
-                currentItemObject.transform.SetParent(this.constructionRoot.transform);
+                var currentItemObject = Instantiate(selectedComponent, AssemblyModesController.ActiveConstructionRoot);
+                currentItemObject.transform.SetParent(AssemblyModesController.ActiveConstructionRoot);
                 return true;
             }
 
@@ -140,7 +118,7 @@ namespace ExoLab.UI
             {
                 if (this.cachedCurrentComponent.CanBeAttached(parentComponent.TypedItemData))
                 {
-                    var currentItemObject = Instantiate(selectedComponent, this.constructionRoot.transform);
+                    var currentItemObject = Instantiate(selectedComponent, AssemblyModesController.ActiveConstructionRoot);
                     var newCurrentComponentData = currentItemObject.GetComponent<AssemblyComponentBase>();
                     newCurrentComponentData.AttachAnObject(parentComponent.gameObject);
                     return true;
@@ -166,7 +144,7 @@ namespace ExoLab.UI
                     return;
                 }
 
-                var previewModel = Instantiate(this.cachedCurrentComponent.TypedItemData.Prefab, this.constructionRoot.transform);
+                var previewModel = Instantiate(this.cachedCurrentComponent.TypedItemData.Prefab, AssemblyModesController.ActiveConstructionRoot);
 
                 var previewModelMaterial = previewModel.GetComponent<Renderer>();
                 this.startMaterial = previewModelMaterial.material;
@@ -200,7 +178,7 @@ namespace ExoLab.UI
         private void CacheFields()
         {
             this.cachedCurrentComponent = this.Item.Prefab.GetComponent<AssemblyComponentBase>();
-            this.cachedAllComponents = this.constructionRoot.transform.GetComponentsInChildren<AssemblyComponentBase>().ToList();
+            this.cachedAllComponents = AssemblyModesController.ActiveConstructionRoot.GetComponentsInChildren<AssemblyComponentBase>().ToList();
         }
 
         /// <summary>
@@ -223,7 +201,7 @@ namespace ExoLab.UI
         /// <returns></returns>
         private bool IsValidState()
         {
-            if (this.constructionRoot.activeInHierarchy == false)
+            if (AssemblyModesController.ActiveConstructionRoot.gameObject.activeInHierarchy == false)
                 return false;
 
             return true;

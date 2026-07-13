@@ -53,7 +53,7 @@
                 return;
 
             this.infoNode = this.GetComponent<InfoNode>();
-            this.itemInspector = Caches.Instance.ItemInspect;
+            this.itemInspector = Caches.Instance.Assembly.ItemInspect;
             this.animationDuration = Caches.Instance.Interface.NodeOptions.AnimationDuration;
             this.rotationOffsetMultiplier = Caches.Instance.Interface.NodeOptions.rotationOffsetMultiplier;
         }

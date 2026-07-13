@@ -119,7 +119,7 @@
                 return;
 
             var worldPosition = this.transform.position;
-            Vector2 screenPoint = Caches.Instance.AssemblyCamera.WorldToScreenPoint(worldPosition);
+            Vector2 screenPoint = Caches.Instance.Assembly.AssemblyCamera.WorldToScreenPoint(worldPosition);
             var parentRect = nodeWindowRect.parent as RectTransform;
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPoint, null, out Vector2 localPoint))

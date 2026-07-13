@@ -13,15 +13,18 @@
         /// Для блокировки вращения в <see cref="ItemInspect"/>
         /// </summary>
         public static Action<bool> OnItemInspectRotationBlock;
-        [Tooltip("Слой хэндлов")]
-        public LayerMask bodyPartLayer;
-        [Tooltip("Слой самого персонажа (для проверки столкновений)")]
-        public LayerMask selfCollisionLayer;
-        [Tooltip("Скорость плавного следования за курсором")]
-        public float smoothSpeed = 8f;
 
-        public float blendOutTime = 0.3f;
-        public float blendInTime = 0.2f;
+        [Tooltip("Слой хэндлов")]
+        [SerializeField] private LayerMask bodyPartLayer;
+
+        [Tooltip("Слой самого персонажа (для проверки столкновений)")]
+        [SerializeField] private LayerMask selfCollisionLayer;
+
+        [Tooltip("Скорость плавного следования за курсором")]
+        [SerializeField] private float smoothSpeed = 8f;
+
+        [SerializeField] private float blendOutTime = 0.3f;
+        [SerializeField] private float blendInTime = 0.2f;
 
         [Header("Настройки ограничений")]
         public LimbLimits armLimits = new LimbLimits
@@ -52,7 +55,7 @@
 
         private void Start()
         {
-            this.mainCamera = Caches.Instance.AssemblyCamera;
+            this.mainCamera = Caches.Instance.Assembly.AssemblyCamera;
             animator = GetComponent<Animator>();
             CreateIKTarget();
         }

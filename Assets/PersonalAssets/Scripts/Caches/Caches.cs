@@ -1,11 +1,8 @@
 namespace ExoLab.Data
 {
-    using ExoLab.Assembly;
     using ExoLab.Constants;
-    using ExoLab.Helpers;
     using System;
     using UnityEngine;
-    using UnityEngine.Events;
 
     /// <summary>
     /// Для оптимизации использования данных приложения
@@ -18,13 +15,11 @@ namespace ExoLab.Data
         private static readonly Lazy<Caches> instance = new Lazy<Caches>(() => new Caches());
         private static readonly Lazy<AudioCache> audioInstance = new Lazy<AudioCache>(() => new AudioCache());
         private static readonly Lazy<InterfaceCache> interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
+        private static readonly Lazy<AssemblyCache> assemblyCache = new Lazy<AssemblyCache>(() => new AssemblyCache());
 
         public Vector2 ScreenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         
         private Camera? mainCamera;
-        private Camera? assemblyCamera;
-        private GameObject? constructionRoot;
-        private ItemInspect? itemInspect;
 
         /// <summary>
         /// Ссылка на объект <see cref="Caches"/>
@@ -32,79 +27,10 @@ namespace ExoLab.Data
         public static Caches Instance => instance.Value;
 
         public AudioCache Audio => audioInstance.Value;
+        
         public InterfaceCache Interface => interfaceCache.Value;
 
-        /// <summary>
-        /// Корневой узел конструкции
-        /// </summary>
-        public GameObject ConstructionRoot
-        {
-            get
-            {
-                if (this.constructionRoot == null)
-                {
-                    var tag = Constants.Tags.ConstructionRoot;
-                    var gameObject = GameObject.FindWithTag(tag);
-                    if (gameObject == null)
-                    {
-                        Debug.LogError($"Не найден объект с тегом {tag}");
-                        return null;
-                    }
-
-                    this.constructionRoot = gameObject.GetComponent<Transform>().gameObject;
-                }
-
-                return this.constructionRoot;
-            }
-            private set
-            {
-                // warn set убрать, вариант пересмотреть, архитектуру поменять либо на
-                // несколько рутов либо на одичночный константный как сейчас
-                this.constructionRoot = value; 
-            }
-        }
-
-        /// <summary>
-        /// Контроллер просмотрщик объектов
-        /// </summary>
-        public ItemInspect ItemInspect
-        {
-            get
-            {
-                if (this.itemInspect == null)
-                {
-                    var tag = Constants.Tags.ItemInspect;
-                    var gameObject = GameObject.FindWithTag(tag);
-                    if (gameObject == null)
-                    {
-                        Debug.LogError($"Не найден объект с тегом {tag}");
-                        return null;
-                    }
-
-                    // Находим выключенный объект внутри родителя
-                    var localItemInspect = gameObject.GetComponentInChildren<ItemInspect>(true);
-                    if (localItemInspect == null)
-                    {
-                        throw new NullReferenceException($"Не найден компонент {nameof(ItemInspect)}");
-                    }
-
-                    this.itemInspect = localItemInspect;
-
-                    // todo убрать ConstructionRoot вовсе, так как их может быть несколько
-                    var childs = gameObject.GetChilds();
-                    foreach (var child in childs)
-                    {
-                        if (child.tag.Equals(Constants.Tags.ConstructionRoot))
-                        {
-                            this.ConstructionRoot = child.gameObject;
-                            break;
-                        }
-                    }
-                }
-
-                return this.itemInspect;
-            }
-        }
+        public AssemblyCache Assembly => assemblyCache.Value;
 
         /// <summary>
         /// Основная камера
@@ -136,42 +62,8 @@ namespace ExoLab.Data
         }
 
         /// <summary>
-        /// Камера смотрящая на сборку предметов
-        /// </summary>
-        public Camera AssemblyCamera
-        {
-            get
-            {
-                if (this.assemblyCamera == null)
-                {
-                    var tag = Constants.Tags.AssemblyInspectCamera;
-                    var gameObject = GameObject.FindWithTag(tag);
-                    if (gameObject == null)
-                    {
-                        Debug.LogError($"Не найден объект с тегом {tag}");
-                        return null;
-                    }
-
-                    this.assemblyCamera = gameObject.GetComponent<Camera>();
-                    if (this.assemblyCamera == null)
-                    {
-                        Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
-                        return null;
-                    }
-                }
-
-                return this.assemblyCamera;
-            }
-        }
-
-        /// <summary>
         /// Запрещаем делать экземпляры
         /// </summary>
         private Caches() { }
-
-        public void UpdateConstructionRoot(GameObject newConstructionRoot)
-        {
-            this.constructionRoot = newConstructionRoot;
-        }
     }
 }
