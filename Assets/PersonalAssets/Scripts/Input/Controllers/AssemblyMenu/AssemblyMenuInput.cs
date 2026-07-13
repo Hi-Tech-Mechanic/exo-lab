@@ -1,5 +1,6 @@
 ﻿namespace ExoLab.Input
 {
+    using Assets.PersonalAssets.Scripts.Input.Helpers;
     using UnityEngine;
 
     internal class AssemblyMenuInput : MonoBehaviour, ISubsribable
@@ -9,6 +10,7 @@
 
         [SerializeField] private GameObject assemblyWindow;
         [SerializeField] private GameObject inventoryWindow;
+        [SerializeField] private GameObject assemblyProps;
 
         private void OnEnable()
         {
@@ -55,9 +57,11 @@
 
             InputControllersManager.Instance.PlayerArmature.SetActive(!state);
             CamerasInput.Instance.ActiveCamera.gameObject.SetActive(!state);
+            CursorStateController.Instance.ToggleCursor(state);
 
             this.inventoryWindow.SetActive(state);
             this.assemblyWindow.SetActive(state);
+            this.assemblyProps.SetActive(state);
 
             GameEvents.RaiseAssemblyModeEnabled(state);
         }
