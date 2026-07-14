@@ -5,6 +5,8 @@
 
     internal class AssemblyMenuInput : MonoBehaviour, ISubsribable
     {
+        [SerializeField] private MainMenuInput mainMenu;
+
         [SerializeField] private bool _assemblyModeEnabled = false;
         [Space(5)]
 
@@ -52,6 +54,11 @@
 
         private void ToggleAssemblyMode()
         {
+            if (this.mainMenu.MainMenuIsOpen)
+            {
+                return;
+            }
+
             var state = !this._assemblyModeEnabled;
             this._assemblyModeEnabled = state;
 

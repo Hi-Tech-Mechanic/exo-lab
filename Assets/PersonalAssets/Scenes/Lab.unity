@@ -33185,6 +33185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3b2b74a7f66794c95563192d47fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.AssemblyMenu
+  mainMenu: {fileID: 763363731}
   _assemblyModeEnabled: 0
   assemblyWindow: {fileID: 1411752124}
   inventoryWindow: {fileID: 839606137}

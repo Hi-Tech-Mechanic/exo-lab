@@ -27,7 +27,7 @@
         [SerializeField] private Button finalExitButton;
         [SerializeField] private GameObject exitWindow;
 
-        private bool mainMenuIsOpen = true;
+        public bool MainMenuIsOpen { get; private set; } = true;
 
         private void OnEnable()
         {
@@ -68,7 +68,7 @@
 
         private void ToggleMainMenu()
         {
-            if (this.mainMenuIsOpen || this.commandManager.CanUndo)
+            if (this.MainMenuIsOpen || this.commandManager.CanUndo)
             {
                 return;
             }
@@ -97,7 +97,7 @@
 
         private void EnableHub(bool isActive)
         {
-            this.mainMenuIsOpen = isActive;
+            this.MainMenuIsOpen = isActive;
 
             this.startMenuWindow.SetActive(isActive);
             this.mainMenuWindow.SetActive(isActive);
