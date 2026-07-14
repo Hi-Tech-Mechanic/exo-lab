@@ -1,7 +1,6 @@
 ﻿namespace ExoLab.Data
 {
     using ExoLab.Constants;
-    using ExoLab.UI;
     using UnityEngine;
 
     public partial class Caches
@@ -9,7 +8,6 @@
         public class AudioCache
         {
             private AudioSource _audioSourceFromCanvas;
-            private OptionsUI _optionsUI;
 
             /// <summary>
             /// Источник звуков из интерфейса
@@ -38,25 +36,12 @@
                     return this._audioSourceFromCanvas;
                 }
             }
- 
-            public OptionsUI OptionsUI
-            {
-                get
-                {
-                    if (this._optionsUI == null)
-                    {
-                        this._optionsUI = Resources.Load<OptionsUI>($"{Constants.GameResourcesPath.MainFolder}/UI/{nameof(OptionsUI)}");
-                    }
-
-                    return this._optionsUI;
-                }
-            }
 
             public AudioClip ButtonClick
             {
                 get
                 {
-                    return this.OptionsUI.ClickSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI.ClickSound ?? throw new System.NullReferenceException();
                 }
             }
 
@@ -64,7 +49,7 @@
             {
                 get
                 {
-                    return this.OptionsUI.PointerEnterSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI.PointerEnterSound ?? throw new System.NullReferenceException();
                 }
             }
 
@@ -72,7 +57,7 @@
             {
                 get
                 {
-                    return this.OptionsUI.PointerExitSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI.PointerExitSound ?? throw new System.NullReferenceException();
                 }
             }
 
@@ -80,7 +65,7 @@
             {
                 get
                 {
-                    return this.OptionsUI.PointerMoveSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI.PointerMoveSound ?? throw new System.NullReferenceException();
                 }
             }
         }

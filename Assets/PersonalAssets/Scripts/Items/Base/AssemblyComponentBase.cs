@@ -1,6 +1,5 @@
 ﻿namespace ExoLab.StructuralСomponents
 {
-    using ExoLab.Assembly;
     using ExoLab.Data;
     using ExoLab.Helpers;
     using System.Collections.Generic;
@@ -40,6 +39,8 @@
 
         protected Vector3 AttachmentPoint { get; set; }
         protected Quaternion Rotation { get; set; }
+
+        private AudioSource audioSource => Caches.Instance.Audio.AudioSourceFromCanvas;
 
         /// <summary>
         /// Метод для <see cref="AttachmentOptionEditor", облегчает сохранения при верстке конструкций/>
@@ -111,6 +112,7 @@
 
             this.UpdateAttachmentOptions(option);
             this.SetAttachmentOptionInCurrentObject(targetObject);
+            this.PlayAssemblySound();
 
             GameEvents.Assembly.RaiseComponentAttached(this);
         }
@@ -204,6 +206,15 @@
             }
 
             return null;
+        }
+
+        private void PlayAssemblySound()
+        {
+            var sounds = Caches.Instance.Assembly.AssemblyOptions.ConnectionSound;
+            var soundNumber = Random.Range(0, sounds.Length);
+            var sound = sounds[soundNumber];
+
+            this.audioSource.PlayOneShot(sound);
         }
 
         //private List<AssemblyComponentData.AttachmentOption> GetAttachmentOptions(IAssemblyComponent assemblyComponent)

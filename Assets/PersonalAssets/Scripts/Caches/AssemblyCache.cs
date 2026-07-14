@@ -11,6 +11,7 @@
         {
             private Camera? assemblyCamera;
             private ItemInspect? itemInspect;
+            private AssemblyOptions _assemblyOptions;
 
             /// <summary>
             /// Контроллер просмотрщик объектов
@@ -40,6 +41,19 @@
                     }
 
                     return this.itemInspect;
+                }
+            }
+
+            public AssemblyOptions AssemblyOptions
+            {
+                get
+                {
+                    if (this._assemblyOptions == null)
+                    {
+                        this._assemblyOptions = Resources.Load<AssemblyOptions>($"{Constants.GameResourcesPath.MainFolder}/Assembly/{nameof(AssemblyOptions)}");
+                    }
+
+                    return this._assemblyOptions;
                 }
             }
 
