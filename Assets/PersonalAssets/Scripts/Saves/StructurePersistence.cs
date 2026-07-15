@@ -1,7 +1,7 @@
 ﻿namespace ExoLab
 {
     using UnityEngine;
-    using LiteDB;
+    //using LiteDB;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -13,8 +13,8 @@
 
         private string dbPath => Path.Combine(Application.persistentDataPath, DB_FILENAME);
 
-        private LiteDatabase db;
-        private ILiteCollection<ConstructionModelBase> savedStructures;
+        //private LiteDatabase db;
+        //private ILiteCollection<ConstructionModelBase> savedStructures;
 
         public static StructurePersistence Instance { get; private set; }
 
@@ -33,16 +33,16 @@
 
         private void OnDestroy()
         {
-            db?.Dispose();
+            //db?.Dispose();
         }
 
         private void InitializeDatabase()
         {
             try
             {
-                db = new LiteDatabase(dbPath);
-                savedStructures = db.GetCollection<ConstructionModelBase>("structures");
-                savedStructures.EnsureIndex(x => x.StructureId, true); // уникальный индекс
+                //db = new LiteDatabase(dbPath);
+                //savedStructures = db.GetCollection<ConstructionModelBase>("structures");
+                //savedStructures.EnsureIndex(x => x.StructureId, true); // уникальный индекс
                 Debug.Log($"LiteDB initialized at: {dbPath}");
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@
 
             try
             {
-                savedStructures.Upsert(structure);
+                //savedStructures.Upsert(structure);
                 Debug.Log($"Saved structure: {structure.StructureId}");
             }
             catch (Exception ex)
@@ -71,30 +71,31 @@
             }
         }
 
-        // Загрузить конструкцию по ID
-        public ConstructionModelBase LoadStructure(string structureId)
-        {
-            try
-            {
-                return savedStructures.FindById(structureId);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Failed to load structure {structureId}: {ex.Message}");
-                return null;
-            }
-        }
+        //// Загрузить конструкцию по ID
+        //public ConstructionModelBase LoadStructure(string structureId)
+        //{
+        //    try
+        //    {
+        //        return savedStructures.FindById(structureId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.LogError($"Failed to load structure {structureId}: {ex.Message}");
+        //        return null;
+        //    }
+        //}
 
-        // Загрузить все конструкции (опционально)
-        public List<ConstructionModelBase> LoadAllStructures()
-        {
-            return savedStructures.FindAll().ToList();
-        }
+        //// Загрузить все конструкции (опционально)
+        //public List<ConstructionModelBase> LoadAllStructures()
+        //{
+        //    return savedStructures.FindAll().ToList();
+        //}
 
-        // Удалить конструкцию
-        public void DeleteStructure(string structureId)
-        {
-            savedStructures.Delete(structureId);
-        }
+        //// Удалить конструкцию
+        //public void DeleteStructure(string structureId)
+        //{
+        //    savedStructures.Delete(structureId);
+        //}
+        //}
     }
 }

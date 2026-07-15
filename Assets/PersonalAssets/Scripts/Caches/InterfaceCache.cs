@@ -2,12 +2,14 @@
 {
     using UnityEngine;
     using ExoLab.Constants;
+    using ExoLab.UI;
 
     public class InterfaceCache
     {
         private Canvas mainCanvas;
         private Canvas hudCanvas;
         private NodeOptions nodeOptions;
+        private OptionsUI _optionsUI;
 
         public NodeOptions NodeOptions
         {
@@ -19,6 +21,19 @@
                 }
 
                 return this.nodeOptions;
+            }
+        }
+
+        public OptionsUI OptionsUI
+        {
+            get
+            {
+                if (this._optionsUI == null)
+                {
+                    this._optionsUI = Resources.Load<OptionsUI>($"{Constants.GameResourcesPath.MainFolder}/UI/{nameof(OptionsUI)}");
+                }
+
+                return this._optionsUI;
             }
         }
 

@@ -9,9 +9,6 @@
         {
             private AudioSource _audioSourceFromCanvas;
 
-            private AudioClip _buttonHover;
-            private AudioClip _buttonClick;
-
             /// <summary>
             /// Источник звуков из интерфейса
             /// </summary>
@@ -40,31 +37,35 @@
                 }
             }
 
-            public AudioClip ButtonHover
-            {
-                get
-                {
-                    if (_buttonHover == null)
-                    {
-                        _buttonHover = Resources.Load<AudioClip>($"{Constants.GameResourcesPath.MainFolder}/Sound/Effects/SFX_Press_Button_Joystick")
-                            ?? throw new System.NullReferenceException();
-                    }
-
-                    return _buttonHover;
-                }
-            }
-
             public AudioClip ButtonClick
             {
                 get
                 {
-                    if (_buttonClick == null)
-                    {
-                        _buttonClick = Resources.Load<AudioClip>($"{Constants.GameResourcesPath.MainFolder}/Sound/Effects/SFX_Press_Button_Keyboard")
-                            ?? throw new System.NullReferenceException();
-                    }
+                    return Instance.Interface.OptionsUI.ClickSound ?? throw new System.NullReferenceException();
+                }
+            }
 
-                    return _buttonClick;
+            public AudioClip ButtonEnter
+            {
+                get
+                {
+                    return Instance.Interface.OptionsUI.PointerEnterSound ?? throw new System.NullReferenceException();
+                }
+            }
+
+            public AudioClip ButtonExit
+            {
+                get
+                {
+                    return Instance.Interface.OptionsUI.PointerExitSound ?? throw new System.NullReferenceException();
+                }
+            }
+
+            public AudioClip ButtonMove
+            {
+                get
+                {
+                    return Instance.Interface.OptionsUI.PointerMoveSound ?? throw new System.NullReferenceException();
                 }
             }
         }

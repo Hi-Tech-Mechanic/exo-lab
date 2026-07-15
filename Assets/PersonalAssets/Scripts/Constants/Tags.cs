@@ -13,7 +13,6 @@ namespace ExoLab.Constants
             public const string HudCanvas = "CanvasHUD";
             public const string AssemblyInspectCamera = nameof(AssemblyInspectCamera);
             public const string PivotPoint = nameof(PivotPoint);
-            public const string ConstructionRoot = nameof(ConstructionRoot);
             public const string ItemInspect = nameof(ItemInspect);
         }
     }

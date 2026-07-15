@@ -7,14 +7,14 @@ namespace ExoLab.UI
     /// <summary>
     /// Кнопка с анимациями
     /// </summary>
-    public class CustomButton : HoverableElement
+    public class CustomButton : InteractionElement
     {
         [SerializeField] private bool animationIsEnabled = true;
         [SerializeField] private float targetScale = Constants.Scales.ScaleMultiplier_110Percent;
 
         private float startScale;
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
             this.startScale = this.gameObject.transform.localScale.x;
         }
@@ -32,13 +32,17 @@ namespace ExoLab.UI
             base.ActionAfterPointerEnter();
 
             if (this.animationIsEnabled)
+            {
                 this.transform.DOScale(this.targetScale, Constants.Timings.Millisecond_200);
+            }
         }
 
         protected override void ActionAfterPointerExit()
         {
             if (this.animationIsEnabled)
+            {
                 this.transform.DOScale(this.startScale, Constants.Timings.Millisecond_200);
+            }
         }
     }
 }

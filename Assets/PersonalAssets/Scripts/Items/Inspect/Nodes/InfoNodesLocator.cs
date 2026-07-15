@@ -43,7 +43,7 @@
                 return;
 
             this.layerMask = LayerMask.GetMask(Layers.Component.ToString());
-            this.camera = Caches.Instance.AssemblyCamera;
+            this.camera = Caches.Instance.Assembly.AssemblyCamera;
         }
 
         private void Update()
