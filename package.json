@@ -1,0 +1,9 @@
+{
+  "name": "exo-lab",
+  "version": "0.0.9",
+  "private": true,
+  "devDependencies": {
+    "semantic-release": "^25.0.0",
+    "@semantic-release/github": "^12.0.0"
+  }
+}
