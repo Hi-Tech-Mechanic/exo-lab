@@ -79,3 +79,6 @@ crashlytics-build.properties
 
 # Text Mesh Pro generated Assets
 /[Aa]ssets/TextMesh Pro/Resources/Fonts & Materials/
+/Assets/PersonalAssets/Art/Fonts/Nebula Font/Nebula-Regular SDF Bloom.asset
+/Assets/PersonalAssets/Art/Fonts/Nebula Font/Nebula-Regular SDF.asset
+/Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
