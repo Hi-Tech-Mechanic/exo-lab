@@ -4,7 +4,8 @@ namespace ExoLab.Input
     using UnityEngine.InputSystem;
 
     /// <summary>
-    /// Handles camera rotation and neck rotation following the camera.
+    /// Handles camera rotation, neck rotation, and body tracking.
+    /// Exposes CameraYaw for movement direction calculation.
     /// </summary>
     public class PlayerCameraController : MonoBehaviour
     {
@@ -12,8 +13,14 @@ namespace ExoLab.Input
         [SerializeField, Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         private GameObject cinemachineCameraTarget;
 
-        [SerializeField, Tooltip("Character's neck")]
+        [SerializeField, Tooltip("Character's neck (rotates with camera yaw, clamped)")]
         private GameObject neck;
+
+        [SerializeField, Tooltip("Character's body (smoothly rotates toward camera yaw, clamped)")]
+        private GameObject body;
+
+        [SerializeField, Tooltip("How fast the body rotates toward the camera direction")]
+        private float bodyRotationSmoothTime = 0.12f;
 
         [SerializeField, Tooltip("How far in degrees can you move the camera up")]
         private float topClamp = 70.0f;
@@ -21,10 +28,10 @@ namespace ExoLab.Input
         [SerializeField, Tooltip("How far in degrees can you move the camera down")]
         private float bottomClamp = -30.0f;
 
-        [SerializeField, Tooltip("How far in degrees can you move the neck left")]
+        [SerializeField, Tooltip("How far in degrees can you move the neck/body left")]
         private float leftClamp = -90.0f;
 
-        [SerializeField, Tooltip("How far in degrees can you move the neck right")]
+        [SerializeField, Tooltip("How far in degrees can you move the neck/body right")]
         private float rightClamp = 90.0f;
 
         [SerializeField, Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
@@ -39,7 +46,16 @@ namespace ExoLab.Input
         private CharacterInputs input;
         private PlayerInput playerInput;
 
+        // body rotation smoothing
+        private float bodyRotationVelocity;
+
         private const float threshold = 0.01f;
+
+        /// <summary>
+        /// The raw camera yaw in world space (before Cinemachine smoothing).
+        /// Used by PlayerMovementController for movement direction.
+        /// </summary>
+        public float CameraYaw => this.cinemachineTargetYaw;
 
         private bool IsCurrentDeviceMouse
         {
@@ -84,12 +100,25 @@ namespace ExoLab.Input
                     0.0f);
             }
 
+            float characterYaw = this.transform.eulerAngles.y;
+            float relativeYaw = Mathf.DeltaAngle(characterYaw, this.cinemachineTargetYaw);
+            float clampedRelativeYaw = Mathf.Clamp(relativeYaw, this.leftClamp, this.rightClamp);
+            float clampedWorldYaw = characterYaw + clampedRelativeYaw;
+
             if (this.neck != null)
             {
-                float characterYaw = transform.eulerAngles.y;
-                float neckRelativeYaw = Mathf.DeltaAngle(characterYaw, this.cinemachineTargetYaw);
-                neckRelativeYaw = Mathf.Clamp(neckRelativeYaw, this.leftClamp, this.rightClamp);
-                this.neck.transform.rotation = Quaternion.Euler(0f, characterYaw + neckRelativeYaw, 0f);
+                this.neck.transform.rotation = Quaternion.Euler(0f, clampedWorldYaw, 0f);
+            }
+
+            if (this.body != null)
+            {
+                float smoothedYaw = Mathf.SmoothDampAngle(
+                    this.body.transform.eulerAngles.y,
+                    clampedWorldYaw,
+                    ref this.bodyRotationVelocity,
+                    this.bodyRotationSmoothTime);
+
+                this.body.transform.rotation = Quaternion.Euler(0f, smoothedYaw, 0f);
             }
         }
 

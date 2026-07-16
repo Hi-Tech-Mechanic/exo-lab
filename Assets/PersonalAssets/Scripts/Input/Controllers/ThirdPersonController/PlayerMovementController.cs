@@ -49,7 +49,7 @@ namespace ExoLab.Input
 
         private CharacterController controller;
         private CharacterInputs input;
-        private GameObject mainCamera;
+        private PlayerCameraController cameraController;
 
         // movement state
         private float speed;
@@ -75,7 +75,7 @@ namespace ExoLab.Input
         {
             this.controller = GetComponent<CharacterController>();
             this.input = GetComponent<CharacterInputs>();
-            this.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            this.cameraController = GetComponent<PlayerCameraController>();
         }
 
         private void Start()
@@ -94,9 +94,9 @@ namespace ExoLab.Input
         private void GroundedCheck()
         {
             Vector3 spherePosition = new Vector3(
-                transform.position.x,
-                transform.position.y - this.groundedOffset,
-                transform.position.z);
+                this.transform.position.x,
+                this.transform.position.y - this.groundedOffset,
+                this.transform.position.z);
 
             this.grounded = Physics.CheckSphere(
                 spherePosition,
@@ -110,7 +110,9 @@ namespace ExoLab.Input
             float targetSpeed = this.input.Sprint ? this.sprintSpeed : this.moveSpeed;
 
             if (this.input.Move == Vector2.zero)
+            {
                 targetSpeed = 0.0f;
+            }
 
             float currentHorizontalSpeed = new Vector3(
                 this.controller.velocity.x,
@@ -143,7 +145,9 @@ namespace ExoLab.Input
                 Time.deltaTime * this.speedChangeRate);
 
             if (this.animationBlend < 0.01f)
+            {
                 this.animationBlend = 0f;
+            }
 
             Vector3 inputDirection = new Vector3(
                 this.input.Move.x,
@@ -152,16 +156,20 @@ namespace ExoLab.Input
 
             if (this.input.Move != Vector2.zero)
             {
+                float cameraYaw = this.cameraController != null
+                    ? this.cameraController.CameraYaw
+                    : 0f;
+
                 this.targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg
-                    + this.mainCamera.transform.eulerAngles.y;
+                    + cameraYaw;
 
                 float rotation = Mathf.SmoothDampAngle(
-                    transform.eulerAngles.y,
+                    this.transform.eulerAngles.y,
                     this.targetRotation,
                     ref this.rotationVelocity,
                     this.rotationSmoothTime);
 
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                this.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, this.targetRotation, 0.0f) * Vector3.forward;
@@ -181,7 +189,9 @@ namespace ExoLab.Input
                 this.IsFalling = false;
 
                 if (this.verticalVelocity < 0.0f)
+                {
                     this.verticalVelocity = -2f;
+                }
 
                 if (this.input.Jump && this.jumpTimeoutDelta <= 0.0f)
                 {
@@ -190,22 +200,30 @@ namespace ExoLab.Input
                 }
 
                 if (this.jumpTimeoutDelta >= 0.0f)
+                {
                     this.jumpTimeoutDelta -= Time.deltaTime;
+                }
             }
             else
             {
                 this.jumpTimeoutDelta = this.jumpTimeout;
 
                 if (this.fallTimeoutDelta >= 0.0f)
+                {
                     this.fallTimeoutDelta -= Time.deltaTime;
+                }
                 else
+                {
                     this.IsFalling = true;
+                }
 
                 this.input.SetJump(false);
             }
 
             if (this.verticalVelocity < this.terminalVelocity)
+            {
                 this.verticalVelocity += this.gravity * Time.deltaTime;
+            }
         }
 
         private void OnDrawGizmosSelected()
@@ -214,15 +232,19 @@ namespace ExoLab.Input
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
             if (this.grounded)
+            {
                 Gizmos.color = transparentGreen;
+            }
             else
+            {
                 Gizmos.color = transparentRed;
+            }
 
             Gizmos.DrawSphere(
                 new Vector3(
-                    transform.position.x,
-                    transform.position.y - this.groundedOffset,
-                    transform.position.z),
+                    this.transform.position.x,
+                    this.transform.position.y - this.groundedOffset,
+                    this.transform.position.z),
                 this.groundedRadius);
         }
     }
