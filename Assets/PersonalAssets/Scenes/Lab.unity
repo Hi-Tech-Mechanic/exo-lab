@@ -8366,6 +8366,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451461783}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &451561362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6463906966817255804, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+  m_PrefabInstance: {fileID: 2029986533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &454955405
 GameObject:
   m_ObjectHideFlags: 0
@@ -19021,6 +19026,100 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3058683515671931462, guid: 83ed94e5a77d48740a18ebff34ace9a5, type: 3}
   m_PrefabInstance: {fileID: 8570621668563266344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1043180666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+  m_PrefabInstance: {fileID: 2029986533}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1043180675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043180666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3659eca758b150b489c404bf1ab26d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.ThirdPersonController
+  MovementController: {fileID: 1043180679}
+  CameraController: {fileID: 1043180678}
+  AnimationController: {fileID: 1043180677}
+  AudioController: {fileID: 1043180676}
+--- !u!114 &1043180676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043180666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da100240bb42f44da29e65e0c31a1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerAudioController
+  LandingAudioClip: {fileID: 0}
+  FootstepAudioClips: []
+  FootstepAudioVolume: 0.5
+--- !u!114 &1043180677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043180666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a42ae26e39bd4b428e6bd38fdf6d559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerAnimationController
+--- !u!114 &1043180678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043180666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64578bb44609314e836032c630a8a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerCameraController
+  CinemachineCameraTarget: {fileID: 451561362}
+  Neck: {fileID: 1416707218}
+  TopClamp: 50
+  BottomClamp: -50
+  LeftClamp: -90
+  RightClamp: 90
+  CameraAngleOverride: 0
+  LockCameraPosition: 0
+--- !u!114 &1043180679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043180666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236a0f3fb3c4f57459298f165a6cbe9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerMovementController
+  MoveSpeed: 2
+  SprintSpeed: 5.335
+  RotationSmoothTime: 0.12
+  SpeedChangeRate: 10
+  JumpHeight: 1.2
+  Gravity: -9.81
+  JumpTimeout: 0.5
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.2
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1046469885
 GameObject:
   m_ObjectHideFlags: 19
@@ -42255,7 +42354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2225117695370411391, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.006713867
+      value: -0.006591797
       objectReference: {fileID: 0}
     - target: {fileID: 2227395324926955678, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -43352,9 +43451,25 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6429628368642010621, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
     - {fileID: 5319825018596578961, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+    - {fileID: 5126789710996869182, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1043180679}
+    - targetCorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1043180678}
+    - targetCorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1043180677}
+    - targetCorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1043180676}
+    - targetCorrespondingSourceObject: {fileID: 3880642414038583053, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1043180675}
   m_SourcePrefab: {fileID: 100100000, guid: 9d85e1865772c5c4e80f5a4de237282c, type: 3}
 --- !u!4 &2029986534 stripped
 Transform:
