@@ -59,6 +59,9 @@ namespace ExoLab.Input
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
 
+        [Tooltip ("Character's neck ")]
+        public GameObject Neck; 
+
         [Tooltip("How far in degrees can you move the camera up")]
         public float TopClamp = 70.0f;
 
@@ -67,6 +70,12 @@ namespace ExoLab.Input
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
+
+        [Tooltip("How far in degrees can you move the camera left")]
+        public float LeftClamp = -90.0f;
+
+        [Tooltip("How far in degrees can you move the camera right")]
+        public float RightClamp = 90.0f;
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
@@ -189,7 +198,7 @@ namespace ExoLab.Input
             }
 
             // clamp our rotations so our values are limited 360 degrees
-            _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+            _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, LeftClamp, RightClamp);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target

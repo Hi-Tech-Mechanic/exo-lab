@@ -16,6 +16,7 @@
         [SerializeField]
         private GameObject slotsHandler;
 
+        [Header("Prefabs")]
         [Tooltip ("Слот инвентаря")]
         [SerializeField]
         private GameObject slotPrefab;
@@ -28,6 +29,7 @@
         [SerializeField]
         private GameObject itemComponentPrefab;
 
+        [Header("Other")]
         [Tooltip("Выпадающий список типов сортировки")]
         [SerializeField]
         private TMP_Dropdown sortDropdown;
