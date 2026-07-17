@@ -21,12 +21,12 @@
 
         private void OnEnable()
         {
-            GameEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
+            GameEvents.AssemblyEvents.OnAssemblyModeEnabled += this.AssemblyModeHandler;
         }
 
         private void OnDisable()
         {
-            GameEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
+            GameEvents.AssemblyEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
         }
 
         private void AssemblyModeHandler(bool assemblyEnabled)

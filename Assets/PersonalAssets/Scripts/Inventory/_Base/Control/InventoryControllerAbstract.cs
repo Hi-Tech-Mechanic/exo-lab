@@ -1,12 +1,11 @@
 ﻿namespace ExoLab
 {
     using ExoLab.Data;
-    using ExoLab.UI;
     using System;
     using System.Linq;
     using UnityEngine;
 
-    public class InventoryController : MonoBehaviour
+    public abstract class InventoryControllerAbstract : MonoBehaviour, ISubsribable
     {
         /// <summary>
         /// Пока константой, затравка на расширение инвентаря
@@ -14,17 +13,13 @@
         public const ushort maxSlotsCount = 30;
 
         [SerializeField]
-        private InventoryView view;
+        private ItemRepository itemRepository;
 
         private InventoryModel model;
 
-        [SerializeField]
-        private ItemRepository itemRepository;
-
         private string[] optionsNames = Enum.GetNames(typeof(SortMode));
 
-        //public Action<string, int> OnItemAdded;
-        //public Action<string, int> OnItemUsed;
+        protected abstract IInventoryView View { get; }
 
         public enum SortMode
         {
@@ -33,7 +28,7 @@
             Durability = 2,
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             this.InitInventoryModel();
             this.InitInventoryView();
@@ -41,12 +36,22 @@
 
         private void OnEnable()
         {
-            GameEvents.OnItemCollected += AddItem;
+            this.SubscribeEvents();
         }
 
         private void OnDisable()
         {
-            GameEvents.OnItemCollected -= AddItem;
+            this.UnsubscribeEvents();
+        }
+
+        public virtual void SubscribeEvents()
+        {
+            GameEvents.UserEvents.OnItemCollected += AddItem;
+        }
+
+        public virtual void UnsubscribeEvents()
+        {
+            GameEvents.UserEvents.OnItemCollected -= AddItem;
         }
 
         private void AddItem(ItemData itemData)
@@ -68,9 +73,9 @@
 
         private void InitInventoryView()
         {
-            this.view.CreateSlots(maxSlotsCount);
-            this.view.FillSortDropdown(this.optionsNames, SortHandler);
-            this.view.SelectSortMode((int)SortMode.Name);
+            this.View.CreateSlots(maxSlotsCount);
+            this.View.FillSortDropdown(this.optionsNames, SortHandler);
+            this.View.SelectSortMode((int)SortMode.Name);
             this.RefreshView();
         }
 
@@ -107,7 +112,7 @@
 
         private void RefreshView()
         {
-            this.view.FillSlots(this.model.Items.ToArray());
+            this.View.FillSlots(this.model.Items.ToArray());
         }
     }
 }

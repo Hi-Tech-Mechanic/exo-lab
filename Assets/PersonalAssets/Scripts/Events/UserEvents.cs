@@ -1,0 +1,25 @@
+﻿using ExoLab.Data;
+using System;
+
+namespace ExoLab
+{
+    public static partial class GameEvents
+    {
+        public static class UserEvents
+        {
+            public static event Action OnInventoryToggle;
+
+            public static event Action<ItemData> OnItemCollected;
+
+            public static void RaiseItemCollected(ItemData data)
+            {
+                OnItemCollected?.Invoke(data);
+            }
+
+            public static void RaiseInventoryToggle()
+            {
+                OnInventoryToggle?.Invoke();
+            }
+        }
+    }
+}

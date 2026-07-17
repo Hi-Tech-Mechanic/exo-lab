@@ -10,9 +10,9 @@
     /// <summary>
     /// Визуализатор инвентаря
     /// </summary>
-    public class InventoryView : MonoBehaviour
+    public abstract class InventoryViewAbstract : MonoBehaviour, IInventoryView
     {
-        [Tooltip ("Объект в котором находятся слоты")]
+        [Tooltip("Объект в котором находятся слоты")]
         [SerializeField]
         private GameObject slotsHandler;
 
@@ -45,7 +45,7 @@
         /// </summary>
         private List<GameObject> itemsInSlots = new List<GameObject>();
 
-        public void CreateSlots(ushort maxSlotsCount)
+        public virtual void CreateSlots(ushort maxSlotsCount)
         {
             // Берем слоты которые имеются
             this.slots = this.slotsHandler.GetComponents<InventorySlot>().ToList();
@@ -68,7 +68,7 @@
             }
         }
 
-        public void FillSlots(StoredItem[] items)
+        public virtual void FillSlots(StoredItem[] items)
         {
             this.ClearSlots();
 
@@ -100,7 +100,7 @@
             }
         }
 
-        public void ClearSlots()
+        public virtual void ClearSlots()
         {
             foreach (var child in this.itemsInSlots)
             {
@@ -113,7 +113,7 @@
         /// </summary>
         /// <param name="optionNames">Список имен настроек</param>
         /// <param name="valueChangedHandler">Обработчик нажатий</param>
-        public void FillSortDropdown(string[] optionNames, UnityAction<int> valueChangedHandler)
+        public virtual void FillSortDropdown(string[] optionNames, UnityAction<int> valueChangedHandler)
         {
             var options = new List<TMP_Dropdown.OptionData>();
 

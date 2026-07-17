@@ -114,7 +114,7 @@
             this.SetAttachmentOptionInCurrentObject(targetObject);
             this.PlayAssemblySound();
 
-            GameEvents.Assembly.RaiseComponentAttached(this);
+            GameEvents.AssemblyEvents.RaiseComponentAttached(this);
         }
 
         /// <summary>

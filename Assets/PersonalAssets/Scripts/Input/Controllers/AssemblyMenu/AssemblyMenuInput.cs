@@ -26,13 +26,11 @@
 
         public void SubscribeEvents()
         {
-            InteractionInputController.OnInventoryPressed += this.ToggleInventoryHandler;   
             InteractionInputController.OnAssemblyModePressed += this.ToggleAssemblyModeHandler;
         }
 
         public void UnsubscribeEvents()
         {
-            InteractionInputController.OnInventoryPressed -= this.ToggleInventoryHandler;
             InteractionInputController.OnAssemblyModePressed -= this.ToggleAssemblyModeHandler;
         }
 
@@ -70,7 +68,7 @@
             this.assemblyWindow.SetActive(state);
             this.assemblyProps.SetActive(state);
 
-            GameEvents.RaiseAssemblyModeEnabled(state);
+            GameEvents.AssemblyEvents.RaiseAssemblyModeEnabled(state);
         }
     }
 }
