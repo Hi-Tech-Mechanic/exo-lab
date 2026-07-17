@@ -14,7 +14,7 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
         /// <summary>
         /// For locking the camera position on all axis
         /// </summary>
-        public bool LockCameraPosition { get; private set; } = false;
+        public bool LockCameraPosition { get; private set; } = true;
 
         private void Awake()
         {
