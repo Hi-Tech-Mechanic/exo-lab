@@ -1,5 +1,6 @@
 ﻿namespace ExoLab
 {
+    using Assets.PersonalAssets.Scripts.Input.Helpers;
     using Assets.PersonalAssets.Scripts.Inventory.View;
     using UnityEngine;
 
@@ -25,6 +26,8 @@
         private void ToggleInventoryHandler()
         {
             this.view.ToggleWindow();
+
+            CursorStateController.Instance.ToggleCursor();
         }
     }
 }

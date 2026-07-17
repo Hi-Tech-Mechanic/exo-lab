@@ -1,5 +1,6 @@
 namespace ExoLab.Input
 {
+    using Assets.PersonalAssets.Scripts.Input.Helpers;
     using UnityEngine;
     using UnityEngine.InputSystem;
 
@@ -36,9 +37,6 @@ namespace ExoLab.Input
 
         [SerializeField, Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         private float cameraAngleOverride = 0.0f;
-
-        [SerializeField, Tooltip("For locking the camera position on all axis")]
-        private bool lockCameraPosition = false;
 
         // cinemachine
         private float cinemachineTargetYaw;
@@ -81,7 +79,7 @@ namespace ExoLab.Input
 
         public void ProcessCameraRotation()
         {
-            if (this.input.Look.sqrMagnitude >= threshold && !this.lockCameraPosition)
+            if (this.input.Look.sqrMagnitude >= threshold && !CursorStateController.Instance.LockCameraPosition)
             {
                 float deltaTimeMultiplier = this.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
