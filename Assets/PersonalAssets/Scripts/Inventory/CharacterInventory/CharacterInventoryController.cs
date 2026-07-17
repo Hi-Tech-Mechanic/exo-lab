@@ -23,7 +23,10 @@
             GameEvents.UserEvents.OnInventoryToggle -= ToggleInventoryHandler;
         }
 
-        private void ToggleInventoryHandler()
+        /// <summary>
+        /// Used in scene
+        /// </summary>
+        public void ToggleInventoryHandler()
         {
             this.view.ToggleWindow();
             this.view.DeleteAllInfoPanels();
