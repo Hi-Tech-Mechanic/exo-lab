@@ -12,26 +12,28 @@
     /// </summary>
     public abstract class InventoryViewAbstract : MonoBehaviour, IInventoryView
     {
-        [Tooltip("Объект в котором находятся слоты")]
-        [SerializeField]
-        private GameObject slotsHandler;
+        [Header("Main")]
+        [SerializeField, Tooltip("The inventory window itself")]
+        protected GameObject Window;
+
+        [SerializeField, Tooltip("The object in which the inventory slots are located")]
+        private GameObject contentHandler;
+
+        [SerializeField, Tooltip("The object in which the item info windows")]
+        private GameObject infoPanelsHandler;
 
         [Header("Prefabs")]
-        [Tooltip ("Слот инвентаря")]
         [SerializeField]
         private GameObject slotPrefab;
 
-        [Tooltip("Обычный предмет")]
         [SerializeField]
         private GameObject itemPrefab;
 
-        [Tooltip ("Предмет-компонент")]
         [SerializeField]
         private GameObject itemComponentPrefab;
 
         [Header("Other")]
-        [Tooltip("Выпадающий список типов сортировки")]
-        [SerializeField]
+        [SerializeField, Tooltip("Drop-down list of sorting types")]
         private TMP_Dropdown sortDropdown;
 
         /// <summary>
@@ -48,7 +50,7 @@
         public virtual void CreateSlots(ushort maxSlotsCount)
         {
             // Берем слоты которые имеются
-            this.slots = this.slotsHandler.GetComponents<InventorySlot>().ToList();
+            this.slots = this.contentHandler.GetComponents<InventorySlot>().ToList();
             // Добавляем остаток
             var slotsCount = this.slots.Count;
 
@@ -128,6 +130,22 @@
             this.sortDropdown.onValueChanged.AddListener(valueChangedHandler);
         }
 
+        public void DeleteAllInfoPanels()
+        {
+            var childCount = this.infoPanelsHandler.transform.childCount;
+
+            for (var i = 0; i < childCount; i++)
+            {
+                var child = this.infoPanelsHandler.transform.GetChild(i).gameObject;
+                Destroy(child);
+            }
+        }
+
+        public GameObject GetInfoPanelsHandler()
+        {
+            return this.infoPanelsHandler;
+        }
+
         public void SelectSortMode(int modeIndex)
         {
             this.sortDropdown.value = modeIndex;
@@ -135,7 +153,7 @@
 
         private GameObject SpawnItemSlot()
         {
-            return Instantiate(this.slotPrefab, this.slotsHandler.transform);
+            return Instantiate(this.slotPrefab, this.contentHandler.transform);
         }
     }
 }

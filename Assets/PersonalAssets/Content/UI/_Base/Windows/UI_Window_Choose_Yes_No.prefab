@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7646699753661138422}
   - component: {fileID: 1601881080767682996}
   m_Layer: 5
-  m_Name: UI_Window_Choose_YesNo
+  m_Name: UI_Window_Choose_Yes_No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

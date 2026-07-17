@@ -843,11 +843,15 @@ GameObject:
   - component: {fileID: 4508418905343385015}
   - component: {fileID: 7525853416780203981}
   - component: {fileID: 3880642414038583047}
-  - component: {fileID: 5126789710996869182}
   - component: {fileID: 6465597835823259298}
   - component: {fileID: 3880642414038583041}
   - component: {fileID: 5145169756594698176}
   - component: {fileID: 5666398655752854054}
+  - component: {fileID: 4746007303649097694}
+  - component: {fileID: 4202618185176987297}
+  - component: {fileID: 4522888156820226513}
+  - component: {fileID: 1548650104269664800}
+  - component: {fileID: 591542465675937187}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -869,9 +873,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8875702624177913425}
-  - {fileID: 5013764693654125970}
   - {fileID: 7465591858469099877}
   - {fileID: 819374423016006446}
+  - {fileID: 5013764693654125970}
   m_Father: {fileID: 2681061927412430813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7525853416780203981
@@ -921,43 +925,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!114 &5126789710996869182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880642414038583053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856033254fdb27143b4da59bace6a7da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.ThirdPersonController
-  MoveSpeed: 2
-  SprintSpeed: 5.335
-  RotationSmoothTime: 0.12
-  SpeedChangeRate: 10
-  LandingAudioClip: {fileID: 0}
-  FootstepAudioClips: []
-  FootstepAudioVolume: 0.5
-  JumpHeight: 0.4
-  Gravity: -9.81
-  JumpTimeout: 0.3
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.2
-  GroundedRadius: 0.28
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  CinemachineCameraTarget: {fileID: 6463906966817255804}
-  Neck: {fileID: 0}
-  TopClamp: 50
-  BottomClamp: -40
-  CameraAngleOverride: 0
-  LeftClamp: -90
-  RightClamp: 90
-  LockCameraPosition: 0
 --- !u!114 &6465597835823259298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,7 +956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: fdb6faf0613b2154f8175decf9c39e26, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -1104,6 +1071,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba82d2563b8bf34e80dfb1e1aa9f32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Interaction.InteractableLocator
+--- !u!114 &4746007303649097694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880642414038583053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236a0f3fb3c4f57459298f165a6cbe9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerMovementController
+  moveSpeed: 2
+  sprintSpeed: 5.335
+  rotationSmoothTime: 0.12
+  speedChangeRate: 10
+  jumpHeight: 1.2
+  gravity: -15
+  jumpTimeout: 0.5
+  fallTimeout: 0.15
+  grounded: 1
+  groundedOffset: -0.2
+  groundedRadius: 0.28
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1
+--- !u!114 &4202618185176987297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880642414038583053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64578bb44609314e836032c630a8a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerCameraController
+  cinemachineCameraTarget: {fileID: 6463906966817255804}
+  neck: {fileID: 53592908231466512}
+  body: {fileID: 3880642414038583053}
+  bodyRotationSmoothTime: 0.12
+  topClamp: 70
+  bottomClamp: -30
+  leftClamp: -90
+  rightClamp: 90
+  cameraAngleOverride: 0
+--- !u!114 &4522888156820226513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880642414038583053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a42ae26e39bd4b428e6bd38fdf6d559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerAnimationController
+--- !u!114 &1548650104269664800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880642414038583053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da100240bb42f44da29e65e0c31a1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.PlayerAudioController
+  landingAudioClip: {fileID: 0}
+  footstepAudioClips: []
+  footstepAudioVolume: 0.5
+--- !u!114 &591542465675937187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880642414038583053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3659eca758b150b489c404bf1ab26d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Input.ThirdPersonController
+  movementController: {fileID: 4746007303649097694}
+  cameraController: {fileID: 4202618185176987297}
+  animationController: {fileID: 4522888156820226513}
+  audioController: {fileID: 1548650104269664800}
 --- !u!1 &3914672764961502033
 GameObject:
   m_ObjectHideFlags: 0

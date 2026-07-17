@@ -26,6 +26,7 @@
         private void ToggleInventoryHandler()
         {
             this.view.ToggleWindow();
+            this.view.DeleteAllInfoPanels();
 
             CursorStateController.Instance.ToggleCursor();
         }

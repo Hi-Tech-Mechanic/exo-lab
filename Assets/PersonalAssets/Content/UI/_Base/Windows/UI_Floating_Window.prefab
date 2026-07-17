@@ -115,9 +115,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7908272919263166471}
-  - component: {fileID: 1269321110410925782}
+  - component: {fileID: 7273915404301576186}
   m_Layer: 5
-  m_Name: UI_FloatingWindow
+  m_Name: UI_Floating_Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,10 +142,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 40}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1269321110410925782
+--- !u!114 &7273915404301576186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2338051919992188947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9d45ca730d083f4eb5e90105c16d661, type: 3}
+  m_Script: {fileID: 11500000, guid: d79d706dcba1502418146385175e53b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingWindow
   contentHolder: {fileID: 2900481126509452152}
@@ -487,7 +487,7 @@ PrefabInstance:
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1269321110410925782}
+      objectReference: {fileID: 7273915404301576186}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -498,7 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FloatingWindow, Assembly-CSharp
+      value: ExoLab.UI.FloatingWindow, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -649,7 +649,7 @@ PrefabInstance:
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1269321110410925782}
+      objectReference: {fileID: 7273915404301576186}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -660,7 +660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FloatingWindow, Assembly-CSharp
+      value: ExoLab.UI.FloatingWindow, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2470440360672465405, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
