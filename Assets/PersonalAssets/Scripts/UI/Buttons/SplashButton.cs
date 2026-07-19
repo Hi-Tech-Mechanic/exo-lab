@@ -6,10 +6,8 @@
     using System.Collections;
 
     [RequireComponent(typeof(Image))]
-    public class UISplashButton : InteractionElement
+    public class SplashButton : InteractionElement
     {
-        private const string shaderPath = "CustomRenderTexture/SplashButton";
-
         public enum FillDirection
         {
             BottomToTop,
@@ -18,7 +16,8 @@
             RightToLeft
         }
 
-        [Header("Настройки эффекта")]
+        [Header("Effects Options")]
+        [SerializeField] private Shader shader;
         [SerializeField] private float fillDuration = 0.3f;
         [SerializeField] private Color ribbonColor = new Color(1f, 1f, 1f, 0.3f);
         [SerializeField] private float ribbonIntensity = 1.5f;
@@ -36,7 +35,6 @@
             image = GetComponent<Image>();
 
             // Создаем материал из шейдера
-            Shader shader = Shader.Find(shaderPath);
             if (shader != null)
             {
                 material = new Material(shader);
@@ -47,7 +45,7 @@
             }
             else
             {
-                Debug.LogError($"Шейдер {shaderPath} не найден!");
+                Debug.LogError($"Shader not assigned!");
             }
         }
 
@@ -56,7 +54,7 @@
             this.StopFillCoroutine();
 
             // Возвращаем материал к первоначальному состоянию
-            material.SetFloat("_FillAmount", 0f);
+            this.SetMaterialFillAmount(0f);
         }
 
         private void OnDestroy()
@@ -139,10 +137,25 @@
 
             // Получаем позицию мыши относительно центра кнопки
             Vector2 localPoint;
+            
+            // Используем enterEventCamera как fallback, если pressEventCamera == null
+            // pressEventCamera может быть null, если нажатия не было (первое наведение)
+            Camera eventCamera = eventData.pressEventCamera ?? eventData.enterEventCamera;
+            
+            if (eventCamera == null)
+            {
+                // Пытаемся получить камеру из Canvas
+                Canvas canvas = GetComponentInParent<Canvas>();
+                if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+                {
+                    eventCamera = canvas.worldCamera;
+                }
+            }
+            
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rectTransform,
                 eventData.position,
-                eventData.pressEventCamera,
+                eventCamera,
                 out localPoint
             );
 
@@ -166,7 +179,12 @@
 
         private IEnumerator FillIn()
         {
-            float elapsed = 0f;
+            if (material == null)
+            {
+                yield break;
+            }
+
+                float elapsed = 0f;
             float currentFill = material.GetFloat("_FillAmount");
 
             while (elapsed < fillDuration)
@@ -178,18 +196,23 @@
                 float smoothT = 1 - Mathf.Pow(1 - t, 3);
                 float newFill = Mathf.Lerp(currentFill, 1f, smoothT);
 
-                material.SetFloat("_FillAmount", newFill);
+                this.SetMaterialFillAmount(newFill);
 
                 yield return null;
             }
 
             // Убеждаемся что достигли полного заполнения
-            material.SetFloat("_FillAmount", 1f);
+            this.SetMaterialFillAmount(1f);
             fillCoroutine = null;
         }
 
         private IEnumerator FillOut()
         {
+            if (material == null)
+            {
+                yield break;
+            }
+
             float elapsed = 0f;
             float currentFill = material.GetFloat("_FillAmount");
 
@@ -202,7 +225,7 @@
                 float smoothT = Mathf.Pow(t, 3);
                 float newFill = Mathf.Lerp(currentFill, 0f, smoothT);
 
-                material.SetFloat("_FillAmount", newFill);
+                this.SetMaterialFillAmount(newFill);
 
                 yield return null;
             }

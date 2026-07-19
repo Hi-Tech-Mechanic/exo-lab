@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Data
 {
     using ExoLab.Constants;
+    using System;
     using UnityEngine;
 
     public partial class Caches
@@ -21,15 +22,13 @@
                         var gameObject = GameObject.FindWithTag(Constants.Tags.AudioSourceFromCanvas);
                         if (gameObject == null)
                         {
-                            Debug.LogError($"Не найден объект с тегом {Constants.Tags.AudioSourceFromCanvas}");
-                            return null;
+                            throw new NullReferenceException($"Не найден объект с тегом {Constants.Tags.AudioSourceFromCanvas}");
                         }
 
                         this._audioSourceFromCanvas = gameObject.GetComponent<AudioSource>();
                         if (this._audioSourceFromCanvas == null)
                         {
-                            Debug.LogError($"Объект с тегом {Constants.Tags.AudioSourceFromCanvas} не содержит {nameof(AudioSource)}");
-                            return null;
+                            throw new NullReferenceException($"Объект с тегом {Constants.Tags.AudioSourceFromCanvas} не содержит {nameof(AudioSource)}");
                         }
                     }
 
@@ -41,7 +40,7 @@
             {
                 get
                 {
-                    return Instance.Interface.OptionsUI.ClickSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI?.ClickSound;
                 }
             }
 
@@ -49,7 +48,7 @@
             {
                 get
                 {
-                    return Instance.Interface.OptionsUI.PointerEnterSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI?.PointerEnterSound;
                 }
             }
 
@@ -57,7 +56,7 @@
             {
                 get
                 {
-                    return Instance.Interface.OptionsUI.PointerExitSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI?.PointerExitSound;
                 }
             }
 
@@ -65,7 +64,7 @@
             {
                 get
                 {
-                    return Instance.Interface.OptionsUI.PointerMoveSound ?? throw new System.NullReferenceException();
+                    return Instance.Interface.OptionsUI?.PointerMoveSound;
                 }
             }
         }

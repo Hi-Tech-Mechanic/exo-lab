@@ -7242,7 +7242,6 @@ GameObject:
   - component: {fileID: 394887639}
   - component: {fileID: 394887642}
   - component: {fileID: 394887641}
-  - component: {fileID: 394887640}
   m_Layer: 5
   m_Name: Dynamic Text
   m_TagString: Untagged
@@ -7269,18 +7268,6 @@ RectTransform:
   m_AnchoredPosition: {x: 85, y: 0}
   m_SizeDelta: {x: -30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &394887640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394887638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f6069fbddd98a749ae52fe52bdf4c0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &394887641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16617,6 +16604,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6872462950699366253, guid: 30a211709983bbc41874fe9c1016a3b3, type: 3}
   m_PrefabInstance: {fileID: 921249751}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &923846596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923846597}
+  - component: {fileID: 923846598}
+  m_Layer: 0
+  m_Name: Cursor_State_Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &923846597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923846596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 356.67685, y: 509.65875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &923846598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923846596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7151aa99f345d2f4eb93bfde089de7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.PersonalAssets.Scripts.Input.Helpers.CursorStateController
+  cursorEnabled: 1
 --- !u!1001 &926371196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16956,7 +16988,6 @@ GameObject:
   - component: {fileID: 940182276}
   - component: {fileID: 940182279}
   - component: {fileID: 940182280}
-  - component: {fileID: 940182278}
   - component: {fileID: 940182281}
   m_Layer: 0
   m_Name: Inputs
@@ -16980,19 +17011,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1840522335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &940182278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 940182275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7151aa99f345d2f4eb93bfde089de7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.PersonalAssets.Scripts.Input.Helpers.CursorStateController
-  cursorEnabled: 1
 --- !u!114 &940182279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25245,7 +25263,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353096287}
-  - component: {fileID: 1353096288}
   m_Layer: 0
   m_Name: ConstructionElementsUpgrade
   m_TagString: Untagged
@@ -25268,18 +25285,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1451054751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1353096288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353096286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d7890cc4079c7409d89aaa6cdde454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Upgrades.UpgradeManager
 --- !u!1001 &1354225906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38395,7 +38400,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1862961295}
-  - component: {fileID: 1862961296}
   - component: {fileID: 1862961297}
   m_Layer: 0
   m_Name: "RenderRoot - \u0434\u043B\u044F \u0441\u043A\u0440\u0438\u043D\u0448\u043E\u0442\u043E\u0432"
@@ -38420,18 +38424,6 @@ Transform:
   - {fileID: 1131983601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1862961296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862961294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc6f3fe7b8a5be846a746524be16b93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenshotManager
 --- !u!114 &1862961297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46344,7 +46336,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u0411\u0443\u0440\u0438\u043B\u044C\u043D\u0430\u044F \u0442\u0440\u0443\u0431\u0430"
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5899450533136408948, guid: 1a649694e9cd0d64c8cc0e888ad25a07, type: 3}
+    - {fileID: 8349447756633655110, guid: 1a649694e9cd0d64c8cc0e888ad25a07, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2592209829313585273, guid: 1a649694e9cd0d64c8cc0e888ad25a07, type: 3}
@@ -49367,4 +49361,5 @@ SceneRoots:
   - {fileID: 1862961295}
   - {fileID: 1706857418}
   - {fileID: 1840522335}
+  - {fileID: 923846597}
   - {fileID: 1751545436}

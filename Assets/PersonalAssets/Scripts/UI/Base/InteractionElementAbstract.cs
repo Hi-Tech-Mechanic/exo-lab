@@ -4,7 +4,7 @@ namespace ExoLab.UI
     using UnityEngine.EventSystems;
 
     /// <summary>
-    /// Описание элемента который откликается при наведении мышкой
+    /// РћРїРёСЃР°РЅРёРµ СЌР»РµРјРµРЅС‚Р° РєРѕС‚РѕСЂС‹Р№ РѕС‚РєР»РёРєР°РµС‚СЃСЏ РїСЂРё РЅР°РІРµРґРµРЅРёРё РјС‹С€РєРѕР№
     /// </summary>
     public abstract class InteractionElementAbstract :
         MonoBehaviour,
@@ -33,21 +33,11 @@ namespace ExoLab.UI
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            if (CursorIsVisible() == false)
-            {
-                return;
-            }
-
             this.ActionAfterPointerEnter();
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            if (CursorIsVisible() == false)
-            {
-                return;
-            }
-
             this.ActionAfterPointerExit();
         }
 
@@ -62,8 +52,8 @@ namespace ExoLab.UI
         }
 
         /// <summary>
-        /// Пропускаем выполнение если курсор не виден.
-        /// Иначе можно будет взаимодействовать с элементом даже не видя курсор
+        /// РџСЂРѕРїСѓСЃРєР°РµРј РІС‹РїРѕР»РЅРµРЅРёРµ РµСЃР»Рё РєСѓСЂСЃРѕСЂ РЅРµ РІРёРґРµРЅ.
+        /// РРЅР°С‡Рµ РјРѕР¶РЅРѕ Р±СѓРґРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРѕРІР°С‚СЊ СЃ СЌР»РµРјРµРЅС‚РѕРј РґР°Р¶Рµ РЅРµ РІРёРґСЏ РєСѓСЂСЃРѕСЂ
         /// </summary>
         /// <returns></returns>
         private static bool CursorIsVisible()

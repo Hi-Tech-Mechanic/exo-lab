@@ -1,11 +1,11 @@
-namespace ExoLab.UI
+п»їnamespace ExoLab.UI
 {
     using UnityEngine;
     using ExoLab.Data;
 
     /// <summary>
-    /// Один из базовых классов интерфейса, воспроизводит звуки
-    /// при срабатывании событий наведения мышкой
+    /// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РґР»СЏ СЌР»РµРјРµРЅС‚РѕРІ РёРЅС‚РµСЂС„РµР№СЃР°, СЂРµР°РіРёСЂСѓСЋС‰РёС… РЅР° Р·РІСѓРєРё
+    /// РїСЂРё РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРё РјС‹С€РєРѕР№
     /// </summary>
     public class InteractionElement : InteractionElementAbstract
     {
