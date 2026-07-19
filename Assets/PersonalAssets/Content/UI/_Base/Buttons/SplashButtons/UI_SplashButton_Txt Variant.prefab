@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3197915203327833059, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_fontSize
-      value: 57.55
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3197915203327833059, guid: 8cead28e63ea6d243b50a7e939b5f0ca, type: 3}
       propertyPath: m_sharedMaterial
@@ -130,6 +130,7 @@ MonoBehaviour:
   pointerEnterSound: {fileID: 0}
   pointerExitSound: {fileID: 0}
   pointerMoveSound: {fileID: 0}
+  shader: {fileID: 4800000, guid: a45d31307bcae9f498913ebe33dc31d5, type: 3}
   fillDuration: 0.3
   ribbonColor: {r: 0.9150943, g: 0.67002213, b: 0.18560876, a: 0.4}
   ribbonIntensity: 1

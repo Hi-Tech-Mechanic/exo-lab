@@ -11,6 +11,11 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
         /// </summary>
         [SerializeField] private bool cursorEnabled = true;
 
+        /// <summary>
+        /// For locking the camera position on all axis
+        /// </summary>
+        public bool LockCameraPosition { get; private set; } = true;
+
         private void Awake()
         {
             this.Init();
@@ -23,7 +28,7 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
                 isActive = !this.cursorEnabled;
             }
 
-            this.SetCursorState((bool)isActive);
+            this.SetCursorInteractable((bool)isActive);
         }
 
         private void Init()
@@ -35,9 +40,10 @@ namespace Assets.PersonalAssets.Scripts.Input.Helpers
             this.ToggleCursor(this.cursorEnabled);
         }
 
-        private void SetCursorState(bool isActive)
+        private void SetCursorInteractable(bool isActive)
         {
             this.cursorEnabled = isActive;
+            this.LockCameraPosition = isActive;
 
             Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = isActive;

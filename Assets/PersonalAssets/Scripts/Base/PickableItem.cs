@@ -9,7 +9,7 @@
         {
             var item = this.GetComponent<ItemBase>();
             var itemData = item.GetBaseItemData();
-            GameEvents.RaiseItemCollected(itemData);
+            GameEvents.UserEvents.RaiseItemCollected(itemData);
 
             Destroy(this.gameObject);
         }

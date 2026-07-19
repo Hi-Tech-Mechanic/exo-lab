@@ -45,12 +45,12 @@ namespace ExoLab.Assembly
 
         private void OnEnable()
         {
-            GameEvents.Assembly.ComponentOnAttached += this.AttachHandler;
+            GameEvents.AssemblyEvents.ComponentOnAttached += this.AttachHandler;
         }
 
         private void OnDisable()
         {
-            GameEvents.Assembly.ComponentOnAttached -= this.AttachHandler;
+            GameEvents.AssemblyEvents.ComponentOnAttached -= this.AttachHandler;
         }
 
         private void Initialize()

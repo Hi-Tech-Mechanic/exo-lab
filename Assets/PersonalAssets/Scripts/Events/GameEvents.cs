@@ -1,33 +1,10 @@
 ﻿namespace ExoLab
 {
     using ExoLab.Data;
-    using ExoLab.StructuralСomponents;
     using System;
 
-    public static class GameEvents
+    public static partial class GameEvents
     {
-        public static event Action<ItemData> OnItemCollected;
 
-        public static event Action<bool> OnAssemblyModeEnabled;
-
-        public static void RaiseItemCollected(ItemData data)
-        {
-            OnItemCollected?.Invoke(data);
-        }
-
-        public static void RaiseAssemblyModeEnabled(bool state)
-        {
-            OnAssemblyModeEnabled?.Invoke(state);
-        }
-
-        public static class Assembly
-        {
-            public static Action<AssemblyComponentBase> ComponentOnAttached;
-
-            public static void RaiseComponentAttached(AssemblyComponentBase component)
-            {
-                ComponentOnAttached?.Invoke(component);
-            }
-        }
     }
 }

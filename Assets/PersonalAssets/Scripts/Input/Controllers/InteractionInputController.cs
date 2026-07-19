@@ -32,7 +32,6 @@
         public InputAction Keyboard_9 { get; private set; }
 
         public static event Action OnInteractPressed;
-        public static event Action OnInventoryPressed;
         public static event Action OnEscapePressed;
         public static event Action OnAssemblyModePressed;
         public static event Action OnPressedKeyboard_1;
@@ -59,7 +58,7 @@
             this.Interact.performed += ctx => OnInteractPressed?.Invoke();
             this.AssemblyMode.performed += ctx => OnAssemblyModePressed?.Invoke();
             this.Escape.performed += ctx => OnEscapePressed?.Invoke();
-            this.Inventory.performed += ctx => OnInventoryPressed?.Invoke();
+            this.Inventory.performed += ctx => GameEvents.UserEvents.RaiseInventoryToggle();
 
             this.Keyboard_1.performed += ctx => OnPressedKeyboard_1?.Invoke();
             this.Keyboard_2.performed += ctx => OnPressedKeyboard_2?.Invoke();
@@ -81,7 +80,7 @@
             this.Interact.performed -= ctx => OnInteractPressed?.Invoke();
             this.AssemblyMode.performed -= ctx => OnAssemblyModePressed?.Invoke();
             this.Escape.performed -= ctx => OnEscapePressed?.Invoke();
-            this.Inventory.performed -= ctx => OnInventoryPressed?.Invoke();
+            this.Inventory.performed -= ctx => GameEvents.UserEvents.RaiseInventoryToggle();
 
             this.Keyboard_1.performed -= ctx => OnPressedKeyboard_1?.Invoke();
             this.Keyboard_2.performed -= ctx => OnPressedKeyboard_2?.Invoke();
