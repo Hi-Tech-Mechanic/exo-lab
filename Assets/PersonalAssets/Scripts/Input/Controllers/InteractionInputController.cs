@@ -2,6 +2,7 @@
 {
     using DG.Tweening;
     using ExoLab.Constants;
+    using ExoLab.Notifications;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -135,14 +136,14 @@
         {
             IEnumerator c = DescroySuit();
             this.InputController.StartCoroutine(c);
-            Notifications.InvokeWarnNotify("Разрушение экзоскелета запущено", TransformDirections.RectDirection.Center);
+            NotificationController.Instance.ShowCritical("Разрушение экзоскелета", "Запущено разрушение экзоскелета");
         }
 
         private void InvokeSuitRegenerate()
         {
             IEnumerator c = RepairSuit();
             this.InputController.StartCoroutine(c);
-            Notifications.InvokeStandardNotify("Регенерация экзоскелета запущена", TransformDirections.RectDirection.TopCenter);
+            NotificationController.Instance.ShowWarning("Регенерация экзоскелета", "Запущена регенерация экзоскелета"); //todo поменять на info
         }
         
         IEnumerator DescroySuit()

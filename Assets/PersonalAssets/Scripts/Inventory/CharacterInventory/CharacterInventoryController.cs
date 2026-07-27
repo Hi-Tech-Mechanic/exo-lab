@@ -4,7 +4,7 @@
     using Assets.PersonalAssets.Scripts.Inventory.View;
     using UnityEngine;
 
-    public class CharacterInventoryController : InventoryControllerAbstract
+    public class CharacterInventoryController : InventoryControllerAbstract<CharacterInventoryModel>
     {
         [SerializeField]
         private CharacterInventoryView view;
@@ -32,6 +32,12 @@
             this.view.DeleteAllInfoPanels();
 
             CursorStateController.Instance.ToggleCursor();
+        }
+
+        protected override CharacterInventoryModel InitInventoryModel()
+        {
+            var model = new CharacterInventoryModel(this.ItemRepository);
+            return model;
         }
     }
 }

@@ -1,46 +1,39 @@
-using UnityEngine;
-
-public class FpsCounter : MonoBehaviour
+namespace ExoLab.Tools
 {
-    private const float UpdateInterval = 0.5f;
-    private float lastUpdate;
-    private int frameCount;
-    private float fps;
+    using TMPro;
+    using UnityEngine;
 
-    private GUIStyle style;
-    private GUIContent content;
-    private float width = 150f;
-    private float height = 30f;
-
-    void Start()
+    public class FpsCounter : MonoBehaviour
     {
-        style = new GUIStyle();
-        style.fontSize = 24;
-        style.normal.textColor = Color.green;
-        style.fontStyle = FontStyle.Bold;
+        private const float UpdateInterval = 0.5f;
 
-        content = new GUIContent(); // переиспользуем объект для избежания аллокаций
-    }
+        [SerializeField] private TextMeshProUGUI fpsLabel;
 
-    void Update()
-    {
-        frameCount++;
-        if (Time.realtimeSinceStartup - lastUpdate >= UpdateInterval)
+        private float lastUpdate;
+        private int frameCount;
+        private float fps;
+
+        private void Update()
         {
-            fps = frameCount / (Time.realtimeSinceStartup - lastUpdate);
-            frameCount = 0;
-            lastUpdate = Time.realtimeSinceStartup;
+            this.frameCount++;
+            var currentInterval = Time.realtimeSinceStartup - lastUpdate;
+
+            if (currentInterval >= UpdateInterval)
+            {
+                this.fps = this.frameCount / (currentInterval);
+                this.frameCount = 0;
+                this.lastUpdate = Time.realtimeSinceStartup;
+            }
         }
-    }
 
-    void OnGUI()
-    {
-        // Позиция: левый нижний угол
-        float x = 10f;
-        float y = Screen.height - height - 10f; // 10px отступ снизу
+        private void OnGUI()
+        {
+            this.SetValue();
+        }
 
-        var rect = new Rect(x, y, width, height);
-        content.text = $"FPS: {fps:F0}";
-        GUI.Label(rect, content, style);
+        private void SetValue()
+        {
+            this.fpsLabel.text = $"FPS: {this.fps:F0}";
+        }
     }
 }

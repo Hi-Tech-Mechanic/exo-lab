@@ -7,7 +7,7 @@
     using Unity.VisualScripting;
     using UnityEngine;
 
-    internal class InventoryModel
+    public abstract class InventoryModelAbstract
     {
         public IReadOnlyList<StoredItem> Items => items.AsReadOnly();
 
@@ -15,7 +15,7 @@
 
         private readonly ItemRepository itemDataBase;
 
-        public InventoryModel(ItemRepository database)
+        public InventoryModelAbstract(ItemRepository database)
         {
             this.itemDataBase = database;
         }
@@ -23,6 +23,29 @@
         public void AddItem(ItemData itemData, int amount = 1)
         {
             var existingItem = items.FirstOrDefault(i => i.ItemData.Id == itemData.Id);
+
+            this.AddItemInternal(existingItem, itemData, amount);
+        }
+
+        public void AddItem(string id, int amount = 1)
+        {
+            var itemData = this.itemDataBase.GetItemById(id);
+
+            if (itemData == null)
+            {
+                Debug.LogError($"Unknown item ID: {id}");
+                return;
+            }
+
+            var existingItem = items.FirstOrDefault(i => i.ItemData.Id == id);
+
+            this.AddItemInternal(existingItem, itemData, amount);
+        }
+
+        protected virtual void AddItemInternal(StoredItem existingItem, ItemData itemData, int amount)
+        {
+            // Найдём существующий стак или создадим новый
+
             if (existingItem != null)
             {
                 existingItem.Amount += amount;
@@ -30,28 +53,6 @@
             else
             {
                 var storedItem = new StoredItem(itemData, amount);
-                items.Add(storedItem);
-            }
-        }
-
-        public void AddItem(string id, int amount = 1)
-        {
-            var item = this.itemDataBase.GetItemById(id);
-            if (item == null)
-            {
-                Debug.LogError($"Unknown item ID: {id}");
-                return;
-            }
-
-            // Найдём существующий стак или создадим новый
-            var existingItem = items.FirstOrDefault(i => i.ItemData.Id == id);
-            if (existingItem != null)
-            {
-                existingItem.Amount += amount;
-            }
-            else
-            {
-                var storedItem = new StoredItem(item, amount); 
                 items.Add(storedItem);
             }
         }
