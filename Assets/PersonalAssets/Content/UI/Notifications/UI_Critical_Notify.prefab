@@ -85,8 +85,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2019790904655628974}
   - component: {fileID: 507316500428653562}
+  - component: {fileID: 2936486653820902625}
   m_Layer: 5
-  m_Name: UI_WarnNotify
+  m_Name: UI_Critical_Notify
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,6 +127,24 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &2936486653820902625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200045502199509584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ebfa48d7ca96e48aaf4b3133ea8be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Notifications.Views.CriticalNotificationView
+  titleText: {fileID: 0}
+  messageText: {fileID: 2869530430487354602}
+  iconImage: {fileID: 0}
+  canvasGroup: {fileID: 507316500428653562}
+  shakeStrength: 10
+  shakeDuration: 0.4
 --- !u!1 &8347105509335676289
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +248,7 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
