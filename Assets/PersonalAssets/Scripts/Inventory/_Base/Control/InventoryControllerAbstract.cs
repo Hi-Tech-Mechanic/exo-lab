@@ -5,7 +5,7 @@
     using System.Linq;
     using UnityEngine;
 
-    public abstract class InventoryControllerAbstract : MonoBehaviour, ISubsribable
+    public abstract class InventoryControllerAbstract<T> : MonoBehaviour, ISubsribable where T : InventoryModelAbstract
     {
         /// <summary>
         /// Пока константой, затравка на расширение инвентаря
@@ -13,9 +13,9 @@
         public const ushort maxSlotsCount = 30;
 
         [SerializeField]
-        private ItemRepository itemRepository;
+        protected ItemRepository ItemRepository;
 
-        private InventoryModel model;
+        private T model;
 
         private string[] optionsNames = Enum.GetNames(typeof(SortMode));
 
@@ -28,9 +28,11 @@
             Durability = 2,
         }
 
+        protected abstract T InitInventoryModel();
+
         protected virtual void Awake()
         {
-            this.InitInventoryModel();
+            this.InitInventory();
             this.InitInventoryView();
         }
 
@@ -54,17 +56,18 @@
             GameEvents.UserEvents.OnItemCollected -= AddItem;
         }
 
-        private void AddItem(ItemData itemData)
+        private void AddItem(ItemData itemData, int amount)
         {
-            this.model.AddItem(itemData);
+            this.model.AddItem(itemData, amount);
             this.RefreshView();
         }
 
-        private void InitInventoryModel()
+        private void InitInventory()
         {
-            this.model = new InventoryModel(itemRepository);
+            this.model = this.InitInventoryModel();
 
-            var allItems = itemRepository.GetAllItems();
+            // TODO temp init variant
+            var allItems = ItemRepository.GetAllItems();
             foreach (var item in allItems)
             {
                 this.model.AddItem(item.Id, 1);

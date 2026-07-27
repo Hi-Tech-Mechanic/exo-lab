@@ -2,7 +2,5 @@
 {
     using ExoLab.UI;
 
-    public class AssemblyInventoryView : InventoryViewAbstract
-    {
-    }
+    public class AssemblyInventoryView : InventoryViewAbstract { }
 }

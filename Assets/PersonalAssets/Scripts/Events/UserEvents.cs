@@ -9,7 +9,7 @@
         {
             public static event Action OnInventoryToggle;
 
-            public static event Action<ItemData> OnItemCollected;
+            public static event Action<ItemData, int> OnItemCollected;
 
             public static event Action<ItemData> OnItemRemoved;
 
@@ -18,9 +18,9 @@
             public static event Action OnItemMoved;
             public static event Action OnItemUnhovered;
 
-            public static void RaiseItemCollected(ItemData data)
+            public static void RaiseItemCollected(ItemData data, int amount)
             {
-                OnItemCollected?.Invoke(data);
+                OnItemCollected?.Invoke(data, amount);
             }
 
             public static void RaiseItemRemoved(ItemData data)
