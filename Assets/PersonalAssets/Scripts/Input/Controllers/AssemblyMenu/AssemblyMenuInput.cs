@@ -34,17 +34,6 @@
             InteractionInputController.OnAssemblyModePressed -= this.ToggleAssemblyModeHandler;
         }
 
-        private void ToggleInventoryHandler()
-        {
-            this.ToggleInventory();
-        }
-
-        private void ToggleInventory()
-        {
-            var state = !this.inventoryWindow.activeInHierarchy;
-            this.inventoryWindow.SetActive(state);
-        }
-
         private void ToggleAssemblyModeHandler()
         {
             this.ToggleAssemblyMode();
