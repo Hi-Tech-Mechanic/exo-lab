@@ -19087,7 +19087,7 @@ MonoBehaviour:
   notificationParent: {fileID: 5720126}
   poolInitialSize: 5
   shakeCamera: 1
-  cameraShakeDuration: 0.5
+  cameraShakeDuration: 0.4
   cameraShakeStrength: 0.3
 --- !u!114 &1017266834
 MonoBehaviour:

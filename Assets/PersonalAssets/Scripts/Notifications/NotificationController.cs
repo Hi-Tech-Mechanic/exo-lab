@@ -20,68 +20,75 @@ namespace ExoLab.Notifications
         [SerializeField] private WarningNotificationHandler warningHandler;
         [SerializeField] private CriticalNotificationHandler criticalHandler;
 
-        private static NotificationController _instance;
+        private static NotificationController instance;
 
         /// <summary>
         /// Singleton access. The first NotificationController in the scene will
         /// become the static instance. Destroy any duplicates.
         /// </summary>
-        public static NotificationController Instance => _instance;
+        public static NotificationController Instance => instance;
 
         private void Awake()
         {
-            if (_instance != null && _instance != this)
+            if (instance != null && instance != this)
             {
-                Debug.LogWarning("[NotificationController] Duplicate instance detected. Destroying.");
+                Debug.LogWarning($"[{nameof(NotificationController)}] Duplicate instance detected. Destroying.");
                 Destroy(gameObject);
                 return;
             }
 
-            _instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
-        // ──────────────────────────────────────────────
-        //  Public API
-        // ──────────────────────────────────────────────
+        // Clean up the static instance on destroy
+        private void OnDestroy()
+        {
+            if (instance == this)
+            {
+                instance = null;
+            }
+        }
+
+        #region Public API
 
         /// <summary>Show a standard information notification.</summary>
         public void ShowInfo(string title, string message, float duration = 3f)
         {
-            if (infoHandler == null)
+            if (this.infoHandler == null)
             {
-                Debug.LogError("[NotificationController] InfoHandler is not assigned!");
+                Debug.LogError($"[{nameof(NotificationController)}] InfoHandler is not assigned!");
                 return;
             }
 
             var data = new NotificationData(title, message, duration: duration);
-            infoHandler.Show(data);
+            this.infoHandler.Show(data);
         }
 
         /// <summary>Show a warning notification (longer duration, pulsing).</summary>
         public void ShowWarning(string title, string message, float duration = 6f)
         {
-            if (warningHandler == null)
+            if (this.warningHandler == null)
             {
-                Debug.LogError("[NotificationController] WarningHandler is not assigned!");
+                Debug.LogError($"[{nameof(NotificationController)}] WarningHandler is not assigned!");
                 return;
             }
 
             var data = new NotificationData(title, message, duration: duration);
-            warningHandler.Show(data);
+            this.warningHandler.Show(data);
         }
 
         /// <summary>Show a critical notification (interrupts others, camera shake).</summary>
         public void ShowCritical(string title, string message, float duration = 4f)
         {
-            if (criticalHandler == null)
+            if (this.criticalHandler == null)
             {
-                Debug.LogError("[NotificationController] CriticalHandler is not assigned!");
+                Debug.LogError($"[{nameof(NotificationController)}] CriticalHandler is not assigned!");
                 return;
             }
 
             var data = new NotificationData(title, message, duration: duration);
-            criticalHandler.Show(data);
+            this.criticalHandler.Show(data);
         }
 
         // ──────────────────────────────────────────────
@@ -94,13 +101,13 @@ namespace ExoLab.Notifications
             switch (type)
             {
                 case NotificationType.Info:
-                    infoHandler?.Show(data);
+                    this.infoHandler?.Show(data);
                     break;
                 case NotificationType.Warning:
-                    warningHandler?.Show(data);
+                    this.warningHandler?.Show(data);
                     break;
                 case NotificationType.Critical:
-                    criticalHandler?.Show(data);
+                    this.criticalHandler?.Show(data);
                     break;
             }
         }
@@ -108,9 +115,9 @@ namespace ExoLab.Notifications
         /// <summary>Dismiss all notifications of all types.</summary>
         public void DismissAll()
         {
-            infoHandler?.DismissAll();
-            warningHandler?.DismissAll();
-            criticalHandler?.DismissAll();
+            this.infoHandler?.DismissAll();
+            this.warningHandler?.DismissAll();
+            this.criticalHandler?.DismissAll();
         }
 
         /// <summary>Dismiss all notifications of a specific type.</summary>
@@ -119,22 +126,17 @@ namespace ExoLab.Notifications
             switch (type)
             {
                 case NotificationType.Info:
-                    infoHandler?.DismissAll();
+                    this.infoHandler?.DismissAll();
                     break;
                 case NotificationType.Warning:
-                    warningHandler?.DismissAll();
+                    this.warningHandler?.DismissAll();
                     break;
                 case NotificationType.Critical:
-                    criticalHandler?.DismissAll();
+                    this.criticalHandler?.DismissAll();
                     break;
             }
         }
 
-        // Clean up the static instance on destroy
-        private void OnDestroy()
-        {
-            if (_instance == this)
-                _instance = null;
-        }
+        #endregion
     }
 }

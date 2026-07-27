@@ -1,8 +1,8 @@
-using ExoLab.Notifications.Views;
-using UnityEngine;
-
 namespace ExoLab.Notifications.Handlers
 {
+    using ExoLab.Notifications.Views;
+    using UnityEngine;
+
     /// <summary>
     /// Handler for Warning notifications.
     /// Warning notifications have a longer default duration and a pulsing animation.
@@ -10,15 +10,7 @@ namespace ExoLab.Notifications.Handlers
     public sealed class WarningNotificationHandler : BaseNotificationHandler<WarningNotificationView>
     {
         [Header("Warning-Specific")]
-        [SerializeField] private float defaultDuration = 6f;
-
-        protected override void Start()
-        {
-            if (defaultDuration <= 0f)
-                defaultDuration = 6f;
-
-            base.Start();
-        }
+        [SerializeField, Range(0F, 10F)] private float defaultDuration = 6F;
 
         public override void Show(NotificationData data)
         {

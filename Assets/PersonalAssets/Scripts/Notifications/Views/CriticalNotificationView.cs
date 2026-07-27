@@ -1,29 +1,23 @@
-using DG.Tweening;
-using ExoLab.Constants;
-using UnityEngine;
-
 namespace ExoLab.Notifications.Views
 {
+    using DG.Tweening;
+    using UnityEngine;
+
     /// <summary>
     /// Critical notification view.
     /// Overrides the show animation with a camera shake + screen flash effect.
     /// </summary>
     public sealed class CriticalNotificationView : BaseNotificationView
     {
+        private const int vibrato = 20;
+        private const float randomness = 90F;
+
         [Header("Critical Settings")]
-        [SerializeField] private float shakeStrength = 10f;
-        [SerializeField] private float shakeDuration = 0.4f;
+        [SerializeField, Range(-20F, 20F)]
+        private float shakeStrength = 10F;
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (shakeStrength <= 0f)
-                shakeStrength = 10f;
-
-            if (shakeDuration <= 0f)
-                shakeDuration = 0.4f;
-        }
+        [SerializeField, Range(0F, 5F)]
+        private float shakeDuration = 0.4F;
 
         public override Sequence PlayShowAnimation()
         {
@@ -33,8 +27,8 @@ namespace ExoLab.Notifications.Views
             sequence.Join(RectTransform.DOShakePosition(
                 shakeDuration,
                 shakeStrength,
-                20,
-                90f,
+                vibrato,
+                randomness,
                 false,
                 true));
 

@@ -1,10 +1,9 @@
-using ExoLab.Notifications.Views;
-using DG.Tweening;
-using ExoLab.Constants;
-using UnityEngine;
-
 namespace ExoLab.Notifications.Handlers
 {
+    using ExoLab.Notifications.Views;
+    using DG.Tweening;
+    using UnityEngine;
+
     /// <summary>
     /// Handler for Critical notifications.
     /// When a critical notification arrives, it interrupts any currently playing
@@ -13,20 +12,13 @@ namespace ExoLab.Notifications.Handlers
     /// </summary>
     public sealed class CriticalNotificationHandler : BaseNotificationHandler<CriticalNotificationView>
     {
+        private const int vibrato = 20;
+        private const float randomness = 90F;
+
         [Header("Critical-Specific")]
         [SerializeField] private bool shakeCamera = true;
-        [SerializeField] private float cameraShakeDuration = 0.5f;
-        [SerializeField] private float cameraShakeStrength = 0.3f;
-
-        protected override void Start()
-        {
-            if (cameraShakeDuration <= 0f)
-                cameraShakeDuration = 0.5f;
-            if (cameraShakeStrength <= 0f)
-                cameraShakeStrength = 0.3f;
-
-            base.Start();
-        }
+        [SerializeField, Range(0F, 5F)] private float cameraShakeDuration = 0.5f;
+        [SerializeField, Range(-3F, 3F)] private float cameraShakeStrength = 0.3f;
 
         /// <summary>
         /// Critical notifications interrupt the current display and show immediately.
@@ -34,9 +26,9 @@ namespace ExoLab.Notifications.Handlers
         public override void Show(NotificationData data)
         {
             // Interrupt whatever is currently showing
-            if (IsPlaying && ActiveViews.Count > 0)
+            if (this.IsPlaying && this.ActiveViews.Count > 0)
             {
-                var currentView = ActiveViews[0];
+                var currentView = this.ActiveViews[0];
                 if (currentView != null)
                 {
                     currentView.ForceKill();
@@ -44,12 +36,14 @@ namespace ExoLab.Notifications.Handlers
             }
 
             // Clear any pending notifications in the queue (critical takes priority)
-            DisplayQueue.Clear();
-            IsPlaying = false;
+            this.DisplayQueue.Clear();
+            this.IsPlaying = false;
 
             // Trigger camera shake if enabled
-            if (shakeCamera)
-                ShakeCamera();
+            if (this.shakeCamera)
+            {
+                this.ShakeCamera();
+            }
 
             // Show immediately
             base.Show(data);
@@ -61,14 +55,17 @@ namespace ExoLab.Notifications.Handlers
         private void ShakeCamera()
         {
             var camTransform = Camera.main?.transform;
-            if (camTransform == null) return;
+            if (camTransform == null)
+            {
+                return;
+            }
 
             camTransform.DOComplete();
             camTransform.DOShakePosition(
-                cameraShakeDuration,
-                cameraShakeStrength,
-                20,
-                90f,
+                this.cameraShakeDuration,
+                this.cameraShakeStrength,
+                vibrato,
+                randomness,
                 false,
                 true);
         }
@@ -78,13 +75,14 @@ namespace ExoLab.Notifications.Handlers
         /// </summary>
         public override void InterruptCurrent()
         {
-            if (ActiveViews.Count > 0)
+            if (this.ActiveViews.Count > 0)
             {
-                var currentView = ActiveViews[0];
+                var currentView = this.ActiveViews[0];
                 currentView?.ForceKill();
             }
-            DisplayQueue.Clear();
-            IsPlaying = false;
+
+            this.DisplayQueue.Clear();
+            this.IsPlaying = false;
         }
     }
 }
