@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3938333594405347430}
   - component: {fileID: 7642953134123056283}
   m_Layer: 5
-  m_Name: Options_BindKey_0
+  m_Name: Options_Bind_Key_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
