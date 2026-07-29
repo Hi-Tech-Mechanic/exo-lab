@@ -20,7 +20,7 @@
             this.itemDataBase = database;
         }
 
-        public void AddItem(ItemData itemData, int amount = 1)
+        public void AddItem(IItemData itemData, int amount = 1)
         {
             var existingItem = items.FirstOrDefault(i => i.ItemData.Id == itemData.Id);
 
@@ -42,7 +42,7 @@
             this.AddItemInternal(existingItem, itemData, amount);
         }
 
-        protected virtual void AddItemInternal(StoredItem existingItem, ItemData itemData, int amount)
+        protected virtual void AddItemInternal(StoredItem existingItem, IItemData itemData, int amount)
         {
             // Найдём существующий стак или создадим новый
 

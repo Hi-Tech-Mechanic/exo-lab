@@ -1,4 +1,4 @@
-﻿namespace ExoLab
+﻿namespace ExoLab.Assembly.Base
 {
     /// <summary>
     /// Модель экзоскелета
@@ -6,7 +6,7 @@
     internal class SuitConstructionModel : ConstructionModelBase
     {
         // TODO
-        protected override void Save()
+        public override void Save()
         {
             //var components = this.transform.GetComponentsInChildren<ArmorPlate>();
 
@@ -16,7 +16,7 @@
         }
 
         // TODO
-        protected override void Load()
+        public override void Load()
         {
             //var loaded = StructurePersistence.Instance.LoadStructure("Exoskeleton_0");
             //if (loaded == null)

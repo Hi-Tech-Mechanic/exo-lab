@@ -56,7 +56,7 @@
             GameEvents.UserEvents.OnItemCollected -= AddItem;
         }
 
-        private void AddItem(ItemData itemData, int amount)
+        private void AddItem(IItemData itemData, int amount)
         {
             this.model.AddItem(itemData, amount);
             this.RefreshView();

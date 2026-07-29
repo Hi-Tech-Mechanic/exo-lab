@@ -1,6 +1,7 @@
 ﻿namespace ExoLab
 {
     using ExoLab.Data;
+    using ExoLab.Helpers;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -65,7 +66,9 @@
 
                 var id = item.Id;
                 if (itemCache.ContainsKey(id) == false)
+                {
                     itemCache[id] = item;
+                }
             }
         }
 
@@ -96,7 +99,9 @@
             foreach (var item in allItems)
             {
                 if (item.Id == null || item.Id == string.Empty)
-                    item.Id = item.CreateGUID();
+                {
+                    item.Id = IdentificationGenerator.CreateGUID();
+                }
             }
 
             UnityEditor.EditorUtility.SetDirty(this);

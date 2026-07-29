@@ -45,9 +45,9 @@
         public void Initialize(ItemBase itemBase)
         {
             this.FillStats(itemBase);
-            this.SetHeaderText(itemBase.Name);
-            this.SetDescriptionText(itemBase.Description);
-            this.SetIcon(itemBase.GetBaseItemData().Icon);
+            this.SetHeaderText(itemBase.ItemData.Name);
+            this.SetDescriptionText(itemBase.ItemData.Description);
+            this.SetIcon(itemBase.ItemData.Icon);
 
             this.SetPanelSize();
         }
@@ -65,7 +65,7 @@
 
         private void FillStats(ItemBase itemBase)
         {
-            var statsData = itemBase.GetAllStats();
+            var statsData = itemBase.ItemData.GetAllStats();
             var prefabHeight = this.statTextPrefab.GetComponent<RectTransform>().rect.height;
             this.allStatsHeight = prefabHeight * statsData.Count;
 
@@ -73,7 +73,7 @@
             {
                 var statObject = Instantiate(this.statTextPrefab, this.statsHolder.transform);
                 var textDisplayer = statObject.GetComponent<TextDisplayer>();
-                var text = $"{statData.Key}: {statData.Value}";
+                var text = $"{statData.Name}: {statData.Value}";
                 textDisplayer.SetText(text);
             }
         }

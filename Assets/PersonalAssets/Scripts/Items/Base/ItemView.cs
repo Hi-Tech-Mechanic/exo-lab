@@ -15,7 +15,7 @@
         private const string nameIdentifier = "Txt_ItemName";
         private const string amountIdentifier = "Txt_Amount";
 
-        private ItemData itemData;
+        private IItemData itemData;
 
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI amountText;

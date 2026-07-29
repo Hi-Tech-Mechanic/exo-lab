@@ -100,7 +100,7 @@
         /// </summary>
         private void InvokeRealItemInfoPanel(ItemBase item)
         {
-            var windowName = $"Характеристики - [{item.Name}]";
+            var windowName = $"Характеристики - [{item.ItemData.Name}]";
             FloatingWindowsController.Instance.AddWindow(this.createdInfoPanel, windowName);
         }
 

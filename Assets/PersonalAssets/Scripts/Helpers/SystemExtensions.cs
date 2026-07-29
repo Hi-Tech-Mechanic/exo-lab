@@ -1,5 +1,6 @@
 ﻿namespace ExoLab.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -91,6 +92,52 @@
             {
                 list.Remove(targetObject);
             }
+        }
+
+        public static T? FirstOrNullStruct<T>(this IEnumerable<T> source, Func<T, bool> predicate) where T : struct
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            } 
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        public static T? FirstOrNull<T>(this IEnumerable<T> source, Func<T, bool> predicate) where T : class
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
     }
 }

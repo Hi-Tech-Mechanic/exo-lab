@@ -1,11 +1,10 @@
 ﻿namespace ExoLab
 {
+    using ExoLab.Assembly;
     using UnityEngine;
     //using LiteDB;
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
 
     public class StructurePersistence : MonoBehaviour
     {

@@ -7,7 +7,7 @@
     {
         public CharacterInventoryModel(ItemRepository database) : base(database) { }
 
-        protected override void AddItemInternal(StoredItem existingItem, ItemData itemData, int amount)
+        protected override void AddItemInternal(StoredItem existingItem, IItemData itemData, int amount)
         {
             base.AddItemInternal(existingItem, itemData, amount);
             NotificationController.Instance?.ShowInfo("Инвентарь", $"Добавлен {itemData.Name}: {amount} шт.");

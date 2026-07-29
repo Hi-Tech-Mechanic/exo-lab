@@ -2,7 +2,7 @@
 {
     internal class HelperText
     {
-        public static string GetColoredText(string value)
+        public static string GetGreenText(string value)
         {
             return $"<color=green>{value}</color>";
         }

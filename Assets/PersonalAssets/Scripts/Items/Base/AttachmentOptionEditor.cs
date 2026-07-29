@@ -36,7 +36,7 @@
             if (saver.TypedItemData.AttachmentOptions.Count == 0)
                 return;
 
-            var parentNames = saver.TypedItemData.AttachmentOptions.Select(x => x.ParentData.Name).ToArray();
+            var parentNames = saver.TypedItemData.AttachmentOptions.Select(x => x.ParentData.name).ToArray();
             this.selectedOptionIndex = EditorGUILayout.Popup("Select Attachment", selectedOptionIndex, parentNames);
 
             if (GUILayout.Button("Load Attachment"))

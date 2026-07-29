@@ -1,9 +1,6 @@
 ﻿namespace ExoLab.StructuralСomponents
 {
     using ExoLab.Data;
-    using ExoLab.Helpers;
-    using System.Collections.Generic;
-    using Unity.VisualScripting;
     using UnityEngine;
 
     /// <summary>
@@ -133,59 +130,7 @@
 
             return this.CanBeAttached(component.TypedItemData);
         }
-
-        public override Dictionary<string, object> GetAllStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(base.GetAllStats());
-            result.AddRange(this.GetNumericStats());
-            result[nameof(this.Material)] = this.Material;
-
-            foreach (var option in this.TypedItemData.AttachmentOptions)
-            {
-                result["Parent detail"] = option.ParentData.Name;
-            }
-
-            return result;
-        }
-
-        public override Dictionary<string, object> GetTranslatedAllStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(base.GetTranslatedAllStats());
-            result.AddRange(this.GetTranslatedNumericStats());
-            result["Материал"] = this.Material;
-
-            foreach (var option in this.TypedItemData.AttachmentOptions)
-            {
-                result["Родительская деталь"] = option.ParentData.Name;
-            }
-
-            return result;
-        }
-
-        public override Dictionary<string, object> GetNumericStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(base.GetNumericStats());
-            result[nameof(this.Durability)] = this.Durability;
-
-            return result;
-        }
-
-        public override Dictionary<string, object> GetTranslatedNumericStats()
-        {
-            var result = new Dictionary<string, object>();
-
-            result.AddRange(base.GetTranslatedNumericStats());
-            result["Прочность"] = this.Durability;
-
-            return result;
-        }
-
+    
         /// <summary>
         /// Получить совпавшие настройки привязки после сопоставления с целевым объектом
         /// </summary>
@@ -216,18 +161,5 @@
 
             this.audioSource.PlayOneShot(sound);
         }
-
-        //private List<AssemblyComponentData.AttachmentOption> GetAttachmentOptions(IAssemblyComponent assemblyComponent)
-        //{
-        //    switch (assemblyComponent)
-        //    {
-        //        case (AssemblyComponentBase<AssemblyComponentData>):
-        //            return ((AssemblyComponentBase<AssemblyComponentData>)assemblyComponent).TypedItemData.AttachmentOptions;
-        //        case (AssemblyComponentBase<MuzzleAttachmentData>):
-        //            return ((AssemblyComponentBase<MuzzleAttachmentData>)assemblyComponent).TypedItemData.AttachmentOptions;
-        //    }
-
-        //    return new List<AssemblyComponentData.AttachmentOption>();
-        //}
     }
 }

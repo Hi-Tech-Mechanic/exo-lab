@@ -7,7 +7,7 @@
     [Serializable]
     public class StoredItem
     {
-        public ItemData ItemData;
+        public IItemData ItemData;
 
         [SerializeField]
         private int amount;
@@ -26,7 +26,7 @@
             }
         }
 
-        public StoredItem(ItemData itemData, int amount)
+        public StoredItem(IItemData itemData, int amount)
         {
             this.ItemData = itemData;
             this.Amount = amount;

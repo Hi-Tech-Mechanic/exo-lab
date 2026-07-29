@@ -10,8 +10,9 @@
         [SerializeField] private bool _assemblyModeEnabled = false;
         [Space(5)]
 
-        [SerializeField] private GameObject assemblyWindow;
-        [SerializeField] private GameObject inventoryWindow;
+        [Tooltip("Parent of all assembly windows")]
+        [SerializeField] private GameObject assemblyHub;
+
         [SerializeField] private GameObject assemblyProps;
 
         private void OnEnable()
@@ -53,8 +54,7 @@
             CamerasInput.Instance.ActiveCamera.gameObject.SetActive(!state);
             CursorStateController.Instance.ToggleCursor(state);
 
-            this.inventoryWindow.SetActive(state);
-            this.assemblyWindow.SetActive(state);
+            this.assemblyHub.SetActive(state);
             this.assemblyProps.SetActive(state);
 
             GameEvents.AssemblyEvents.RaiseAssemblyModeEnabled(state);
