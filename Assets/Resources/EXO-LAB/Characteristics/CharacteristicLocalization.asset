@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea08499e973b3d9449952dfb56711361, type: 3}
+  m_Name: CharacteristicLocalization
+  m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Localization.CharacteristicLocalization
+  characteristics:
+  - TypeFullName: PropertyDamage
+    Translations:
+    - Name: Damage
+      UnitOfMeasurement: 
+    - Name: "\u0423\u0440\u043E\u043D"
+      UnitOfMeasurement: 
+  - TypeFullName: WeightProperty
+    Translations:
+    - Name: Weight
+      UnitOfMeasurement: kg.
+    - Name: "\u041C\u0430\u0441\u0441\u0430"
+      UnitOfMeasurement: "\u043A\u0433."
+  - TypeFullName: BulletProperty
+    Translations:
+    - Name: Bullets
+      UnitOfMeasurement: pcs.
+    - Name: "\u041F\u0430\u0442\u0440\u043E\u043D"
+      UnitOfMeasurement: "\u0448\u0442."
+  - TypeFullName: MaterialProperty
+    Translations:
+    - Name: Material
+      UnitOfMeasurement: 
+    - Name: "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"
+      UnitOfMeasurement: 
+  - TypeFullName: DurabilityProperty
+    Translations:
+    - Name: Durability
+      UnitOfMeasurement: units
+    - Name: "\u041F\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C"
+      UnitOfMeasurement: "\u0435\u0434\u0438\u043D\u0438\u0446"
+  - TypeFullName: MaxStackSizeProperty
+    Translations:
+    - Name: Max stack
+      UnitOfMeasurement: units
+    - Name: "\u041C\u0430\u043A\u0441. \u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C"
+      UnitOfMeasurement: "\u0435\u0434\u0438\u043D\u0438\u0446"
+  - TypeFullName: ArmorProperty
+    Translations:
+    - Name: Armor
+      UnitOfMeasurement: units
+    - Name: "\u0411\u0440\u043E\u043D\u044F"
+      UnitOfMeasurement: "\u0435\u0434\u0438\u043D\u0438\u0446"
+  - TypeFullName: MaxRotationSpeedProperty
+    Translations:
+    - Name: Max rotation speed
+      UnitOfMeasurement: /sec
+    - Name: "\u041C\u0430\u043A\u0441. \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C
+        \u0432\u0440\u0430\u0449\u0435\u043D\u0438\u044F"
+      UnitOfMeasurement: "/\u0441\u0435\u043A"
+  - TypeFullName: MaxTemperatureProperty
+    Translations:
+    - Name: Temperature
+      UnitOfMeasurement: "C\xB0"
+    - Name: "\u0422\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u0430"
+      UnitOfMeasurement: "C\xB0"

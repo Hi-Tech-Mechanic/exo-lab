@@ -1,6 +1,7 @@
 ﻿namespace ExoLab.Data
 {
     using ExoLab.Helpers;
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Serialization;
@@ -29,21 +30,98 @@
         [FormerlySerializedAs("Prefab")]
         [SerializeField] private GameObject prefab;
 
+        private WeightProperty? weightProperty;
+        private MaxStackSizeProperty? maxStackSizeProperty;
+        private List<IStatistic> characteristics;
+
         public string Id { get { return this.id; } set { this.id = value; } }
 
         public string Name => this.itemName;
 
         public string Description => this.description;
 
-        public double Weight => this.weight;
+        public WeightProperty Weight
+        {
+            get
+            {
+                if (this.weightProperty == null)
+                {
+                    this.weightProperty = new WeightProperty();
+                    this.weightProperty.Value = this.weight;
+                }
 
-        public int MaxStackSize => this.maxStackSize;
+                return this.weightProperty;
+            }
+        }
+
+        public MaxStackSizeProperty MaxStackSize
+        {
+            get
+            {
+                if (this.maxStackSizeProperty == null)
+                {
+                    this.maxStackSizeProperty = new MaxStackSizeProperty();
+                    this.maxStackSizeProperty.Value = this.maxStackSize;
+                }
+
+                return this.maxStackSizeProperty;
+            }
+        }
 
         public Sprite Icon => this.icon;
 
         public GameObject Prefab => this.prefab;
 
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> Characteristics { get; } = new();
+        public virtual List<IStatistic> Characteristics
+        {
+            get
+            {
+                if (this.characteristics == null || this.characteristics.Count == 0)
+                {
+                    this.characteristics = new()
+                    {
+                        Weight,
+                        MaxStackSize
+                    };
+                }
+                
+                return this.characteristics;
+            }
+        }
+
+        public List<ITypedStatistic<double>> NumericalCharacteristics
+        {
+            get
+            {
+                List<ITypedStatistic<double>> result = new();
+                
+                foreach (var characteristic in Characteristics)
+                {
+                    try
+                    {
+                        switch (characteristic)
+                        {
+                            case ITypedStatistic<double>:
+                            case ITypedStatistic<float>:
+                            case ITypedStatistic<decimal>:
+                            case ITypedStatistic<int>:
+                            case ITypedStatistic<uint>:
+                            case ITypedStatistic<long>:
+                            case ITypedStatistic<ulong>:
+                                result.Add((ITypedStatistic<double>)characteristic);
+                                break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        // debug handled
+                    }
+                }
+
+                return result;
+            }
+        }
 
         public ItemData()
         {
@@ -63,87 +141,9 @@
             this.prefab = prefab;
         }
 
-        /// <summary>
-        /// Вернуть все характеристики предмета
-        /// Кроме Name и Description
-        /// </summary>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual List<ItemCharacteristicTypes.ItemStringCharacteristic> GetAllStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var numericStats = this.GetNumericStats();
-            result.AddRange(numericStats);
-
-            result.AddRange(this.Characteristics);
-
-            var name = "Max stack size";
-            var value = $"{this.MaxStackSize} pcs.";
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat); 
-
-            return result;
-        }
-
-        /// <summary>
-        /// Тоже самое что <see cref="GetAllStats"/>,
-        /// но названия характеристик переведены
-        /// </summary>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedAllStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var numericStats = this.GetTranslatedNumericStats();
-            result.AddRange(numericStats);
-
-            result.AddRange(this.Characteristics);
-
-            var name = "Размер стака";
-            var value = $"{this.MaxStackSize} шт.";
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Получить только числовые характеристики
-        /// </summary>
-        /// <param name="names"></param>
-        /// <returns>Словарь: имя свойства - значение</returns>
-        public virtual List<ItemCharacteristicTypes.ItemStringCharacteristic> GetNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var name = nameof(this.Weight);
-            var value = $"{this.Weight} kg.";
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Тоже самое что <see cref="GetNumericStats"/>,
-        /// но названия характеристик переведены
-        /// </summary>
-        /// <returns></returns>
-        public virtual List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var name = "Вес";
-            var value = $"{this.Weight} кг.";
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            return result;
-        }
-
         public void SetName(string value)
         {
-            this.name = value;
+            this.itemName = value;
         }
 
         public void SetDescription(string value)

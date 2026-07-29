@@ -62,7 +62,7 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Создать и заполнить строки характеристик на основе сумм статов модели
         /// </summary>
-        public void CreateStatRows(List<ItemCharacteristicTypes.ItemStringCharacteristic> stats)
+        public void CreateStatRows(List<ITypedStatistic<double>> stats)
         {
             foreach (var stat in stats)
             {
@@ -70,7 +70,7 @@ namespace ExoLab.Assembly
                 this.statRows.Add(statRow);
 
                 var statTextComponent = statRow.GetComponentInChildren<TextMeshProUGUI>();
-                var statText = HelperText.GetGreenText($"{stat.Name}: {stat.Value}");
+                var statText = HelperText.GetGreenText(stat.FullFormattedValue/* $"{stat.Name}: {stat.Value}"*/);
                 statTextComponent.text = statText;
 
                 var classification = statRow.GetComponent<ClassificationItem>();

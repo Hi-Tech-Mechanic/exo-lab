@@ -1,19 +1,15 @@
 ﻿namespace ExoLab.Assembly
 {
-    using ExoLab.Data;
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
+    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Модель собранной какой-либо конструкций. Основа для всех сборных конструкций
     /// </summary>
     public class ConstructionModelBase : IConstructionModel
     {
-        private readonly Regex numberFilter = new Regex(@"\d+(\.\d+)?", RegexOptions.IgnoreCase);
-
         private readonly List<AssemblyComponentBase> components = new();
 
         /// <summary>
@@ -45,50 +41,31 @@
         /// Получить суммы всех характеристик компонентов <see cref="Components"/>
         /// </summary>
         /// <returns></returns>
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetAllCharacteristicSums()
+        public List<ITypedStatistic<double>> GetSumOfAllNumericalCharacteristics()
         {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
+            var result = new List<ITypedStatistic<double>>();
 
             foreach (var component in this.components)
             {
-                var stats = component.ItemData.GetNumericStats();
+                var stats = component.ItemData.NumericalCharacteristics;
 
                 foreach (var stat in stats)
                 {
-                    var match = this.numberFilter.Match(stat.Value.ToString()).Value;
-                    var valueIsNumeric = double.TryParse(match, out var numericValue);
+                    var existingStat = result.FirstOrNull(x => x.Name == stat.Name);
 
-                    if (valueIsNumeric == false)
-                    {
-                        continue;
-                    }
-
-                    int index = -1;
-                    ItemCharacteristicTypes.ItemStringCharacteristic? existingStat = null;
-                    var existingStats = result.Where(x => x.Name == stat.Name);
-
-                    if (existingStats.Count() != 0)
-                    {
-                        existingStat = existingStats.First();
-                    }
                     if (existingStat != null)
                     {
-                         index = result.IndexOf((ItemCharacteristicTypes.ItemStringCharacteristic)existingStat);
-                    }
+                        var newStat = (ITypedStatistic<double>)Activator.CreateInstance(stat.GetType());
+                        newStat.Value = existingStat.Value + stat.Value;
 
-                    if (index != -1)
-                    {
-                        match = this.numberFilter.Match(stat.Value.ToString()).Value;
-                        double.TryParse(match, out var oldValue);
-                        var newValue = oldValue + numericValue;
-                        var newStat = new ItemCharacteristicTypes.ItemStringCharacteristic(stat.Name, newValue.ToString());
-
-                        result[index] = newStat;
+                        result.Remove(existingStat);
+                        result.Add(newStat);
                     }
                     else
                     {
-                        var newStat = new ItemCharacteristicTypes.ItemStringCharacteristic(stat.Name, numericValue.ToString());
-                        result.Add(newStat);
+                        var copy = (ITypedStatistic<double>)Activator.CreateInstance(stat.GetType());
+                        copy.Value = stat.Value;
+                        result.Add(copy);
                     }
                 }
             }

@@ -1,8 +1,9 @@
 ﻿namespace ExoLab.Data
 {
-    using System.Collections.Generic;
     using System;
     using UnityEngine;
+    using UnityEngine.Serialization;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Данные об абстрактном компоненте, он может быть как оружейным так и от костюма,
@@ -12,20 +13,66 @@
     public class AssemblyComponentData : ItemData
     {
         [Space(5)]
-        [Header("Базовая информация о компоненте")]
+        [Header("Base information about component")]
         [Space(5)]
 
-        [Tooltip("Прочность")]
-        public double Durability;
+        [FormerlySerializedAs("Durability")]
+        [SerializeField] private double durability;
 
-        [Tooltip("Из чего состоит")]
-        public IMaterial.MaterialType Material;
+        [Tooltip("What the object is made of")]
+        [FormerlySerializedAs("Material")]
+        [SerializeField] private MaterialProperty.MaterialType material;
 
         [Header("Комплект данных отвечающий за привязку\nк конкретному объекту")]
         public List<AttachmentOption> AttachmentOptions;
 
         [Header("Перечень совместимых типов компонентов и их количество")]
         public List<CompabilityComponent> CompabilityComponents;
+
+        private DurabilityProperty? durabilityProperty;
+        private MaterialProperty? materialProperty;
+
+        public DurabilityProperty Durability
+        {
+            get
+            {
+                if (this.durabilityProperty == null)
+                {
+                    this.durabilityProperty = new DurabilityProperty();
+                    this.durabilityProperty.Value = this.durability;
+                }
+
+                return this.durabilityProperty; 
+            }
+        }
+
+        public MaterialProperty Material
+        {
+            get
+            {
+                if (this.materialProperty == null)
+                {
+                    this.materialProperty = new MaterialProperty();
+                    this.materialProperty.Value = this.material.ToString();
+                }
+
+                return this.materialProperty;
+            }
+        }
+
+        public override List<IStatistic> Characteristics
+        {
+            get
+            {
+                var result = new List<IStatistic>();
+
+                result.AddRange(base.Characteristics);
+                result.Add(this.Durability);
+                result.Add(this.Material);
+
+                return result;
+            }
+        }
 
         /// <summary>
         /// Комплект данных отвечающий за привязку к конкретному объекту
@@ -57,82 +104,6 @@
 
             [Tooltip("Допустимое количество данного компонента")]
             public int Count;
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetAllStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var allStats = base.GetAllStats();
-            result.AddRange(allStats);
-
-            var name = nameof(this.Material);
-            var value = this.Material.ToString();
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            foreach (var option in this.AttachmentOptions)
-            {
-                name = "Parent detail";
-                value = option.ParentData.Name;
-                stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-                result.Add(stat);
-            }
-
-            return result;
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedAllStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var allStats = base.GetTranslatedAllStats();
-            result.AddRange(allStats);
-
-            var name = "Материал";
-            var value = this.Material.ToString();
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            foreach (var option in this.AttachmentOptions)
-            {
-                name = "Родительская деталь";
-                value = option.ParentData.Name;
-                stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-                result.Add(stat);
-            }
-
-            return result;
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var numericStats = base.GetNumericStats();
-            result.AddRange(numericStats);
-
-            var name = nameof(this.Durability);
-            var value = this.Durability.ToString();
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            return result;
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            var translatedNumericStats = base.GetTranslatedNumericStats();
-            result.AddRange(translatedNumericStats);
-
-            var name = "Прочность";
-            var value = this.Durability.ToString();
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(name, value);
-            result.Add(stat);
-
-            return result;
         }
     }
 }

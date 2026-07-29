@@ -1,10 +1,8 @@
 namespace ExoLab.Assembly.Services
 {
-    using ExoLab.Data;
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     /// <summary>
@@ -27,25 +25,30 @@ namespace ExoLab.Assembly.Services
         {
             this.SetObjectName(model);
             this.UpdateAttachedComponents(model.Components);
-            this.UpdateCharacteristics(model.Components);
 
-            var characteristics = this.GetTotalStats();
-            var weight = characteristics.FirstOrNullStruct(x => x.Name.Equals("Weight", System.StringComparison.OrdinalIgnoreCase))?.Value ?? 0;
+            this.SetId(model);
+            this.SetName(model);
+            this.SetDescription(model);
+            this.SetMaxStackSize(model);
 
-            this.ItemData.Id = model.StructureId;
-            this.ItemData.SetName($"Construction: {this.ItemData.Id}");
-            this.ItemData.SetDescription($"Description of the construction: {this.ItemData.Id}");
-            this.ItemData.SetWeight(weight);
-            this.ItemData.SetMaxStackSize(1);
+            var characteristics = model.GetSumOfAllNumericalCharacteristics();
+
+            this.SetWeight(characteristics);
+            this.AddOtherCharacteristics(characteristics);
         }
 
-        private void UpdateCharacteristics(IReadOnlyList<AssemblyComponentBase> components)
+        /// <summary>
+        /// Add non default properties
+        /// </summary>
+        private void AddOtherCharacteristics(List<ITypedStatistic<double>> characteristics)
         {
-            this.ItemData.Characteristics.Clear();
-
-            foreach (var component in components)
+            foreach (var characteristic in characteristics)
             {
-                this.ItemData.Characteristics.AddRange(component.TypedItemData.Characteristics);
+                if (characteristic is not WeightProperty &&
+                    characteristic is not MaxStackSizeProperty)
+                {
+                    this.ItemData.Characteristics.Add(characteristic);
+                }
             }
         }
 
@@ -64,52 +67,30 @@ namespace ExoLab.Assembly.Services
             this.name = $"CompletedConstruction_{model.StructureId ?? "Unknown"}";
         }
 
-        // TODO
-
-        /// <summary>
-        /// Получить сумму всех характеристик компонентов
-        /// </summary>
-        public List<ItemCharacteristicTypes.ItemNumericCharacteristic> GetTotalStats()
+        private void SetId(IConstructionModel model)
         {
-            var result = new List<ItemCharacteristicTypes.ItemNumericCharacteristic>();
+            this.ItemData.Id = model.StructureId;
+        }
 
-            foreach (var component in this.attachedComponents)
-            {
-                var stats = component.ItemData.GetNumericStats();
+        private void SetName(IConstructionModel model)
+        {
+            this.ItemData.SetName($"Construction: {model.StructureId}");
+        }
 
-                foreach (var stat in stats)
-                {
-                    if (double.TryParse(stat.Value.ToString(), out var numericValue))
-                    {
-                        var index = -1;
-                        ItemCharacteristicTypes.ItemNumericCharacteristic? existringElement = null;
+        private void SetDescription(IConstructionModel model)
+        {
+            this.ItemData.SetDescription($"Description of the construction: {model.StructureId}");
+        }
 
-                        var existingElements = result.Where(x => x.Name == stat.Name);
-                        if (existingElements.Count() > 0)
-                        {
-                            existringElement = existingElements.First();
-                            index = result.IndexOf((ItemCharacteristicTypes.ItemNumericCharacteristic)existringElement);
-                        }
+        private void SetMaxStackSize(IConstructionModel model)
+        {
+            this.ItemData.SetMaxStackSize(1);
+        }
 
-                        if (index != -1)
-                        {
-                            var newValue = ((ItemCharacteristicTypes.ItemNumericCharacteristic)existringElement).Value + numericValue;
-                            var newElement = new ItemCharacteristicTypes.ItemNumericCharacteristic(stat.Name, newValue);
-
-                            result.Remove((ItemCharacteristicTypes.ItemNumericCharacteristic)existringElement);
-                            result.Add(newElement);
-                        }
-                        else
-                        {
-                            var newElement = new ItemCharacteristicTypes.ItemNumericCharacteristic(stat.Name, numericValue);
-
-                            result.Add(newElement);
-                        }
-                    }
-                }
-            }
-
-            return result;
+        private void SetWeight(List<ITypedStatistic<double>> characteristics)
+        {
+            var weight = characteristics.FirstOrNull(x => x.GetType() == typeof(WeightProperty));
+            this.ItemData.SetWeight(weight.Value);
         }
     }
 }

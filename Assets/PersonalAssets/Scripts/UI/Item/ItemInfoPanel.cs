@@ -65,7 +65,7 @@
 
         private void FillStats(ItemBase itemBase)
         {
-            var statsData = itemBase.ItemData.GetAllStats();
+            var statsData = itemBase.ItemData.Characteristics;
             var prefabHeight = this.statTextPrefab.GetComponent<RectTransform>().rect.height;
             this.allStatsHeight = prefabHeight * statsData.Count;
 
@@ -73,7 +73,7 @@
             {
                 var statObject = Instantiate(this.statTextPrefab, this.statsHolder.transform);
                 var textDisplayer = statObject.GetComponent<TextDisplayer>();
-                var text = $"{statData.Name}: {statData.Value}";
+                var text = statData.FullFormattedValue;
                 textDisplayer.SetText(text);
             }
         }

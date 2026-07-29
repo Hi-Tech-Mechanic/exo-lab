@@ -9,6 +9,6 @@
     [CreateAssetMenu(fileName = "MaterialData", menuName = "Materials/Material")]
     public class MaterialData : ItemData
     {
-        public IMaterial.MaterialType material;
+        public MaterialProperty.MaterialType material;
     }
 }

@@ -110,7 +110,7 @@
                 componentDataList.Add(componentData);
             }
 
-            var sortedComponentDataList = componentDataList.OrderBy(x => x.Durability).ToList();
+            var sortedComponentDataList = componentDataList.OrderBy(x => x.Durability.Value).ToList();
             for (var i = 0; i < sortedComponentDataList.Count; i++)
             {
                 resultItemList[i].ItemData = sortedComponentDataList[i].ConvertTo<ItemData>();

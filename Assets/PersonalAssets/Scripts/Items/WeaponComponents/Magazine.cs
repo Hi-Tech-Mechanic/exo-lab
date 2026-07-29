@@ -5,7 +5,7 @@ namespace ExoLab.StructuralÑomponents.Weapon
     /// <summary>
     /// Ìàãàçèí îğóæèÿ
     /// </summary>
-    public class Magazine : WeaponComponentAbstract<MagazineData>, IBullets
+    public class Magazine : WeaponComponentAbstract<MagazineData>
     {
         private MagazineData magazineItemData;
 

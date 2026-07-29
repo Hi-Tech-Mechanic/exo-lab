@@ -21,11 +21,6 @@ namespace ExoLab.Assembly
         /// </summary>
         public IConstructionModel ConstructionModel => this.constructionModel;
 
-        private void Awake()
-        {
-            this.constructionModel = new ConstructionModelBase();
-        }
-
         private void OnEnable()
         {
             GameEvents.AssemblyEvents.ComponentOnAttached += this.OnComponentAttachedHandler;
@@ -59,8 +54,13 @@ namespace ExoLab.Assembly
 
             this.constructionView.ClearStatRows();
 
-            var stats = this.constructionModel.GetAllCharacteristicSums();
+            var stats = this.constructionModel.GetSumOfAllNumericalCharacteristics();
             this.constructionView.CreateStatRows(stats);
+        }
+
+        public void StartConstruction()
+        {
+            this.constructionModel = new ConstructionModelBase();
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Получить все характеристики конструкции
         /// </summary>
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetAllCharacteristicSums();
+        public List<ITypedStatistic<double>> GetSumOfAllNumericalCharacteristics();
 
         /// <summary>
         /// Сохранить конструкцию

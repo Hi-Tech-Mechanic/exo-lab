@@ -22,7 +22,7 @@ namespace ExoLab.Structural—omponents.Suit
             if (parentTransform == null)
                 parentTransform = transform;
 
-            if (this.Durability <= 0)
+            if (this.TypedItemData.Durability.Value <= 0)
             {
                 this.ShootOffPart();
             }

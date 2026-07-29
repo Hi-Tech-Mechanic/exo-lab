@@ -11,23 +11,17 @@
 
         public string Description { get; }
 
-        public double Weight { get; }
+        public WeightProperty Weight { get; }
 
-        public int MaxStackSize { get; }
+        public MaxStackSizeProperty MaxStackSize { get; }
 
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> Characteristics { get; }
+        public List<IStatistic> Characteristics { get; }
+
+        public List<ITypedStatistic<double>> NumericalCharacteristics { get; }
 
         public Sprite Icon { get; }
 
         public GameObject Prefab { get; }
-
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetAllStats();
-        
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedAllStats();
-
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetNumericStats();
-
-        public List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedNumericStats();
 
         public void SetName(string value);
 

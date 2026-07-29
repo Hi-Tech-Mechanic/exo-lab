@@ -45,7 +45,7 @@
         public BodyPartModel(SuitComponentItemData data)
         {
             this.data = data;
-            this.MaxHealth = data.Durability;
+            this.MaxHealth = data.Durability.Value;
             this.CurrentHealth = this.CurrentHealth;
         }
     }

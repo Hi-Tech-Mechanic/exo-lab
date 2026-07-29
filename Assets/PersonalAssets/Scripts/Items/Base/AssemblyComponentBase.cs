@@ -6,34 +6,8 @@
     /// <summary>
     /// Абстракция сборочного компонента (оружия, брони и тд.) с минимальным необходимым набором свойств
     /// </summary>
-    public class AssemblyComponentBase : ItemAbstract<AssemblyComponentData>,
-        IAssemblyComponent,
-        IDurability,
-        IMaterial
+    public class AssemblyComponentBase : ItemAbstract<AssemblyComponentData>, IAssemblyComponent
     {
-        private double? durability;
-
-        public virtual double Durability 
-        {
-            get
-            {
-                if (this.durability != null)
-                {
-                    return (double)this.durability;
-                }
-
-                this.durability = this.TypedItemData.Durability;
-                return (double)this.durability;
-            }
-
-            protected set
-            {
-                this.durability  = value;
-            }
-        }
-
-        public virtual IMaterial.MaterialType Material { get => TypedItemData.Material; /*protected set; */}
-
         protected Vector3 AttachmentPoint { get; set; }
         protected Quaternion Rotation { get; set; }
 

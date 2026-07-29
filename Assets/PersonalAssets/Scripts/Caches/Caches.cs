@@ -16,6 +16,7 @@ namespace ExoLab.Data
         private static readonly Lazy<AudioCache> audioInstance = new Lazy<AudioCache>(() => new AudioCache());
         private static readonly Lazy<InterfaceCache> interfaceCache = new Lazy<InterfaceCache>(() => new InterfaceCache());
         private static readonly Lazy<AssemblyCache> assemblyCache = new Lazy<AssemblyCache>(() => new AssemblyCache());
+        private static readonly Lazy<ItemsCache> itemsCache = new Lazy<ItemsCache>(() => new ItemsCache());
 
         public Vector2 ScreenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         
@@ -31,6 +32,8 @@ namespace ExoLab.Data
         public InterfaceCache Interface => interfaceCache.Value;
 
         public AssemblyCache Assembly => assemblyCache.Value;
+
+        public ItemsCache Items => itemsCache.Value;
 
         /// <summary>
         /// Основная камера

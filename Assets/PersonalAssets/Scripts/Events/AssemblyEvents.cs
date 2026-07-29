@@ -9,6 +9,7 @@
         {
             public static Action<AssemblyComponentBase> ComponentOnAttached;
             public static event Action<bool> OnAssemblyModeEnabled;
+            public static event Action OnAssemblyStarted;
 
             public static void RaiseComponentAttached(AssemblyComponentBase component)
             {
@@ -18,6 +19,11 @@
             public static void RaiseAssemblyModeEnabled(bool state)
             {
                 OnAssemblyModeEnabled?.Invoke(state);
+            }
+
+            public static void RaiseOnAssemblyStarted()
+            {
+                OnAssemblyStarted?.Invoke();
             }
         }
     }

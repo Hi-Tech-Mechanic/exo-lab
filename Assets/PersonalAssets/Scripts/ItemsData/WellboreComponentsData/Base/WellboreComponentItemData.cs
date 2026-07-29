@@ -1,7 +1,7 @@
 ﻿namespace ExoLab.Data
 {
-    using UnityEngine;
     using System.Collections.Generic;
+    using UnityEngine;
     using UnityEngine.Serialization;
 
     /// <summary>
@@ -12,78 +12,56 @@
     {
         [Tooltip("Максимальная скорость вращения")]
         [FormerlySerializedAs("MaxRotationSpeed")]
-        public double maxRotationSpeed;
+        [SerializeField] private double maxRotationSpeed;
 
         [Tooltip("Максимальная температура")]
         [FormerlySerializedAs("MaxTemperature")]
-        public double maxTemperature;
+        [SerializeField] private double maxTemperature;
 
-        public virtual double MaxRotationSpeed
+        private MaxRotationSpeedProperty maxRotationSpeedProperty;
+        private MaxTemperatureProperty maxTemperatureProperty;
+
+        public MaxRotationSpeedProperty MaxRotationSpeedProperty
         {
             get
             {
-                if (this.maxRotationSpeed != 0)
+                if (this.maxRotationSpeedProperty == null)
                 {
-                    return (double)this.maxRotationSpeed;
+                    this.maxRotationSpeedProperty = new MaxRotationSpeedProperty();
+                    this.maxRotationSpeedProperty.Value = this.maxRotationSpeed;
                 }
 
-                this.maxRotationSpeed = this.MaxRotationSpeed;
-                return (double)this.maxRotationSpeed;
-            }
-
-            protected set
-            {
-                this.maxRotationSpeed = value;
+                return this.maxRotationSpeedProperty;
             }
         }
 
-        public virtual double MaxTemperature
+        public MaxTemperatureProperty MaxTemperature
         {
             get
             {
-                if (this.maxTemperature != 0)
+                if (this.maxTemperatureProperty == null)
                 {
-                    return (double)this.maxTemperature;
+                    this.maxTemperatureProperty = new MaxTemperatureProperty();
+                    this.maxTemperatureProperty.Value = this.maxTemperature;
+
                 }
 
-                this.maxTemperature = this.MaxTemperature;
-                return (double)this.maxTemperature;
+                return this.maxTemperatureProperty;
             }
+        }
 
-            protected set
+        public override List<IStatistic> Characteristics
+        {
+            get
             {
-                this.maxTemperature = value;
+                var result = new List<IStatistic>();
+
+                result.AddRange(base.Characteristics);
+                result.Add(this.MaxRotationSpeedProperty);
+                result.Add(this.MaxTemperature);
+
+                return result;
             }
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            result.AddRange(base.GetNumericStats());
-
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic(nameof(this.MaxRotationSpeed), this.MaxRotationSpeed.ToString());
-            result.Add(stat);
-
-            stat = new ItemCharacteristicTypes.ItemStringCharacteristic(nameof(this.MaxTemperature), this.MaxTemperature.ToString());
-            result.Add(stat);
-
-            return result;
-        }
-
-        public override List<ItemCharacteristicTypes.ItemStringCharacteristic> GetTranslatedNumericStats()
-        {
-            var result = new List<ItemCharacteristicTypes.ItemStringCharacteristic>();
-
-            result.AddRange(base.GetNumericStats());
-
-            var stat = new ItemCharacteristicTypes.ItemStringCharacteristic("Макс. скорость вращения", this.MaxRotationSpeed.ToString());
-            result.Add(stat);
-
-            stat = new ItemCharacteristicTypes.ItemStringCharacteristic("Макс. температура", this.MaxTemperature.ToString());
-            result.Add(stat);
-
-            return result;
         }
     }
 }
