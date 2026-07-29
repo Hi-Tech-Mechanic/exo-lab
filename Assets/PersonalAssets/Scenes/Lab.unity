@@ -586,11 +586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07ba09408513934989eba827ca1cdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.AssemblyConstruction
-  statsContentPanel: {fileID: 992992174}
-  statPrefab: {fileID: 8810817999479070272, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
-  componentsContentPanel: {fileID: 1799442710}
-  componentPrefab: {fileID: 4047992412022841835, guid: b5d56b354b3433747b107dea5b56c55f, type: 3}
-  statRows: []
 --- !u!1 &44974900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,7 +3229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224221528593322028, guid: 467a36af1e991464e9db99e3bc361c85, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 395
+      value: 403.1805
       objectReference: {fileID: 0}
     - target: {fileID: 5224221528593322028, guid: 467a36af1e991464e9db99e3bc361c85, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -36349,7 +36344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1768049882}
-  - component: {fileID: 1768049883}
   - component: {fileID: 1768049884}
   m_Layer: 5
   m_Name: Stats
@@ -36381,26 +36375,6 @@ RectTransform:
   m_AnchoredPosition: {x: 872.72925, y: 0}
   m_SizeDelta: {x: -1745.4585, y: 383.7}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &1768049883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768049881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d57dd068a4c37ab42938ed63fe65c39f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statColor: {r: 0, g: 0, b: 0, a: 0}
-  healthText: {fileID: 0}
-  armorText: {fileID: 0}
-  damageText: {fileID: 0}
-  critChanceText: {fileID: 0}
-  critDamageText: {fileID: 0}
-  expandedScaleText: 1.15
-  scaleDuration: 0.15
 --- !u!114 &1768049884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37582,7 +37556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224221528593322028, guid: 467a36af1e991464e9db99e3bc361c85, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 665
+      value: 681.361
       objectReference: {fileID: 0}
     - target: {fileID: 5224221528593322028, guid: 467a36af1e991464e9db99e3bc361c85, type: 3}
       propertyPath: m_AnchoredPosition.y
