@@ -29,6 +29,11 @@
             GameEvents.AssemblyEvents.OnAssemblyModeEnabled -= this.AssemblyModeHandler;
         }
 
+        private void Update()
+        {
+            this.ProcessClickInput();
+        }
+
         private void AssemblyModeHandler(bool assemblyEnabled)
         {
             if (assemblyEnabled)
@@ -44,11 +49,6 @@
 
             this.layerMask = LayerMask.GetMask(Layers.Component.ToString());
             this.camera = Caches.Instance.Assembly.AssemblyCamera;
-        }
-
-        private void Update()
-        {
-            this.ProcessClickInput();
         }
 
         private void ProcessClickInput()

@@ -1,235 +1,270 @@
 namespace ExoLab.Assembly
 {
     using DG.Tweening;
-    using ExoLab.Data;
     using ExoLab.Interaction;
     using ExoLab.UI;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using static ExoLab.Constants.Constants;
 
     /// <summary>
-    /// Отвечает за вращение и просмотр объекта
+    /// Orchestrator for the item inspection system.
+    /// Composes specialized components for input handling, rotation, zoom, camera panning,
+    /// and zone detection. Maintains backward compatibility with the original public API.
     /// </summary>
     public class ItemInspect : MonoBehaviour
     {
-        private const float resetViewDuration = Timings.Millisecond_1000;
+        private const float ResetViewDuration = Timings.Millisecond_1000;
 
-        [Header("Options")]
+        [Header("References")]
         [SerializeField] private Camera inspectCamera;
+        [Tooltip("GraphicRaycaster from the target canvas (required for UI-based zone detection)")]
+        [SerializeField] private GraphicRaycaster canvasRaycaster;
+
+        private IItemInspectInputProvider inputProvider;
+        private IItemInspectZoneDetector zoneDetector;
+        private ItemInspectObjectRotator objectRotator;
+        private ItemInspectCameraController cameraController;
+
+        private ItemInspectOptions itemInspectOptions;
+        private Vector3 defaultPosition;
+        private Quaternion defaultRotation;
+        private bool isInspecting = true;
 
         /// <summary>
-        /// Перечень передаваемых настроек, так как режимов может быть несколько,
-        /// а экземпляр <see cref="ItemInspect"/> должен быть 1 на сцене
+        /// Configuration options for the inspection mode.
+        /// Set externally (e.g., by <see cref="AssemblyModesController"/>).
         /// </summary>
-        public ItemInspectOptions ItemInspectOptions { private get; set; }
+        public ItemInspectOptions ItemInspectOptions
+        {
+            private get => itemInspectOptions;
+            set => itemInspectOptions = value;
+        }
 
-        private float currentCameraDistance;
-        private Quaternion defaultRotation;
-        private Vector3 defaultPosition;
+        /// <summary>
+        /// The default camera distance used when resetting the view.
+        /// </summary>
+        public float DefaultCameraDistance
+        {
+            get => cameraController?.DefaultCameraDistance ?? 0f;
+            set
+            {
+                if (cameraController != null)
+                    cameraController.DefaultCameraDistance = value;
+            }
+        }
 
-        private bool isInspecting = true;
-        private bool rotationIsBlocked = false;
-
-        private GraphicRaycaster raycaster;
-        private PointerEventData pointerData;
-        private EventSystem eventSystem = EventSystem.current;
-
-        public float DefaultCameraDistance { get; set; }
-
+        /// <summary>
+        /// Fired when the inspected object's rotation changes.
+        /// </summary>
         public event Action<Quaternion> OnRotationChanged;
+
+        /// <summary>
+        /// Fired when the zoom level changes.
+        /// </summary>
         public event Action<float> OnZoomChanged;
+
+        /// <summary>
+        /// Fired when the camera position changes due to panning.
+        /// </summary>
         public event Action OnCameraPositionChanged;
 
         private void Start()
         {
-            this.Initialize();
+            Initialize();
         }
 
         private void OnEnable()
         {
-            DraggableInventoryItem.OnBeginDragAction += this.DisableInspectMode;
-            DraggableInventoryItem.OnEndDragAction += this.EnableInspectMode;
-            InteractiveIKController.OnItemInspectRotationBlock += this.SetRotationBlockState;
-            AssemblyModesController.onItemInspectOptios += this.UpdateOptions;
+            DraggableInventoryItem.OnBeginDragAction += DisableInspectMode;
+            DraggableInventoryItem.OnEndDragAction += EnableInspectMode;
+            InteractiveIKController.OnItemInspectRotationBlock += SetRotationBlockState;
+            AssemblyModesController.onItemInspectOptions += UpdateOptions;
         }
 
         private void OnDisable()
         {
-            DraggableInventoryItem.OnBeginDragAction -= this.DisableInspectMode;
-            DraggableInventoryItem.OnEndDragAction -= this.EnableInspectMode;
-            InteractiveIKController.OnItemInspectRotationBlock -= this.SetRotationBlockState;
-            AssemblyModesController.onItemInspectOptios -= this.UpdateOptions;
+            DraggableInventoryItem.OnBeginDragAction -= DisableInspectMode;
+            DraggableInventoryItem.OnEndDragAction -= EnableInspectMode;
+            InteractiveIKController.OnItemInspectRotationBlock -= SetRotationBlockState;
+            AssemblyModesController.onItemInspectOptions -= UpdateOptions;
         }
 
         private void Update()
         {
-            if (this.isInspecting == false)
+            if (isInspecting == false)
                 return;
 
-            if (CursorInAssemblyZone() == false)
+            if (zoneDetector == null || zoneDetector.IsCursorInZone() == false)
                 return;
 
-            this.SetRotationWithMouse();
-            this.SetZoomWithMouseScroll();
-            this.SetCameraPosition();
+            objectRotator?.ProcessRotation();
+            cameraController?.ProcessZoom();
+            cameraController?.ProcessCameraPan();
         }
 
         /// <summary>
-        /// Вернуть отображение в изначальное состояние
+        /// Resets the inspected object and camera to their default positions/rotations.
         /// </summary>
         public void ResetToDefaultView()
         {
-            this.ItemInspectOptions.TargetTransform.DOLocalMove(this.defaultPosition, resetViewDuration);
-            this.ItemInspectOptions.TargetTransform.DOLocalRotate(this.defaultRotation.eulerAngles, resetViewDuration);
-            this.inspectCamera.transform.DOLocalMoveZ(this.DefaultCameraDistance, resetViewDuration);
+            if (itemInspectOptions?.TargetTransform == null || cameraController == null)
+                return;
+
+            itemInspectOptions.TargetTransform.DOLocalMove(defaultPosition, ResetViewDuration);
+            itemInspectOptions.TargetTransform.DOLocalRotate(defaultRotation.eulerAngles, ResetViewDuration);
+            cameraController.ResetZoom();
         }
 
         /// <summary>
-        /// Активировать/деактивировать режим осмотра
+        /// Toggles the inspection mode on/off.
         /// </summary>
-        /// <param name="inspect"></param>
         public void ToggleInspectMode()
         {
-            this.isInspecting = !this.isInspecting;
+            isInspecting = !isInspecting;
         }
 
         /// <summary>
-        /// Обновить поля
+        /// Updates the inspection options and reinitializes internal state.
+        /// Called externally when the active preset changes.
         /// </summary>
+        /// <param name="options">New inspection options.</param>
         public void UpdateOptions(ItemInspectOptions options)
         {
-            this.ItemInspectOptions = options;
+            if (options == null)
+            {
+                Debug.LogError($"{nameof(ItemInspect)}: Received null options.");
+                return;
+            }
 
-            this.defaultPosition = this.ItemInspectOptions.TargetTransform.localPosition;
-            this.defaultRotation = this.ItemInspectOptions.TargetTransform.localRotation;
+            itemInspectOptions = options;
+
+            if (options.TargetTransform != null)
+            {
+                defaultPosition = options.TargetTransform.localPosition;
+                defaultRotation = options.TargetTransform.localRotation;
+            }
+
+            RebuildZoneDetector();
+            RebuildObjectRotator();
+            RebuildCameraController();
         }
 
         private void Initialize()
         {
-            this.raycaster = Caches.Instance.Interface.MainCanvas.GetComponent<GraphicRaycaster>();
-            this.pointerData = new PointerEventData(eventSystem);
-
-            if (this.inspectCamera == null)
+            if (inspectCamera == null)
             {
                 Debug.LogError($"{nameof(ItemInspect)}: Camera component not found!");
-                this.enabled = false;
+                enabled = false;
                 return;
             }
 
-            this.currentCameraDistance = this.inspectCamera.transform.localPosition.z;
-            this.DefaultCameraDistance = this.currentCameraDistance;
-            this.defaultPosition = this.ItemInspectOptions.TargetTransform.localPosition;
-            this.defaultRotation = this.ItemInspectOptions.TargetTransform.localRotation;
+            inputProvider = new ItemInspectInputProvider();
+
+            if (itemInspectOptions != null)
+            {
+                if (itemInspectOptions.TargetTransform != null)
+                {
+                    defaultPosition = itemInspectOptions.TargetTransform.localPosition;
+                    defaultRotation = itemInspectOptions.TargetTransform.localRotation;
+                }
+
+                RebuildZoneDetector();
+                RebuildObjectRotator();
+                RebuildCameraController();
+            }
         }
 
-        private bool CursorInAssemblyZone()
+        private void RebuildZoneDetector()
         {
-            if (this.ItemInspectOptions.UseGraphicRaycaster)
+            if (itemInspectOptions == null)
+                return;
+
+            if (itemInspectOptions.UseGraphicRaycaster)
             {
-                var results = new List<RaycastResult>();
+                if (canvasRaycaster == null)
+                {
+                    Debug.LogError($"{nameof(ItemInspect)}: GraphicRaycaster is required but not assigned.");
+                    zoneDetector = null;
+                    return;
+                }
 
-                this.pointerData.position = Input.mousePosition;
-                this.raycaster.Raycast(this.pointerData, results);
+                var eventSystem = EventSystem.current;
+                if (eventSystem == null)
+                {
+                    Debug.LogError($"{nameof(ItemInspect)}: EventSystem.current is null.");
+                    zoneDetector = null;
+                    return;
+                }
 
-                // Если есть что-то кроме целевого объекта или вообще нет
-                if (results.Count == 0 || results.Count > 1)
-                    return false;
-
-                var inZone = results.Any(target => target.gameObject.tag == Tags.AssemblyZone);
-
-                return inZone;
+                zoneDetector = new ItemInspectGraphicZoneDetector(canvasRaycaster, eventSystem);
             }
             else
             {
-                var ray = this.inspectCamera.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out RaycastHit hit) == false)
-                    return false;
-
-                if (hit.collider.gameObject.tag == Tags.AssemblyZone)
-                    return true;
+                zoneDetector = new ItemInspectPhysicsZoneDetector(inspectCamera);
             }
-
-            return false;
         }
 
-        private void SetRotationWithMouse()
+        private void RebuildObjectRotator()
         {
-            var mouseLeftClicked = Input.GetMouseButton(InputButtons.LeftMouseButton);
-            var mouseRightClicked = Input.GetMouseButton(InputButtons.RightMouseButton);
-
-            // Разрешаем вращать правой кнопкой мышки, даже если блокировка вращения включена
-            if (this.rotationIsBlocked && mouseRightClicked == false)
+            if (inputProvider == null || itemInspectOptions == null)
                 return;
 
-            if (mouseLeftClicked == false && mouseRightClicked == false)
-                return;
-
-            if (this.ItemInspectOptions.RotateByCoordinate_X)
+            if (objectRotator != null)
             {
-                float mouseX = Input.GetAxis(InputAxes.MouseX) * this.ItemInspectOptions.RotationSpeed;
-                this.ItemInspectOptions.TargetTransform.Rotate(Vector3.up, -mouseX, Space.World);
+                objectRotator.OnRotationChanged -= ForwardRotationChanged;
             }
-            if (this.ItemInspectOptions.RotateByCoordinate_Y)
+
+            objectRotator = new ItemInspectObjectRotator(inputProvider, itemInspectOptions);
+            objectRotator.OnRotationChanged += ForwardRotationChanged;
+        }
+
+        private void RebuildCameraController()
+        {
+            if (inputProvider == null || inspectCamera == null || itemInspectOptions == null)
+                return;
+
+            if (cameraController != null)
             {
-                float mouseY = Input.GetAxis(InputAxes.MouseY) * this.ItemInspectOptions.RotationSpeed;
-                this.ItemInspectOptions.TargetTransform.Rotate(Vector3.right, mouseY, Space.World);
+                cameraController.OnZoomChanged -= ForwardZoomChanged;
+                cameraController.OnCameraPositionChanged -= ForwardCameraPositionChanged;
             }
 
-            this.OnRotationChanged?.Invoke(this.ItemInspectOptions.TargetTransform.rotation);
+            cameraController = new ItemInspectCameraController(inputProvider, inspectCamera, itemInspectOptions);
+            cameraController.OnZoomChanged += ForwardZoomChanged;
+            cameraController.OnCameraPositionChanged += ForwardCameraPositionChanged;
         }
 
-        private void SetZoomWithMouseScroll()
+        private void ForwardRotationChanged(Quaternion rotation)
         {
-            if (this.ItemInspectOptions.ZoomEnabled == false)
-                return;
-
-            float scroll = Input.GetAxis(InputAxes.MouseScrollWheel);
-            if (scroll == 0f)
-                return;
-
-            this.currentCameraDistance += scroll * this.ItemInspectOptions.ZoomSpeed;
-            this.currentCameraDistance = Mathf.Clamp(this.currentCameraDistance, -this.ItemInspectOptions.MaxCameraDistance, -this.ItemInspectOptions.MinCameraDistance);
-            this.inspectCamera.transform.localPosition = new Vector3(this.inspectCamera.transform.localPosition.x, this.inspectCamera.transform.localPosition.y, this.currentCameraDistance);
-
-            this.OnZoomChanged?.Invoke(this.currentCameraDistance);
+            OnRotationChanged?.Invoke(rotation);
         }
 
-        private void SetCameraPosition()
+        private void ForwardZoomChanged(float distance)
         {
-            var mouseWheelClicked =  Input.GetMouseButton(InputButtons.MiddleMouseButton);
-            if (mouseWheelClicked == false)
-                return;
+            OnZoomChanged?.Invoke(distance);
+        }
 
-            var position = this.inspectCamera.transform.position;
-
-            float mouseX = Input.GetAxis(InputAxes.MouseX);
-            float mouseY = Input.GetAxis(InputAxes.MouseY);
-
-            var targetPosition = new Vector3(-mouseX, -mouseY, position.z);
-            this.inspectCamera.transform.localPosition = Vector3.Lerp(this.inspectCamera.transform.localPosition, targetPosition, 0.02f);
-
-            this.OnCameraPositionChanged?.Invoke();
+        private void ForwardCameraPositionChanged()
+        {
+            OnCameraPositionChanged?.Invoke();
         }
 
         private void DisableInspectMode()
         {
-            this.isInspecting = false;
+            isInspecting = false;
         }
 
         private void EnableInspectMode()
         {
-            this.isInspecting = true;
+            isInspecting = true;
         }
 
-        private void SetRotationBlockState(bool value) 
+        private void SetRotationBlockState(bool value)
         {
-            this.rotationIsBlocked = value;
+            objectRotator?.SetRotationBlocked(value);
         }
     }
 }

@@ -114,8 +114,7 @@
                     }
                     catch (Exception e)
                     {
-
-                        // debug handled
+                        Debug.LogError($"{e.Message}");
                     }
                 }
 

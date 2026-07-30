@@ -13,7 +13,7 @@
         /// </summary>
         public static Transform ActiveConstructionRoot;
         
-        public static event Action<ItemInspectOptions> onItemInspectOptios;
+        public static Action<ItemInspectOptions> onItemInspectOptions;
 
         [SerializeField]
         private ItemInspect itemInspect;
@@ -29,13 +29,16 @@
         [SerializeField]
         private AssemblyPreset wellborePreset;
 
-        private void Awake()
+        private void Awake()    
         {
             if (this.itemInspect == null)
             {
                 Debug.LogError($"[{nameof(this.itemInspect)}] не назначен");
             }
+        }
 
+        private void Start()
+        {
             this.Init();
         }
 
@@ -48,7 +51,7 @@
         public void SetWeaponPreset()
         {
             this.weaponPreset.ItemInspectOptions.TargetTransform = this.weaponPreset.RootTransofrm;
-            onItemInspectOptios.Invoke(this.weaponPreset.ItemInspectOptions);
+            onItemInspectOptions?.Invoke(this.weaponPreset.ItemInspectOptions);
 
             var newRoot = this.weaponPreset.RootTransofrm;
             ActiveConstructionRoot = newRoot;
@@ -57,7 +60,7 @@
         public void SetExoskeletonPreset()
         {
             this.exoskeletonPreset.ItemInspectOptions.TargetTransform = this.exoskeletonPreset.RootTransofrm;
-            onItemInspectOptios.Invoke(this.exoskeletonPreset.ItemInspectOptions);
+            onItemInspectOptions?.Invoke(this.exoskeletonPreset.ItemInspectOptions);
 
             var newRoot = this.exoskeletonPreset.RootTransofrm;
             ActiveConstructionRoot = newRoot;
@@ -66,7 +69,7 @@
         public void SetWellborePreset()
         {
             this.wellborePreset.ItemInspectOptions.TargetTransform = this.wellborePreset.RootTransofrm;
-            onItemInspectOptios.Invoke(this.wellborePreset.ItemInspectOptions);
+            onItemInspectOptions?.Invoke(this.wellborePreset.ItemInspectOptions);
 
             var newRoot = this.wellborePreset.RootTransofrm;
             ActiveConstructionRoot = newRoot;

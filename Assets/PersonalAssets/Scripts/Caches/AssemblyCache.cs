@@ -1,7 +1,6 @@
 ﻿namespace ExoLab.Data
 {
     using ExoLab.Assembly;
-    using System;
     using UnityEngine;
     using ExoLab.Constants;
 
@@ -9,8 +8,6 @@
     {
         public class AssemblyCache
         {
-            private Camera? assemblyCamera;
-            private ItemInspect? itemInspect;
             private AssemblyOptions _assemblyOptions;
 
             /// <summary>
@@ -20,27 +17,13 @@
             {
                 get
                 {
-                    if (this.itemInspect == null)
+                    if (AssemblyCachesForInspector.Instans.ItemInspect == null)
                     {
-                        var tag = Constants.Tags.ItemInspect;
-                        var gameObject = GameObject.FindWithTag(tag);
-                        if (gameObject == null)
-                        {
-                            Debug.LogError($"Не найден объект с тегом {tag}");
-                            return null;
-                        }
-
-                        // Находим выключенный объект внутри родителя
-                        var localItemInspect = gameObject.GetComponentInChildren<ItemInspect>(true);
-                        if (localItemInspect == null)
-                        {
-                            throw new NullReferenceException($"Не найден компонент {nameof(ItemInspect)}");
-                        }
-
-                        this.itemInspect = localItemInspect;
+                        Debug.LogError($"Не назначен объект {nameof(ItemInspect)}");
+                        return null;
                     }
 
-                    return this.itemInspect;
+                    return AssemblyCachesForInspector.Instans.ItemInspect;
                 }
             }
 
@@ -64,25 +47,13 @@
             {
                 get
                 {
-                    if (this.assemblyCamera == null)
+                    if (AssemblyCachesForInspector.Instans.AssemblyCamera == null)
                     {
-                        var tag = Constants.Tags.AssemblyInspectCamera;
-                        var gameObject = GameObject.FindWithTag(tag);
-                        if (gameObject == null)
-                        {
-                            Debug.LogError($"Не найден объект с тегом {tag}");
-                            return null;
-                        }
-
-                        this.assemblyCamera = gameObject.GetComponent<Camera>();
-                        if (this.assemblyCamera == null)
-                        {
-                            Debug.LogError($"Объект с тегом {tag} не содержит {nameof(Canvas)}");
-                            return null;
-                        }
+                        Debug.LogError($"Не назначен объект {nameof(AssemblyCamera)}");
+                        return null;
                     }
 
-                    return this.assemblyCamera;
+                    return AssemblyCachesForInspector.Instans.AssemblyCamera;
                 }
             }
         }

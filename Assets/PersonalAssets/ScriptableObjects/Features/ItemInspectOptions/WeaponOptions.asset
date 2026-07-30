@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca02d48b3f3e684c9a002757dd005a7, type: 3}
   m_Name: WeaponOptions
   m_EditorClassIdentifier: Assembly-CSharp::ExoLab.Assembly.ItemInspectOptions
-  RotationSpeed: 2
-  ZoomSpeed: 5
-  MinCameraDistance: 2
-  MaxCameraDistance: 10
+  RotationSpeed: 0.15
+  ZoomSpeed: 1
+  MinCameraDistance: 1
+  MaxCameraDistance: 4
   ZoomEnabled: 1
   RotateByCoordinate_X: 1
   RotateByCoordinate_Y: 1
