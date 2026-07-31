@@ -2,7 +2,6 @@
 {
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -41,9 +40,9 @@
         /// Получить суммы всех характеристик компонентов <see cref="Components"/>
         /// </summary>
         /// <returns></returns>
-        public List<ITypedStatistic<double>> GetSumOfAllNumericalCharacteristics()
+        public List<NumericalProperty> GetSumOfAllNumericalCharacteristics()
         {
-            var result = new List<ITypedStatistic<double>>();
+            var result = new List<NumericalProperty>();
 
             foreach (var component in this.components)
             {
@@ -51,21 +50,22 @@
 
                 foreach (var stat in stats)
                 {
-                    var existingStat = result.FirstOrNull(x => x.Name == stat.Name);
+                    var existingStat = result.FirstOrNull(x => x.Type == stat.Type);
 
                     if (existingStat != null)
                     {
-                        var newStat = (ITypedStatistic<double>)Activator.CreateInstance(stat.GetType());
-                        newStat.Value = existingStat.Value + stat.Value;
+                        var newStat1 = new NumericalProperty(stat);
+                        newStat1.Value = existingStat.Value + stat.Value;
 
                         result.Remove(existingStat);
-                        result.Add(newStat);
+                        result.Add(newStat1);
                     }
                     else
                     {
-                        var copy = (ITypedStatistic<double>)Activator.CreateInstance(stat.GetType());
-                        copy.Value = stat.Value;
-                        result.Add(copy);
+                        var newStat2 = new NumericalProperty(stat);
+                        newStat2.Value = stat.Value;
+
+                        result.Add(newStat2);
                     }
                 }
             }

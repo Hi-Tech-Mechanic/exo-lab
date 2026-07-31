@@ -2,6 +2,8 @@ using ExoLab;
 
 public class MaterialProperty : StatisticAbstract<string>
 {
+    public override CharacteristicTypes.Types Type => CharacteristicTypes.Types.Material;
+
     public override string Value 
     {
         get => base.Value; 

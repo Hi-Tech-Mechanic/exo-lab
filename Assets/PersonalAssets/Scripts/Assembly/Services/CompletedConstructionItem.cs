@@ -2,6 +2,7 @@ namespace ExoLab.Assembly.Services
 {
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -40,12 +41,12 @@ namespace ExoLab.Assembly.Services
         /// <summary>
         /// Add non default properties
         /// </summary>
-        private void AddOtherCharacteristics(List<ITypedStatistic<double>> characteristics)
+        private void AddOtherCharacteristics(List<NumericalProperty> characteristics)
         {
             foreach (var characteristic in characteristics)
             {
-                if (characteristic is not WeightProperty &&
-                    characteristic is not MaxStackSizeProperty)
+                if (characteristic.Type is not CharacteristicTypes.Types.Weight &&
+                    characteristic.Type is not CharacteristicTypes.Types.MaxStackSize)
                 {
                     this.ItemData.Characteristics.Add(characteristic);
                 }
@@ -87,9 +88,9 @@ namespace ExoLab.Assembly.Services
             this.ItemData.SetMaxStackSize(1);
         }
 
-        private void SetWeight(List<ITypedStatistic<double>> characteristics)
+        private void SetWeight(List<NumericalProperty> characteristics)
         {
-            var weight = characteristics.FirstOrNull(x => x.GetType() == typeof(WeightProperty));
+            var weight = characteristics.FirstOrNull(x => x.Type == CharacteristicTypes.Types.Weight);
             this.ItemData.SetWeight(weight.Value);
         }
     }

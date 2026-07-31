@@ -2,6 +2,9 @@ namespace ExoLab.Assembly
 {
     using ExoLab.Assembly.Services;
     using ExoLab.StructuralСomponents;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     /// <summary>
@@ -55,7 +58,10 @@ namespace ExoLab.Assembly
             this.constructionView.ClearStatRows();
 
             var stats = this.constructionModel.GetSumOfAllNumericalCharacteristics();
-            this.constructionView.CreateStatRows(stats);
+            var typedStats = new List<IStatistic>();
+            typedStats.AddRange(stats.Select(x => (IStatistic)x));
+
+            this.constructionView.CreateStatRows(typedStats);
         }
 
         public void StartConstruction()

@@ -74,6 +74,27 @@
             }
         }
 
+        public override List<NumericalProperty> NumericalCharacteristics
+        {
+            get
+            {
+                var result = new List<NumericalProperty>();
+                
+                result.AddRange(base.NumericalCharacteristics);
+
+                var durabilityProperty = new NumericalProperty(
+                    this.Durability.Name,
+                    this.Durability.Value,
+                    this.Durability.Type,
+                    this.Durability.UnitOfMeasurement);
+
+
+                result.Add(durabilityProperty);
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Комплект данных отвечающий за привязку к конкретному объекту
         /// </summary>

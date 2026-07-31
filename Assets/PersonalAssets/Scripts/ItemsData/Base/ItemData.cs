@@ -89,34 +89,30 @@
             }
         }
 
-        public List<ITypedStatistic<double>> NumericalCharacteristics
+        /// <summary>
+        /// Returns all numerical characteristics as boxed <see cref="object"/> references.
+        /// Use <see cref="NumericValueExtensions"/> to extract values.
+        /// </summary>
+        public virtual List<NumericalProperty> NumericalCharacteristics
         {
             get
             {
-                List<ITypedStatistic<double>> result = new();
-                
-                foreach (var characteristic in Characteristics)
-                {
-                    try
-                    {
-                        switch (characteristic)
-                        {
-                            case ITypedStatistic<double>:
-                            case ITypedStatistic<float>:
-                            case ITypedStatistic<decimal>:
-                            case ITypedStatistic<int>:
-                            case ITypedStatistic<uint>:
-                            case ITypedStatistic<long>:
-                            case ITypedStatistic<ulong>:
-                                result.Add((ITypedStatistic<double>)characteristic);
-                                break;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError($"{e.Message}");
-                    }
-                }
+                var result = new List<NumericalProperty>();
+
+                var weightProperty = new NumericalProperty(
+                    this.Weight.Name, 
+                    this.Weight.Value,
+                    this.Weight.Type,
+                    this.Weight.UnitOfMeasurement);
+
+                var maxStackSizeProperty = new NumericalProperty(
+                    this.MaxStackSize.Name,
+                    this.MaxStackSize.Value,
+                    this.MaxStackSize.Type,
+                    this.MaxStackSize.UnitOfMeasurement);
+
+                result.Add(weightProperty);
+                result.Add(maxStackSizeProperty);
 
                 return result;
             }

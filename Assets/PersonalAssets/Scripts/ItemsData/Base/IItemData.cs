@@ -17,7 +17,7 @@
 
         public List<IStatistic> Characteristics { get; }
 
-        public List<ITypedStatistic<double>> NumericalCharacteristics { get; }
+        public List<NumericalProperty> NumericalCharacteristics { get; }
 
         public Sprite Icon { get; }
 

@@ -1,6 +1,5 @@
 namespace ExoLab.Assembly
 {
-    using ExoLab.Data;
     using ExoLab.StructuralСomponents;
     using System.Collections.Generic;
 
@@ -32,7 +31,7 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Получить все характеристики конструкции
         /// </summary>
-        public List<ITypedStatistic<double>> GetSumOfAllNumericalCharacteristics();
+        public List<NumericalProperty> GetSumOfAllNumericalCharacteristics();
 
         /// <summary>
         /// Сохранить конструкцию

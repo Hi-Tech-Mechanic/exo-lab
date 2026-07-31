@@ -11,6 +11,8 @@
         /// </summary>
         public static CharacteristicLocalization Localization => Caches.Instance.Items.CharacteristicLocalization;
 
+        public abstract CharacteristicTypes.Types Type { get; }
+
         public string Name
         {
             get
@@ -31,9 +33,6 @@
 
         public virtual T Value { get; set; }
 
-        /// <summary>
-        /// Get formatted text: name with value and with unit of measurement
-        /// </summary>
         public string FullFormattedValue
         {
             get

@@ -1,6 +1,5 @@
 namespace ExoLab.Assembly
 {
-    using ExoLab.Data;
     using ExoLab.Helpers;
     using ExoLab.StructuralСomponents;
     using ExoLab.UI;
@@ -62,7 +61,7 @@ namespace ExoLab.Assembly
         /// <summary>
         /// Создать и заполнить строки характеристик на основе сумм статов модели
         /// </summary>
-        public void CreateStatRows(List<ITypedStatistic<double>> stats)
+        public void CreateStatRows(List<IStatistic> stats)
         {
             foreach (var stat in stats)
             {
@@ -70,7 +69,7 @@ namespace ExoLab.Assembly
                 this.statRows.Add(statRow);
 
                 var statTextComponent = statRow.GetComponentInChildren<TextMeshProUGUI>();
-                var statText = HelperText.GetGreenText(stat.FullFormattedValue/* $"{stat.Name}: {stat.Value}"*/);
+                var statText = HelperText.GetGreenText(stat.FullFormattedValue);
                 statTextComponent.text = statText;
 
                 var classification = statRow.GetComponent<ClassificationItem>();
