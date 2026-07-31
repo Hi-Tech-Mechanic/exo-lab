@@ -493,6 +493,10 @@ PrefabInstance:
       value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3183658785711824947, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183658785711824947, guid: 5abf4b8bdf5aa1e48acc1c63bae0be87, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
