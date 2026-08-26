@@ -1,7 +1,7 @@
 namespace ExoLab.Assembly.Services
 {
     using UnityEngine;
-
+    
     /// <summary>
     /// Сервис для завершения сборки конструкции и сохранения её
     /// в качестве предмета в инвентаре на основе <see cref="ItemBase"/>.
@@ -25,14 +25,20 @@ namespace ExoLab.Assembly.Services
             }
 
             var itemObject = new GameObject($"CompletedConstruction_{model.StructureId ?? "Unknown"}");
-            
+
             if (parent != null)
             {
                 itemObject.transform.SetParent(parent);
             }
 
+            itemObject.transform.localPosition = Vector3.zero;
+            itemObject.transform.localRotation = Quaternion.identity;
+            itemObject.transform.localScale = new Vector3(1, 1, 1);
+
             var completedItem = itemObject.AddComponent<CompletedConstructionItem>();
             completedItem.Initialize(model);
+
+            SpawnModelInCameraCapturePoint(model, itemObject.transform);
 
             Debug.Log($"[{nameof(ConstructionCompletionService)}] Конструкция '{model.StructureId}' завершена. Компонентов: {model.Components.Count}");
             
@@ -40,34 +46,39 @@ namespace ExoLab.Assembly.Services
         }
 
         /// <summary>
-        /// Завершить сборку конструкции и создать предмет, 
-        /// прикрепив все компоненты как дочерние объекты.
+        /// Assembles the construction in the scene by spawning the prefab
+        /// from <see cref="CompletedConstructionItem"/> into the screenshot root point.
         /// </summary>
-        /// <param name="model">Модель сборной конструкции</param>
-        /// <param name="root">Корневой Transform куда будут помещены компоненты</param>
-        public static void AssembleInScene(IConstructionModel model, Transform root)
+        /// <param name="model">Construction model</param>
+        /// <param name="root">Screenshot root point where the prefab is spawned</param>
+        public static void SpawnModelInCameraCapturePoint(IConstructionModel model, Transform root)
         {
             if (model == null || root == null)
             {
-                Debug.LogError($"[{nameof(ConstructionCompletionService)}] Модель или root равны null");
+                Debug.LogError($"[{nameof(ConstructionCompletionService)}] Model or root are null");
                 return;
             }
 
-            foreach (var component in model.Components)
+            var completedItem = root.GetComponentInChildren<CompletedConstructionItem>();
+            if (completedItem == null)
             {
-                var prefab = component.TypedItemData.Prefab;
-                if (prefab == null)
-                {
-                    Debug.LogWarning($"[{nameof(ConstructionCompletionService)}] У компонента '{component.ItemData.Name}' нет префаба");
-                    continue;
-                }
-
-                var instance = Object.Instantiate(prefab, root);
-                instance.transform.localPosition = Vector3.zero;
-                instance.transform.localRotation = Quaternion.identity;
+                Debug.LogError($"[{nameof(ConstructionCompletionService)}] CompletedConstructionItem not found under '{root.name}'");
+                return;
             }
 
-            Debug.Log($"[{nameof(ConstructionCompletionService)}] Конструкция '{model.StructureId}' собрана в сцене под '{root.name}'");
+            var prefab = completedItem.ItemData.Prefab;
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[{nameof(ConstructionCompletionService)}] Prefab is not set for '{completedItem.name}'");
+                return;
+            }
+
+            var instance = Object.Instantiate(prefab, root);
+            instance.transform.localPosition = Vector3.zero;
+            instance.transform.localRotation = Quaternion.identity;
+            instance.transform.localScale = new Vector3(1, 1, 1);
+
+            Debug.Log($"[{nameof(ConstructionCompletionService)}] Construction '{model.StructureId}' assembled in scene under '{root.name}'");
         }
     }
 }

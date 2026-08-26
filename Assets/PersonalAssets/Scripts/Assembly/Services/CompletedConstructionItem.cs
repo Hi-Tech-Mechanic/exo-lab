@@ -1,8 +1,8 @@
 namespace ExoLab.Assembly.Services
 {
     using ExoLab.Helpers;
+    using ExoLab.Items;
     using ExoLab.StructuralСomponents;
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -30,12 +30,15 @@ namespace ExoLab.Assembly.Services
             this.SetId(model);
             this.SetName(model);
             this.SetDescription(model);
-            this.SetMaxStackSize(model);
+            this.SetMaxStackSize();
 
             var characteristics = model.GetSumOfAllNumericalCharacteristics();
 
             this.SetWeight(characteristics);
             this.AddOtherCharacteristics(characteristics);
+
+            this.SetPrefab();
+            this.StartCoroutine(this.CaptureIconNextFrame());
         }
 
         /// <summary>
@@ -83,15 +86,68 @@ namespace ExoLab.Assembly.Services
             this.ItemData.SetDescription($"Description of the construction: {model.StructureId}");
         }
 
-        private void SetMaxStackSize(IConstructionModel model)
+        private void SetMaxStackSize()
         {
             this.ItemData.SetMaxStackSize(1);
+        }
+
+        /// <summary>
+        /// Sets the prefab from the first child of the active construction root.
+        /// </summary>
+        private void SetPrefab()
+        {
+            var activeRoot = AssemblyConstructionController.Instance?.ActiveConstructionRoot;
+
+            if (activeRoot == null || activeRoot.childCount == 0)
+            {
+                Debug.LogWarning($"[{nameof(CompletedConstructionItem)}] Active construction root is not available or has no children. Prefab was not set for '{this.name}'");
+                return;
+            }
+
+            var target = activeRoot.GetChild(0).gameObject;
+            this.ItemData.SetPrefab(target);
         }
 
         private void SetWeight(List<NumericalProperty> characteristics)
         {
             var weight = characteristics.FirstOrNull(x => x.Type == CharacteristicTypes.Types.Weight);
             this.ItemData.SetWeight(weight.Value);
+        }
+
+        /// <summary>
+        /// Waits one frame for the GPU to upload the prefab meshes,
+        /// then captures a screenshot of the assembled construction root as the item icon.
+        /// </summary>
+        private System.Collections.IEnumerator CaptureIconNextFrame()
+        {
+            // Wait one frame so the GPU has uploaded the prefab meshes
+            yield return null;
+
+            var service = ScreenshotRequestHandler.Instance?.Service;
+
+            if (service == null)
+            {
+                Debug.LogWarning($"[{nameof(CompletedConstructionItem)}] ScreenshotRequestHandler is not available. Icon was not set for '{this.name}'");
+                yield break;
+            }
+
+            var root = this.transform.parent;
+            if (root == null)
+            {
+                Debug.LogWarning($"[{nameof(CompletedConstructionItem)}] Construction root is not available. Icon was not set for '{this.name}'");
+                yield break;
+            }
+
+            var icon = service.CaptureAsSprite(root.gameObject);
+
+            if (icon != null)
+            {
+                this.ItemData.SetIcon(icon);
+            }
+            else
+            {
+                Debug.LogWarning($"[{nameof(CompletedConstructionItem)}] Failed to create screenshot for icon of '{this.name}'");
+            }
         }
     }
 }

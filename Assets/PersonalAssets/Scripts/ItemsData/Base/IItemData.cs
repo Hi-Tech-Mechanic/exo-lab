@@ -30,5 +30,9 @@
         public void SetWeight(double value);
 
         public void SetMaxStackSize(int value);
+
+        public void SetIcon(Sprite value);
+
+        public void SetPrefab(GameObject value);
     }
 }

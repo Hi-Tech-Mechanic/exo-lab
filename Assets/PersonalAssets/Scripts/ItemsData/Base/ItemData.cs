@@ -156,6 +156,16 @@
             this.maxStackSize = value;
         }
 
+        public void SetIcon(Sprite value)
+        {
+            this.icon = value;
+        }
+
+        public void SetPrefab(GameObject value)
+        {
+            this.prefab = value;
+        }
+
 #if UNITY_EDITOR
 
         [Tooltip("Создать GUID для объекта если таковой не задан")]

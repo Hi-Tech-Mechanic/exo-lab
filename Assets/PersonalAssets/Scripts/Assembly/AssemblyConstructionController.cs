@@ -2,7 +2,6 @@ namespace ExoLab.Assembly
 {
     using ExoLab.Assembly.Services;
     using ExoLab.StructuralСomponents;
-    using NUnit.Framework;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -13,11 +12,80 @@ namespace ExoLab.Assembly
     /// </summary>
     public class AssemblyConstructionController : MonoBehaviour
     {
+        /// <summary>
+        /// Singleton instance for accessing the controller from other components.
+        /// </summary>
+        public static AssemblyConstructionController Instance { get; private set; }
+
+        [Header("Construction roots")]
+        [Tooltip("Parent transform for weapon constructions")]
+        [SerializeField] private Transform weaponRoot;
+
+        [Tooltip("Parent transform for exoskeleton constructions")]
+        [SerializeField] private Transform exoskeletonRoot;
+
+        [Tooltip("Parent transform for wellbore constructions")]
+        [SerializeField] private Transform wellboreRoot;
+
         [SerializeField] private AssemblyConstructionView constructionView;
         [Tooltip("Place where the completed construction appears")]
         [SerializeField] private Transform constructionParent;
 
+        [Header("Screenshot settings")]
+        [Tooltip("Root point where the prefab is spawned for the icon generator")]
+        [SerializeField] private Transform screenshotRootPoint;
+
         private IConstructionModel constructionModel;
+
+        /// <summary>
+        /// Root point where the prefab is spawned for the icon generator.
+        /// </summary>
+        public Transform ScreenshotRootPoint => this.screenshotRootPoint;
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
+
+        /// <summary>
+        /// Returns the active root transform based on the current assembly mode.
+        /// </summary>
+        public Transform ActiveConstructionRoot
+        {
+            get
+            {
+                if (AssemblyModesController.ActiveConstructionRoot == this.weaponRoot)
+                {
+                    return this.weaponRoot;
+                }
+
+                if (AssemblyModesController.ActiveConstructionRoot == this.exoskeletonRoot)
+                {
+                    return this.exoskeletonRoot;
+                }
+
+                if (AssemblyModesController.ActiveConstructionRoot == this.wellboreRoot)
+                {
+                    return this.wellboreRoot;
+                }
+
+                return this.constructionParent;
+            }
+        }
 
         /// <summary>
         /// Текущая модель конструкции
@@ -64,6 +132,8 @@ namespace ExoLab.Assembly
             this.constructionView.CreateStatRows(typedStats);
         }
 
+        #region public API
+
         public void StartConstruction()
         {
             this.constructionModel = new ConstructionModelBase();
@@ -76,34 +146,14 @@ namespace ExoLab.Assembly
         {
             var construction = ConstructionCompletionService.CompleteConstruction(
                 this.constructionModel,
-                this.constructionParent
+                this.screenshotRootPoint
             );
 
             var item = construction.GetComponent<CompletedConstructionItem>();
 
             GameEvents.UserEvents.RaiseItemCollected(item.ItemData, 1);
-        }
-
-        /// <summary>
-        /// Завершить сборку и получить GameObject готового предмета
-        /// </summary>
-        public GameObject CompleteConstruction(Transform parent = null)
-        {
-            return ConstructionCompletionService.CompleteConstruction(
-                this.constructionModel,
-                parent
-            );
-        }
-
-        /// <summary>
-        /// Собрать конструкцию в сцене, инстанциировав префабы всех компонентов
-        /// </summary>
-        public void AssembleInScene(Transform root)
-        {
-            ConstructionCompletionService.AssembleInScene(
-                this.constructionModel,
-                root
-            );
+            // TODO DEBUG 
+            GameEvents.ScreenshotEvents.RaiseScreenshotRequested(item.gameObject, item.ItemData.Name);
         }
 
         /// <summary>
@@ -121,5 +171,7 @@ namespace ExoLab.Assembly
         {
             this.constructionModel.Load();
         }
+
+        #endregion
     }
 }
